@@ -602,7 +602,7 @@ inner join dokter on penilaian_medis_ralan_neurologi.kd_dokter=dokter.kd_dokter]
 					<font fontName="Tahoma" size="8" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Kesadaran : "+$F{kesadaran}+"     Nyeri : "+$F{nyeri}+"     Skala Nyeri : "+$F{skala_nyeri}+"     TD : "+$F{td}+" mmHg      Nadi : "+$F{nadi}+" x/menit      Suhu : "+$F{suhu}+"°C      RR : "+$F{rr}+" x/menit     BB : "+$F{bb}+" Kg "]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Kesadaran : "+$F{kesadaran}+"     Nyeri : "+$F{nyeri}+"     Skala Nyeri : "+$F{skala_nyeri}+"     TD : "+$F{td}+" mmHg      Nadi : "+$F{nadi}+" x/menit      Suhu : "+$F{suhu}+"°C      RR : "+$F{rr}+" x/menit     BB : "+$F{bb}+" Kg     Status kelainan lainnya : "+$F{lainnya}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="-1" y="237" width="557" height="1" uuid="56b65d61-23b3-4dca-8661-c13a17e05994"/>
@@ -776,7 +776,7 @@ inner join dokter on penilaian_medis_ralan_neurologi.kd_dokter=dokter.kd_dokter]
 					<font fontName="Tahoma" size="8" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{lainnya}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{penunjang_lain}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="-1" y="287" width="557" height="1" uuid="a0816ed2-cfa3-4b5b-9340-bee3bbe34fc1"/>

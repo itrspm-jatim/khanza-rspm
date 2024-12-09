@@ -3448,7 +3448,75 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
         isPasien();
         BtnCari1ActionPerformed(null);
     }
+    // rspm
+    public void setNoRw(String norw, String norm, String nama) {
+        NoRawat.setText(norw);
+        NoRM.setText(norm);
+        NmPasien.setText(nama);
+        isPasien();
+        R4.setSelected(true);
+        TabRawat.setSelectedIndex(2);
+        tampilPerawatan();
+        BtnCari1ActionPerformed(null);
+        printResume();
+    }
+    
+    private void printResume() {
+    if(NoRM.getText().trim().equals("")||NmPasien.getText().equals("")){
+            JOptionPane.showMessageDialog(null,"Pasien masih kosong...!!!");
+        }else{
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            switch (TabRawat.getSelectedIndex()) {
+                case 0:
+                    if(tabModeRegistrasi.getRowCount()==0){
+                        JOptionPane.showMessageDialog(null,"Maaf, data sudah habis. Tidak ada data yang bisa anda print...!!!!");
+                    }else if(tabModeRegistrasi.getRowCount()!=0){
+                        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));        
+                        Sequel.queryu("delete from temporary_resume");
 
+                        for(int i=0;i<tabModeRegistrasi.getRowCount();i++){  
+                            Sequel.menyimpan("temporary_resume","?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?",38,new String[]{
+                                "0",tabModeRegistrasi.getValueAt(i,0).toString(),tabModeRegistrasi.getValueAt(i,1).toString(),tabModeRegistrasi.getValueAt(i,2).toString(),
+                                tabModeRegistrasi.getValueAt(i,3).toString(),tabModeRegistrasi.getValueAt(i,4).toString(),tabModeRegistrasi.getValueAt(i,5).toString(),
+                                tabModeRegistrasi.getValueAt(i,6).toString(),tabModeRegistrasi.getValueAt(i,7).toString(),tabModeRegistrasi.getValueAt(i,8).toString(),
+                                "","","","","","","","","","","","","","","","","","","","","","","","","","","","",""
+                            });
+                        }
+
+                        Map<String, Object> param = new HashMap<>();  
+                            param.put("namars",akses.getnamars());
+                            param.put("alamatrs",akses.getalamatrs());
+                            param.put("kotars",akses.getkabupatenrs());
+                            param.put("propinsirs",akses.getpropinsirs());
+                            param.put("kontakrs",akses.getkontakrs());
+                            param.put("emailrs",akses.getemailrs());   
+                            param.put("logo",Sequel.cariGambar("select setting.logo from setting")); 
+                        Valid.MyReport2("rptRiwayatRegistrasi.jasper","report","::[ Riwayat Registrasi ]::",param);
+                        this.setCursor(Cursor.getDefaultCursor());
+                    }
+                    break;
+                case 1:
+                    panggilLaporan(LoadHTMLSOAPI.getText()); 
+                    break;
+                case 2:
+                    panggilLaporan(LoadHTMLRiwayatPerawatan.getText()); 
+                    break;
+                case 3:
+                    panggilLaporan(LoadHTMLPembelian.getText()); 
+                    break;
+                case 4:
+                    panggilLaporan(LoadHTMLPiutang.getText()); 
+                    break;
+                case 5:
+                    panggilLaporan(LoadHTMLRetensi.getText()); 
+                    break;
+                default:
+                    break;
+            }
+            this.setCursor(Cursor.getDefaultCursor());
+        }
+    }
+    // -------------------------------------------------------------------------
     private void isPasien() {
         try{
             ps=koneksi.prepareStatement(

@@ -2298,7 +2298,7 @@ public final class RMDataResumePasien extends javax.swing.JDialog {
     private void isPsien() {
         Sequel.cariIsi("select pasien.nm_pasien from pasien where pasien.no_rkm_medis='"+TNoRM.getText()+"' ",TPasien);
     }
-    
+    // rspm
     private void isKeluhan() {
         StringBuilder sb = new StringBuilder();
         try {
@@ -2329,7 +2329,7 @@ public final class RMDataResumePasien extends javax.swing.JDialog {
             System.out.println("Notif : "+e);
         } 
     }
-    
+    // rspm
     private void isObat2an() {
         StringBuilder sb = new StringBuilder();
         try {

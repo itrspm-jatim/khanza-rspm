@@ -706,7 +706,7 @@ public final class RMDataFisikRehabMedik extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "27-11-2023" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-12-2024" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -720,7 +720,7 @@ public final class RMDataFisikRehabMedik extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "27-11-2023" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-12-2024" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -779,7 +779,6 @@ public final class RMDataFisikRehabMedik extends javax.swing.JDialog {
 
         internalFrame1.add(jPanel3, java.awt.BorderLayout.PAGE_END);
 
-        PanelInput.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         PanelInput.setName("PanelInput"); // NOI18N
         PanelInput.setPreferredSize(new java.awt.Dimension(192, 380));
         PanelInput.setLayout(new java.awt.BorderLayout(1, 1));
@@ -810,7 +809,6 @@ public final class RMDataFisikRehabMedik extends javax.swing.JDialog {
 
         FormInput.setBackground(new java.awt.Color(250, 255, 245));
         FormInput.setBorder(null);
-        FormInput.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         FormInput.setName("FormInput"); // NOI18N
         FormInput.setPreferredSize(new java.awt.Dimension(100, 717));
         FormInput.setLayout(null);
@@ -1264,7 +1262,7 @@ public final class RMDataFisikRehabMedik extends javax.swing.JDialog {
             }
         });
         FormInput.add(BtnDokter1);
-        BtnDokter1.setBounds(180, 96, 28, 23);
+        BtnDokter1.setBounds(210, 90, 28, 23);
 
         BtnDokter2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png"))); // NOI18N
         BtnDokter2.setMnemonic('2');
@@ -1316,7 +1314,7 @@ public final class RMDataFisikRehabMedik extends javax.swing.JDialog {
             }
         });
         FormInput.add(BtnDokter5);
-        BtnDokter5.setBounds(212, 96, 28, 23);
+        BtnDokter5.setBounds(210, 150, 28, 23);
 
         scrollInput.setViewportView(FormInput);
         FormInput.getAccessibleContext().setAccessibleParent(Scroll);
@@ -2250,6 +2248,41 @@ public final class RMDataFisikRehabMedik extends javax.swing.JDialog {
     private void isPsien() {
         Sequel.cariIsi("select pasien.nm_pasien from pasien where pasien.no_rkm_medis='"+TNoRM.getText()+"' ",TPasien);
     }
+    private void isIsian() {
+        StringBuilder sb = new StringBuilder();
+        try {
+            ps=koneksi.prepareStatement(
+                    "SELECT keluhan, pemeriksaan, penilaian, instruksi, rtl, evaluasi FROM pemeriksaan_ralan WHERE no_rawat ='"+TNoRw.getText()+"'");
+            try {
+                rs=ps.executeQuery();
+                while (rs.next()) {
+            String rKeluhan = rs.getString("keluhan");
+            String rPemeriksaan = rs.getString("pemeriksaan");
+            String rPenilaian = rs.getString("penilaian");
+            String rInstruksi = rs.getString("instruksi");
+            String rAnjuran = rs.getString("rtl");
+            String rEvaluasi = rs.getString("evaluasi");
+            anamesa.setText(rKeluhan);
+            fisikujifungsi.setText(rPemeriksaan);
+            DiagnosaUtama.setText(rPenilaian);
+            ProsedurUtama.setText(rInstruksi);
+            anjuran.setText(rAnjuran);
+            evaluasi.setText(rEvaluasi);
+        }
+            } catch (Exception e) {
+                System.out.println("Notif : "+e);
+            } finally{
+                if(rs!=null){
+                    rs.close();
+                }
+                if(ps!=null){
+                    ps.close();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notif : "+e);
+        } 
+    }
     
     public void setNoRm(String norwt, Date tgl2) {
         TNoRw.setText(norwt);
@@ -2257,7 +2290,8 @@ public final class RMDataFisikRehabMedik extends javax.swing.JDialog {
         Sequel.cariIsi("select reg_periksa.tgl_registrasi from reg_periksa where reg_periksa.no_rawat='"+norwt+"'", DTPCari1);
         DTPCari2.setDate(tgl2);    
         isRawat();
-        isPsien();              
+        isPsien();    
+        isIsian();
         ChkInput.setSelected(true);
         isForm();
         suspek.requestFocus();
