@@ -200,7 +200,7 @@ where fisik_rehab_medik.no_rawat= $P{norawat}]]>
 					<font fontName="Tahoma" size="12" isBold="true" isItalic="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[LAYANAN KEDOKTERAN FISIK REHAB MEDIK]]></text>
+				<text><![CDATA[LAPORAN RESUME MEDIS PASIEN]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="48" y="3" width="486" height="17" uuid="6c31c284-e35b-4e6c-8447-af5f9207b9b4"/>

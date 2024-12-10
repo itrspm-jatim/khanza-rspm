@@ -2054,7 +2054,7 @@ public class frmUtama extends javax.swing.JFrame {
 
         tanggal.setEditable(false);
         tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "05/12/2024" }));
+        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09/12/2024" }));
         tanggal.setDisplayFormat("dd/MM/yyyy");
         tanggal.setName("tanggal"); // NOI18N
         tanggal.setOpaque(false);
@@ -7450,7 +7450,7 @@ public class frmUtama extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(50, 50, 50));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/History.png"))); // NOI18N
-        jLabel9.setText("Dev RSPM : v1.0.2");
+        jLabel9.setText("Dev RSPM : v1.0.3");
         jLabel9.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jLabel9.setIconTextGap(3);
         jLabel9.setName("jLabel9"); // NOI18N
