@@ -1421,12 +1421,12 @@ public final class RMPenilaianAwalMedisRalanRehabMedik extends javax.swing.JDial
         FormInput.add(jLabel111);
         jLabel111.setBounds(0, 700, 135, 23);
 
-        jLabel112.setText("Terapi Akupuntur :");
+        jLabel112.setText("Goal :");
         jLabel112.setName("jLabel112"); // NOI18N
         FormInput.add(jLabel112);
         jLabel112.setBounds(0, 730, 135, 23);
 
-        jLabel113.setText("Terapi lainnya :");
+        jLabel113.setText("Edukasi :");
         jLabel113.setName("jLabel113"); // NOI18N
         FormInput.add(jLabel113);
         jLabel113.setBounds(0, 760, 135, 23);

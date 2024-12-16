@@ -822,7 +822,7 @@ inner join dokter on penilaian_medis_ralan_neurologi.kd_dokter=dokter.kd_dokter]
 					<font fontName="Tahoma" size="8" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Fisioterapi : "+$F{fisio}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Fisioterapi : "+$F{fisio}+"\nGoal : "+$F{akupuntur}+"\nEdukasi : "+$F{tatalain}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="54" y="81" width="7" height="11" uuid="a4a64aad-c11d-4482-a219-4d4252f69f44">

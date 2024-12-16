@@ -26,6 +26,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+// rspm
+import java.awt.image.BufferedImage;
+// ----
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -34,6 +37,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
+// rspm
+import java.util.List;
+// ----
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.HyperlinkEvent;
@@ -42,6 +48,9 @@ import javax.swing.table.TableColumn;
 import javax.swing.text.Document;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
+// rspm
+import javax.imageio.ImageIO;
+// ---
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import simrskhanza.DlgCariPasien;
@@ -53,6 +62,7 @@ import static com.jcraft.jsch.ChannelSftp.SSH_FX_NO_SUCH_FILE;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpException;
+import java.awt.Toolkit;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -63,6 +73,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.sql.Statement;
 import java.util.Base64;
 import java.util.Properties;
 import javax.crypto.spec.SecretKeySpec;
@@ -86,6 +97,15 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+// rspm 
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JRPrintPage;
+import net.sf.jasperreports.engine.JasperPrintManager;
+import net.sf.jasperreports.view.JasperViewer;
+// ----------------------
 
 /**
  *
@@ -3456,6 +3476,8 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
         isPasien();
         R4.setSelected(true);
         TabRawat.setSelectedIndex(2);
+        saveSKDP(norw);
+        saveSEP(norw);
         tampilPerawatan();
         BtnCari1ActionPerformed(null);
         printResume();
@@ -3516,107 +3538,129 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
             this.setCursor(Cursor.getDefaultCursor());
         }
     }
-    private void printSEP() {
-            try{
-                esign=false;
-                tampilPerawatan();
-                File g = new File("file.css");            
-                BufferedWriter bg = new BufferedWriter(new FileWriter(g));
-                bg.write(".isi td{border-right: 1px solid #e2e7dd;font: 8.5px tahoma;height:12px;border-bottom: 1px solid #e2e7dd;background: #ffffff;color:#323232;}.isi a{text-decoration:none;color:#8b9b95;padding:0 0 0 0px;font-family: Tahoma;font-size: 8.5px;border: white;}");
-                bg.close();
-
-                PdfWriter pdf = new PdfWriter("RPP"+NoRawat.getText().trim().replaceAll("/","")+".pdf");
-                HtmlConverter.convertToPdf(
-                    LoadHTMLRiwayatPerawatan.getText().replaceAll("<head>","<head><link href=\"file.css\" rel=\"stylesheet\" type=\"text/css\" />").
-                          replaceAll("<body>",
-                                     "<body>"+
-                                        "<table width='100%' align='center' border='0' class='tbl_form' cellspacing='0' cellpadding='0'>" +
-                                            "<tr>" +
-                                                "<td width='15%' border='0'>" +
-                                                    "<img width='50' height='50' src='data:image/jpeg;base64,"+Base64.getEncoder().encodeToString(Sequel.cariGambar("select setting.logo from setting").readAllBytes())+"'/>" +
-                                                "</td>" +
-                                                "<td width='85%' border='0'>" +
-                                                    "<center>" +
-                                                        "<font color='000000' size='3'  face='Tahoma'>"+akses.getnamars()+"</font><br>"+
-                                                        "<font color='000000' size='1'  face='Tahoma'>"+
-                                                            akses.getalamatrs()+", "+akses.getkabupatenrs()+", "+akses.getpropinsirs()+"<br/>" +
-                                                            akses.getkontakrs()+", E-mail : "+akses.getemailrs()+
-                                                            "<br>RIWAYAT PERAWATAN" +
-                                                        "</font> " +
-                                                    "</center>" +
-                                                "</td>" +
-                                            "</tr>" +
-                                        "</table><br>"+
-                                        "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"+
-                                           "<tr class='isi'>"+ 
-                                             "<td valign='top' width='20%'>No.RM</td>"+
-                                             "<td valign='top' width='1%' align='center'>:</td>"+
-                                             "<td valign='top' width='79%'>"+NoRM.getText().trim()+"</td>"+
-                                           "</tr>"+
-                                           "<tr class='isi'>"+ 
-                                             "<td valign='top' width='20%'>Nama Pasien</td>"+
-                                             "<td valign='top' width='1%' align='center'>:</td>"+
-                                             "<td valign='top' width='79%'>"+NmPasien.getText()+"</td>"+
-                                           "</tr>"+
-                                           "<tr class='isi'>"+ 
-                                             "<td valign='top' width='20%'>Alamat</td>"+
-                                             "<td valign='top' width='1%' align='center'>:</td>"+
-                                             "<td valign='top' width='79%'>"+Alamat.getText()+"</td>"+
-                                           "</tr>"+
-                                           "<tr class='isi'>"+ 
-                                             "<td valign='top' width='20%'>Jenis Kelamin</td>"+
-                                             "<td valign='top' width='1%' align='center'>:</td>"+
-                                             "<td valign='top' width='79%'>"+Jk.getText().replaceAll("L","Laki-Laki").replaceAll("P","Perempuan")+"</td>"+
-                                           "</tr>"+
-                                           "<tr class='isi'>"+ 
-                                             "<td valign='top' width='20%'>Tempat & Tanggal Lahir</td>"+
-                                             "<td valign='top' width='1%' align='center'>:</td>"+
-                                             "<td valign='top' width='79%'>"+TempatLahir.getText()+" "+TanggalLahir.getText()+"</td>"+
-                                           "</tr>"+
-                                           "<tr class='isi'>"+ 
-                                             "<td valign='top' width='20%'>Ibu Kandung</td>"+
-                                             "<td valign='top' width='1%' align='center'>:</td>"+
-                                             "<td valign='top' width='79%'>"+IbuKandung.getText()+"</td>"+
-                                           "</tr>"+
-                                           "<tr class='isi'>"+ 
-                                             "<td valign='top' width='20%'>Golongan Darah</td>"+
-                                             "<td valign='top' width='1%' align='center'>:</td>"+
-                                             "<td valign='top' width='79%'>"+GD.getText()+"</td>"+
-                                           "</tr>"+
-                                           "<tr class='isi'>"+ 
-                                             "<td valign='top' width='20%'>Status Nikah</td>"+
-                                             "<td valign='top' width='1%' align='center'>:</td>"+
-                                             "<td valign='top' width='79%'>"+StatusNikah.getText()+"</td>"+
-                                           "</tr>"+
-                                           "<tr class='isi'>"+ 
-                                             "<td valign='top' width='20%'>Agama</td>"+
-                                             "<td valign='top' width='1%' align='center'>:</td>"+
-                                             "<td valign='top' width='79%'>"+Agama.getText()+"</td>"+
-                                           "</tr>"+
-                                           "<tr class='isi'>"+ 
-                                             "<td valign='top' width='20%'>Pendidikan Terakhir</td>"+
-                                             "<td valign='top' width='1%' align='center'>:</td>"+
-                                             "<td valign='top' width='79%'>"+Pendidikan.getText()+"</td>"+
-                                           "</tr>"+
-                                           "<tr class='isi'>"+ 
-                                             "<td valign='top' width='20%'>Bahasa Dipakai</td>"+
-                                             "<td valign='top' width='1%' align='center'>:</td>"+
-                                             "<td valign='top' width='79%'>"+Bahasa.getText()+"</td>"+
-                                           "</tr>"+
-                                           "<tr class='isi'>"+ 
-                                             "<td valign='top' width='20%'>Cacat Fisik</td>"+
-                                             "<td valign='top' width='1%' align='center'>:</td>"+
-                                             "<td valign='top' width='79%'>"+CacatFisik.getText()+"</td>"+
-                                           "</tr>"+
-                                        "</table>"            
-                          ).
-                          replaceAll((getClass().getResource("/picture/"))+"","./gambar/"), pdf
-                );
-                File f = new File("RPP"+NoRawat.getText().trim().replaceAll("/","")+".pdf");   
-                Desktop.getDesktop().browse(f.toURI());
+    private void saveSEP(String noRawat) {
+        String noSEP = Sequel.cariIsi("select bridging_sep.no_sep from bridging_sep where bridging_sep.no_rawat=?",noRawat);
+        Map<String, Object> param = new HashMap<>();
+        param.put("namars",akses.getnamars());
+        param.put("alamatrs",akses.getalamatrs());
+        param.put("kotars",akses.getkabupatenrs());
+        param.put("propinsirs",akses.getpropinsirs());
+        param.put("kontakrs",akses.getkontakrs());
+        param.put("prb",Sequel.cariIsi("select bpjs_prb.prb from bpjs_prb where bpjs_prb.no_sep=?",noSEP));
+        param.put("logo",Sequel.cariGambar("select gambar.bpjs from gambar")); 
+        param.put("parameter",noSEP);
+        if(Sequel.cariInteger("select bridging_sep.jnspelayanan from bridging_sep where bridging_sep.no_sep=?",noSEP)==1){
+            MyReportJPG("rptBridgingSEP.jasper","report",param);
+        }else{
+            MyReportJPG("rptBridgingSEP2.jasper","report",param);
+        }          
+    }
+    private void saveSKDP(String noRawat) {
+        try {
+            ps=koneksi.prepareStatement(
+                        "select bridging_sep.no_rawat,bridging_sep.no_sep,bridging_sep.no_kartu,bridging_sep.nomr,bridging_sep.nama_pasien,bridging_sep.tanggal_lahir,"+
+                        "bridging_sep.jkel,bridging_sep.diagawal,bridging_sep.nmdiagnosaawal,bridging_surat_kontrol_bpjs.tgl_surat,bridging_surat_kontrol_bpjs.no_surat,"+
+                        "bridging_surat_kontrol_bpjs.tgl_rencana,bridging_surat_kontrol_bpjs.kd_dokter_bpjs,bridging_surat_kontrol_bpjs.nm_dokter_bpjs,"+
+                        "bridging_surat_kontrol_bpjs.kd_poli_bpjs,bridging_surat_kontrol_bpjs.nm_poli_bpjs from bridging_sep inner join bridging_surat_kontrol_bpjs "+
+                        "on bridging_surat_kontrol_bpjs.no_sep=bridging_sep.no_sep where bridging_sep.no_rawat=?");
+            try {
+                ps.setString(1,noRawat);
+                rs=ps.executeQuery();
+                if(rs.next()){
+                Map<String, Object> param = new HashMap<>();
+                param.put("namars",akses.getnamars());
+                param.put("alamatrs",akses.getalamatrs());
+                param.put("kotars",akses.getkabupatenrs());
+                param.put("propinsirs",akses.getpropinsirs());
+                param.put("kontakrs",akses.getkontakrs());
+                param.put("logo",Sequel.cariGambar("select gambar.bpjs from gambar")); 
+                param.put("parameter",Sequel.cariIsi("select bridging_sep.no_sep from bridging_sep where bridging_sep.no_rawat=?",noRawat));
+                param.put("finger","Dikeluarkan di "+akses.getnamars()+", Kabupaten/Kota "+akses.getkabupatenrs()+"\nDitandatangani secara elektronik oleh "+rs.getString("nm_dokter_bpjs")+"\nID "+rs.getString("tgl_surat")+"\n"+rs.getString("tgl_rencana"));
+                MyReportqryJPG("rptBridgingSuratKontrol2.jasper","report",
+                        "select bridging_sep.no_rawat,bridging_sep.no_sep,bridging_sep.no_kartu,bridging_sep.nomr,bridging_sep.nama_pasien,bridging_sep.tanggal_lahir,"+
+                        "bridging_sep.jkel,bridging_sep.diagawal,bridging_sep.nmdiagnosaawal,bridging_surat_kontrol_bpjs.tgl_surat,bridging_surat_kontrol_bpjs.no_surat,"+
+                        "bridging_surat_kontrol_bpjs.tgl_rencana,bridging_surat_kontrol_bpjs.kd_dokter_bpjs,bridging_surat_kontrol_bpjs.nm_dokter_bpjs,"+
+                        "bridging_surat_kontrol_bpjs.kd_poli_bpjs,bridging_surat_kontrol_bpjs.nm_poli_bpjs from bridging_sep inner join bridging_surat_kontrol_bpjs "+
+                        "on bridging_surat_kontrol_bpjs.no_sep=bridging_sep.no_sep where bridging_surat_kontrol_bpjs.no_surat='"+rs.getString("no_surat")+"'",param);  
+                }
             } catch (Exception e) {
-                System.out.println("Notifikasi : "+e);
+                        System.out.println("Notif : "+e);
+                    } finally{
+                        if(rs!=null){
+                            rs.close();
+                        }
+                        if(ps!=null){
+                            ps.close();
+                        }
+                    }
+            } catch (Exception e) {
+            System.out.println("Notif : "+e);
+        }
+    }
+    
+    private void MyReportJPG(String reportName, String reportDirName, Map parameters){
+        try {
+            try (Statement stm = koneksiDB.condb().createStatement()) {
+                try {
+                    String namafile="./"+reportDirName+"/"+reportName;
+                    String namaLok="./sep";
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(namafile, parameters, koneksiDB.condb());
+                    // Ekspor setiap halaman sebagai gambar JPG
+                    List<JRPrintPage> pages = jasperPrint.getPages();
+                    if (pages.isEmpty()) {
+                        throw new Exception("Laporan tidak memiliki halaman.");
+                    }
+                    for (int i = 0; i < pages.size(); i++) {
+                        String outputPath = namaLok + ".jpg";
+                        BufferedImage pageImage = (BufferedImage) JasperPrintManager.printPageToImage(jasperPrint, i, 2.0f); // 2.0f untuk kualitas tinggi
+                        File outputFile = new File(outputPath);
+                        ImageIO.write(pageImage, "jpg", outputFile);
+                    }
+                } catch (Exception rptexcpt) {
+                    System.out.println("Report Can't view because : " + rptexcpt);
+                    JOptionPane.showMessageDialog(null,"Report Can't view because : "+ rptexcpt);
+                }
             }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    public void MyReportqryJPG(String reportName,String reportDirName,String qry,Map parameters){
+        try {
+            ps=koneksiDB.condb().prepareStatement(qry);
+            try {
+                String namafile="./"+reportDirName+"/"+reportName;
+                String namaLok="./skdp";
+                rs=ps.executeQuery();
+                JRResultSetDataSource rsdt = new JRResultSetDataSource(rs);
+                
+                JasperPrint jasperPrint = JasperFillManager.fillReport(namafile, parameters,rsdt);
+
+                // Ekspor setiap halaman sebagai gambar JPG
+                List<JRPrintPage> pages = jasperPrint.getPages();
+                if (pages.isEmpty()) {
+                    throw new Exception("Laporan tidak memiliki halaman.");
+                }
+                for (int i = 0; i < pages.size(); i++) {
+                    String outputPath = namaLok + ".jpg";
+                    BufferedImage pageImage = (BufferedImage) JasperPrintManager.printPageToImage(jasperPrint, i, 2.0f); // 2.0f untuk kualitas tinggi
+                    File outputFile = new File(outputPath);
+                    ImageIO.write(pageImage, "jpg", outputFile);
+                }
+            } catch (Exception rptexcpt) {
+                System.out.println("Report Can't view because : " + rptexcpt);
+                JOptionPane.showMessageDialog(null,"Report Can't view because : "+ rptexcpt);
+            } finally{
+                if(rs!=null){
+                    rs.close();
+                }
+                if(ps!=null){
+                    ps.close();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
     // -------------------------------------------------------------------------
     private void isPasien() {
@@ -4207,6 +4251,8 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                     menampilkanDiagnosa(rs.getString("no_rawat"));
                     //menampilkan berkas digital
                     menampilkanBerkasDigital(rs.getString("no_rawat"));
+                    //menampikan SEP dan SKDP - rspm
+                    menampilkanSEPdanSKDP(rs.getString("no_rawat"));
                     //menampilkan catatan dokter
                     if(chkCatatanDokter.isSelected()==true){
                         try {
@@ -16661,7 +16707,33 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
             System.out.println("Notif Berkas Digitaln: "+e);
         }
     }
-
+// rspm
+    private void menampilkanSEPdanSKDP(String norawat) {
+        try {
+            if(Sequel.cariInteger("select bridging_sep.jnspelayanan from bridging_sep where bridging_sep.no_rawat=?",norawat)>0){
+            htmlContent.append(
+                "<tr class='isi'>"+ 
+                  "<td valign='top' width='2%'></td>"+        
+                  "<td valign='top' width='18%'>SEP dan SKDP</td>"+
+                  "<td valign='top' width='1%' align='center'>:</td>"+
+                  "<td valign='top' width='79%'>"+
+                    "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"+
+                       "<tr align='center'>"+
+                          "<td><img src='./sep.jpg' width='480'/></td>"+
+                       "</tr>"+
+                        "<tr align='center'>"+
+                          "<td><img src='./skdp.jpg' width='480'/></td>"+
+                       "</tr>"+
+                    "</table>"+
+                  "</td>"+
+                "</tr>"
+              );
+            }
+        }catch (Exception e) {
+            System.out.println("Notif Berkas SEP dan SKDP: "+e);
+        }
+    }
+// ------
     private void menampilkanAsuhanMedisRawatJalanPsikiatrik(String norawat) {
         try{
             if(chkAsuhanMedisRalanPsikiatri.isSelected()==true){
