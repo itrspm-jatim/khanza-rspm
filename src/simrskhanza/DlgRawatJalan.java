@@ -167,17 +167,12 @@ import rekammedis.RMTimeOutSebelumInsisi;
 import rekammedis.RMTransferPasienAntarRuang;
 import rekammedis.RMTriaseIGD;
 import rekammedis.RMUjiFungsiKFR;
-import simrskhanza.DlgCariPasien;
-import simrskhanza.DlgCariPasien;
+// rspm
+import rekammedis.RMDataFisikRehabMedik;
+// ----
 import simrskhanza.DlgCariPasien;
 import simrskhanza.DlgCatatan;
-import simrskhanza.DlgCatatan;
-import simrskhanza.DlgCatatan;
 import simrskhanza.DlgRujuk;
-import simrskhanza.DlgRujuk;
-import simrskhanza.DlgRujuk;
-import simrskhanza.DlgRujukanPoliInternal;
-import simrskhanza.DlgRujukanPoliInternal;
 import simrskhanza.DlgRujukanPoliInternal;
 
 /**
@@ -1638,6 +1633,9 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         BtnPemantauanEWSNeonatus = new widget.Button();
         BtnMonitoringReaksiTranfusi = new widget.Button();
         BtnUjiFungsiKFR = new widget.Button();
+        // rspm
+        BtnUjiFungsiFisikRehabMedik = new widget.Button();
+        // ----
         BtnChecklistKriteriaMasukHCU = new widget.Button();
         BtnChecklistKriteriaMasukICU = new widget.Button();
         BtnChecklistPreOperasi = new widget.Button();
@@ -4563,7 +4561,23 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
                 BtnUjiFungsiKFRActionPerformed(evt);
             }
         });
-
+        // rspm
+        BtnUjiFungsiFisikRehabMedik.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/item.png"))); 
+        BtnUjiFungsiFisikRehabMedik.setText("Uji Fungsi Fisik Rehab Medik");
+        BtnUjiFungsiFisikRehabMedik.setFocusPainted(false);
+        BtnUjiFungsiFisikRehabMedik.setFont(new java.awt.Font("Tahoma", 0, 11)); 
+        BtnUjiFungsiFisikRehabMedik.setGlassColor(new java.awt.Color(255, 255, 255));
+        BtnUjiFungsiFisikRehabMedik.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        BtnUjiFungsiFisikRehabMedik.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        BtnUjiFungsiFisikRehabMedik.setName("BtnUjiFungsiFisikRehabMedik"); 
+        BtnUjiFungsiFisikRehabMedik.setPreferredSize(new java.awt.Dimension(190, 23));
+        BtnUjiFungsiFisikRehabMedik.setRoundRect(false);
+        BtnUjiFungsiFisikRehabMedik.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnUjiFungsiFisikRehabMedikActionPerformed(evt);
+            }
+        });
+        // ------
         BtnChecklistKriteriaMasukHCU.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/item.png"))); 
         BtnChecklistKriteriaMasukHCU.setText("Check List Masuk HCU");
         BtnChecklistKriteriaMasukHCU.setFocusPainted(false);
@@ -7847,7 +7861,24 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
             this.setCursor(Cursor.getDefaultCursor());
         }
     }//GEN-LAST:event_BtnUjiFungsiKFRActionPerformed
-
+    // rspm
+    private void BtnUjiFungsiFisikRehabMedikActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnUjiFungsiFisikRehabMedikActionPerformed
+        if(TPasien.getText().trim().equals("")||TNoRw.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null,"Maaf, Silahkan anda pilih dulu dengan menklik data pada table...!!!");
+            TCari.requestFocus();
+        }else{
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            RMDataFisikRehabMedik form=new RMDataFisikRehabMedik(null,false);
+            form.isCek();
+            form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+            form.setLocationRelativeTo(internalFrame1);
+            form.setVisible(true);
+            form.emptTeks();
+            form.setNoRm(TNoRw.getText(),DTPCari2.getDate());
+            this.setCursor(Cursor.getDefaultCursor());
+        }
+    }//GEN-LAST:event_BtnUjiFungsiFisikRehabMedikActionPerformed
+    // ----
     private void SpO2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SpO2KeyPressed
         Valid.pindah(evt,TNadi,TGCS);
     }//GEN-LAST:event_SpO2KeyPressed
@@ -9681,6 +9712,9 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private widget.Button BtnTransferAntarRuang;
     private widget.Button BtnTriaseIGD;
     private widget.Button BtnUjiFungsiKFR;
+    // rspm
+    private widget.Button BtnUjiFungsiFisikRehabMedik;
+    // ----
     private widget.TextArea Catatan;
     private widget.CekBox ChkAccor;
     private widget.CekBox ChkInput;
@@ -10327,6 +10361,12 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         if(akses.getuji_fungsi_kfr()==true){
             tinggi=tinggi+24;
         }
+        // rspm
+        BtnUjiFungsiFisikRehabMedik.setVisible(akses.getuji_fungsi_kfr()); 
+        if(akses.getuji_fungsi_kfr()==true){
+            tinggi=tinggi+24;
+        }
+        // ----
         BtnCatatanObservasiIGD.setVisible(akses.getcatatan_observasi_igd()); 
         if(akses.getcatatan_observasi_igd()==true){
             tinggi=tinggi+24;
@@ -12272,6 +12312,9 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         FormMenu.add(BtnPemantauanEWSNeonatus);
         FormMenu.add(BtnMonitoringReaksiTranfusi);
         FormMenu.add(BtnUjiFungsiKFR);
+        // rspm
+        FormMenu.add(BtnUjiFungsiFisikRehabMedik);
+        // ----
         FormMenu.add(BtnChecklistKriteriaMasukHCU);
         FormMenu.add(BtnChecklistKriteriaMasukICU);
         FormMenu.add(BtnPenilaianPreInduksi);

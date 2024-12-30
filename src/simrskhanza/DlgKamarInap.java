@@ -6187,7 +6187,12 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     Valid.textKosong(cmbStatus,"Status Pulang");
                 }else if(diagnosaakhir.getText().equals("")){
                     Valid.textKosong(diagnosaakhir,"Diagnosa Akhir");
-                }else{
+                // rspm
+                }else if(Sequel.cariInteger("SELECT COUNT(permintaan_resep_pulang.status) FROM permintaan_resep_pulang WHERE permintaan_resep_pulang.no_rawat = ? AND permintaan_resep_pulang.status = 'Belum'",norawat.getText())>0) {
+                    JOptionPane.showMessageDialog(null,"Maaf, permintaan resep pulang belum divalidasi, hubungi farmasi");
+                    cmbStatus.requestFocus();
+                // ---------
+                }else {
                     if(Sequel.mengedittf("kamar_inap","no_rawat='"+norawat.getText()+"' and kd_kamar='"+kdkamar.getText()+"' and tgl_masuk='"+TIn.getText()+"' and jam_masuk='"+JamMasuk.getText()+"'",
                             "tgl_keluar='"+CmbTahun.getSelectedItem()+"-"+CmbBln.getSelectedItem()+"-"+CmbTgl.getSelectedItem()+
                             "',trf_kamar='"+TTarif.getText()+"',jam_keluar='"+cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem()+

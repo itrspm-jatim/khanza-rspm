@@ -3556,7 +3556,9 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
         }          
     }
     private void saveSKDP(String noRawat) {
-        String noSEP = Sequel.cariIsi("select bridging_sep.no_sep from bridging_sep where bridging_sep.no_rawat=?",noRawat);
+        String noSEP = Sequel.cariIsi("select bridging_sep.no_sep from bridging_sep "
+                + "join bridging_surat_kontrol_bpjs on bridging_surat_kontrol_bpjs.no_sep and bridging_sep.no_sep "
+                + "where bridging_sep.no_rawat=? ORDER BY bridging_sep.no_sep DESC LIMIT 1",noRawat);
         if(Sequel.cariInteger("select count(bridging_surat_kontrol_bpjs.no_sep) from bridging_surat_kontrol_bpjs where bridging_surat_kontrol_bpjs.no_sep=?",noSEP)>0) {
             try {
                 String nmDokterBPJS = Sequel.cariIsi("select bridging_surat_kontrol_bpjs.nm_dokter_bpjs from bridging_surat_kontrol_bpjs where bridging_surat_kontrol_bpjs.no_sep=?",noSEP);
@@ -3579,6 +3581,35 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                         "bridging_surat_kontrol_bpjs.tgl_rencana,bridging_surat_kontrol_bpjs.kd_dokter_bpjs,bridging_surat_kontrol_bpjs.nm_dokter_bpjs,"+
                         "bridging_surat_kontrol_bpjs.kd_poli_bpjs,bridging_surat_kontrol_bpjs.nm_poli_bpjs from bridging_sep inner join bridging_surat_kontrol_bpjs "+
                         "on bridging_surat_kontrol_bpjs.no_sep=bridging_sep.no_sep where bridging_surat_kontrol_bpjs.no_surat='"+noSurat+"'",param,noRawat);
+            } catch (Exception e) {
+                System.out.println("Notif : "+e);
+            }
+        }
+    }
+    private void saveSPRI(String noRawat) {
+        if(Sequel.cariInteger("select count(bridging_surat_pri_bpjs.no_rawat) from bridging_surat_pri_bpjs where bridging_surat_pri_bpjs.no_rawat=?",noRawat)>0) {
+            try {
+                String nmDokterBPJS = Sequel.cariIsi("select bridging_surat_pri_bpjs.nm_dokter_bpjs from bridging_surat_pri_bpjs where bridging_surat_pri_bpjs.no_rawat=?",noRawat);
+                String kdDokterBPJS = Sequel.cariIsi("select bridging_surat_pri_bpjs.kd_dokter_bpjs from bridging_surat_pri_bpjs where bridging_surat_pri_bpjs.no_rawat=?",noRawat);
+                String tglSurat = Sequel.cariIsi("select bridging_surat_pri_bpjs.tgl_surat from bridging_surat_pri_bpjs where bridging_surat_pri_bpjs.no_rawat=?",noRawat);
+                String noSurat = Sequel.cariIsi("select bridging_surat_pri_bpjs.no_surat from bridging_surat_pri_bpjs where bridging_surat_pri_bpjs.no_rawat=?",noRawat);
+
+                Map<String, Object> param = new HashMap<>();
+                param.put("namars",akses.getnamars());
+                param.put("alamatrs",akses.getalamatrs());
+                param.put("kotars",akses.getkabupatenrs());
+                param.put("propinsirs",akses.getpropinsirs());
+                param.put("kontakrs",akses.getkontakrs());
+                param.put("logo",Sequel.cariGambar("select gambar.bpjs from gambar")); 
+                param.put("parameter",noRawat);
+                param.put("finger","Dikeluarkan di "+akses.getnamars()+", Kabupaten/Kota "+akses.getkabupatenrs()+"\nDitandatangani secara elektronik oleh "+nmDokterBPJS+"\nID "+kdDokterBPJS+"\n"+Valid.SetTgl3(tglSurat));
+                MyReportqryJPG("rptBridgingSuratPRI2.jasper","report",
+                        "select bridging_surat_pri_bpjs.no_rawat,bridging_surat_pri_bpjs.no_kartu,reg_periksa.no_rkm_medis,pasien.nm_pasien,pasien.tgl_lahir,"+
+                        "pasien.jk,bridging_surat_pri_bpjs.diagnosa,bridging_surat_pri_bpjs.tgl_surat,bridging_surat_pri_bpjs.no_surat,"+
+                        "bridging_surat_pri_bpjs.tgl_rencana,bridging_surat_pri_bpjs.kd_dokter_bpjs,bridging_surat_pri_bpjs.nm_dokter_bpjs,"+
+                        "bridging_surat_pri_bpjs.kd_poli_bpjs,bridging_surat_pri_bpjs.nm_poli_bpjs from reg_periksa inner join bridging_surat_pri_bpjs "+
+                        "on bridging_surat_pri_bpjs.no_rawat=reg_periksa.no_rawat inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
+                        "where bridging_surat_pri_bpjs.no_surat='"+noSurat+"'",param,noRawat);  
             } catch (Exception e) {
                 System.out.println("Notif : "+e);
             }
@@ -3619,7 +3650,12 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
             try {
                 String noRwt = noRawat.replace("/", "");
                 String namafile="./"+reportDirName+"/"+reportName;
-                String namaLok="./skdp_"+noRwt;
+                String namaLok="";
+                if(reportName == "rptBridgingSuratKontrol2.jasper") {
+                    namaLok="./skdp_"+noRwt;
+                } else if(reportName == "rptBridgingSuratPRI2.jasper") {
+                    namaLok="./spri_"+noRwt;
+                }
                 rsSKDP=psSKDP.executeQuery();
                 JRResultSetDataSource rsdt = new JRResultSetDataSource(rsSKDP);
                 
@@ -4920,7 +4956,14 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                          "</tr>"); 
                                     w++;
                                 }
+                                String kdDokter = Sequel.cariIsi("select periksa_radiologi.kd_dokter from periksa_radiologi where periksa_radiologi.no_rawat=?",rs.getString("no_rawat"));
+                                String nmDokter = Sequel.cariIsi("select dokter.nm_dokter from dokter where dokter.kd_dokter=?",kdDokter);
+                                get = new GetMethod("http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/generateqrcode.php?kodedokter="+kdDokter.replace(" ","_"));
+                                http.executeMethod(get);
                                 htmlContent.append(
+                                    "<tr class='isi'>"+         
+                                       "<td valign='middle' colspan='3' width='79%' align='center'>Dokter Radiologi<br><img width='90' height='90' src='http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/temp/"+kdDokter+".png'/><br>"+nmDokter+"</td>"+
+                                    "</tr>"+
                                   "</table>");
                             }                                
                         } catch (Exception e) {
@@ -5144,8 +5187,15 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                         }
                                     }
                                 }
+                                String kdDokter = Sequel.cariIsi("select periksa_lab.kd_dokter from periksa_lab where periksa_lab.no_rawat=?",rs.getString("no_rawat"));
+                                String nmDokter = Sequel.cariIsi("select dokter.nm_dokter from dokter where dokter.kd_dokter=?",kdDokter);
+                                get = new GetMethod("http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/generateqrcode.php?kodedokter="+kdDokter.replace(" ","_"));
+                                http.executeMethod(get);
                                 htmlContent.append(
-                                              "</table>");
+                                    "<tr class='isi'>"+         
+                                       "<td valign='middle' colspan='7' width='79%' align='center'>Dokter Laborat<br><img width='90' height='90' src='http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/temp/"+kdDokter+".png'/><br>"+nmDokter+"</td>"+
+                                    "</tr>"+
+                                  "</table>");
                             }
                         } catch (Exception e) {
                             System.out.println("Notif : "+e);
@@ -5248,9 +5298,18 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                     }
                                     w++;
                                 }
-
+                                // rspm
+                                String kdDokter = "D0000093";
+                                String nmDokter = Sequel.cariIsi("select dokter.nm_dokter from dokter where dokter.kd_dokter=?",kdDokter);
+                                get = new GetMethod("http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/generateqrcode.php?kodedokter="+kdDokter.replace(" ","_"));
+                                http.executeMethod(get);
                                 htmlContent.append(
+                                    "<tr class='isi'>"+         
+                                       "<td valign='middle' colspan='6' align='center' width='18%'>Tanda Tangan/Verifikasi</td>"+
+                                       "<td valign='middle' width='79%' align='center'>Dokter Poli<br><img width='90' height='90' src='http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/temp/"+kdDokter+".png'/><br>"+nmDokter+"</td>"+
+                                    "</tr>"+
                                   "</table>");
+                                // --------------
                             }                                
                         } catch (Exception e) {
                             System.out.println("Notifikasi Lab : "+e);
@@ -16868,7 +16927,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
             htmlContent.append(
                 "<tr class='isi'>"+ 
                   "<td valign='top' width='2%'></td>"+        
-                  "<td valign='top' width='18%'>SEP dan SKDP</td>"+
+                  "<td valign='top' width='18%'>BPJS</td>"+
                   "<td valign='top' width='1%' align='center'>:</td>"+
                   "<td valign='top' width='79%'>"+
                     "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"+
@@ -16883,6 +16942,14 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
             htmlContent.append(
                 "<tr align='center'>"+
                     "<td><img src='./skdp_"+noRwt+".jpg' width='480'/></td>"+
+                "</tr>"
+                        );
+            }
+            if(Sequel.cariInteger("select count(bridging_surat_pri_bpjs.no_rawat) from bridging_surat_pri_bpjs where bridging_surat_pri_bpjs.no_rawat=?",norawat)>0) {
+            saveSPRI(norawat);
+            htmlContent.append(
+                "<tr align='center'>"+
+                    "<td><img src='./spri_"+noRwt+".jpg' width='480'/></td>"+
                 "</tr>"
                         );
             }
