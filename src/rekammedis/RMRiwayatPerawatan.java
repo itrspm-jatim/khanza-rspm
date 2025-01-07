@@ -39,6 +39,8 @@ import java.util.HashMap;
 import java.util.Map;
 // rspm
 import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 // ----
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -3557,7 +3559,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
     }
     private void saveSKDP(String noRawat) {
         String noSEP = Sequel.cariIsi("select bridging_sep.no_sep from bridging_sep "
-                + "join bridging_surat_kontrol_bpjs on bridging_surat_kontrol_bpjs.no_sep and bridging_sep.no_sep "
+                + "join bridging_surat_kontrol_bpjs on bridging_surat_kontrol_bpjs.no_surat and bridging_sep.noskdp "
                 + "where bridging_sep.no_rawat=? ORDER BY bridging_sep.no_sep DESC LIMIT 1",noRawat);
         if(Sequel.cariInteger("select count(bridging_surat_kontrol_bpjs.no_sep) from bridging_surat_kontrol_bpjs where bridging_surat_kontrol_bpjs.no_sep=?",noSEP)>0) {
             try {
@@ -10662,16 +10664,24 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                             String hasilSebelum = "";
                             String hasilSesudah = "";
                             
+                            // Parse tanggal asli
+                            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+                            Date date = inputFormat.parse(rs2.getString("tanggal"));
+
+                            // Format ulang ke yyyy-MM-dd
+                            SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+                            String formattedDate = outputFormat.format(date);
+                            
                             // Cek dan ambil bagian "sebelum"
-                            if (hasil_didapat.contains("sebelum") || hasil_didapat.contains("SEBELUM")) {
-                                int startIndex = hasil_didapat.indexOf("sebelum") + "sebelum : ".length();
-                                int endIndex = hasil_didapat.contains("sesudah") ? hasil_didapat.indexOf("sesudah") : hasil_didapat.length();
+                            if (hasil_didapat.toLowerCase().contains("sebelum")) {
+                                int startIndex = hasil_didapat.toLowerCase().indexOf("sebelum") + "sebelum : ".length();
+                                int endIndex = hasil_didapat.toLowerCase().contains("sesudah") ? hasil_didapat.toLowerCase().indexOf("sesudah") : hasil_didapat.length();
                                 hasilSebelum = hasil_didapat.substring(startIndex, endIndex).trim();
                             }
 
                             // Cek dan ambil bagian "sesudah"
-                            if (hasil_didapat.contains("sesudah")|| hasil_didapat.contains("SESUDAH")) {
-                                int startIndex = hasil_didapat.indexOf("sesudah") + "sesudah : ".length();
+                            if (hasil_didapat.toLowerCase().contains("sesudah")) {
+                                int startIndex = hasil_didapat.toLowerCase().indexOf("sesudah") + "sesudah : ".length();
                                 hasilSesudah = hasil_didapat.substring(startIndex).trim();
                             }
                             
@@ -10680,15 +10690,15 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                             String kesimpulanSesudah = "";
                             
                             // Cek dan ambil bagian "sebelum"
-                            if (kesimpulan.contains("sebelum") || kesimpulan.contains("SEBELUM")) {
-                                int startIndex = kesimpulan.indexOf("sebelum") + "sebelum : ".length();
-                                int endIndex = kesimpulan.contains("sesudah") ? kesimpulan.indexOf("sesudah") : kesimpulan.length();
+                            if (kesimpulan.toLowerCase().contains("sebelum")) {
+                                int startIndex = kesimpulan.toLowerCase().indexOf("sebelum") + "sebelum : ".length();
+                                int endIndex = kesimpulan.toLowerCase().contains("sesudah") ? kesimpulan.toLowerCase().indexOf("sesudah") : kesimpulan.length();
                                 kesimpulanSebelum = kesimpulan.substring(startIndex, endIndex).trim();
                             }
 
                             // Cek dan ambil bagian "sesudah"
-                            if (kesimpulan.contains("sesudah")|| kesimpulan.contains("SESUDAH")) {
-                                int startIndex = kesimpulan.indexOf("sesudah") + "sesudah : ".length();
+                            if (kesimpulan.toLowerCase().contains("sesudah")) {
+                                int startIndex = kesimpulan.toLowerCase().indexOf("sesudah") + "sesudah : ".length();
                                 kesimpulanSesudah = kesimpulan.substring(startIndex).trim();
                             }
                             
@@ -10697,15 +10707,15 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                             String rekomedasiSesudah = "";
                             
                             // Cek dan ambil bagian "sebelum"
-                            if (rekomedasi.contains("sebelum") || rekomedasi.contains("SEBELUM")) {
-                                int startIndex = rekomedasi.indexOf("sebelum") + "sebelum : ".length();
-                                int endIndex = rekomedasi.contains("sesudah") ? rekomedasi.indexOf("sesudah") : rekomedasi.length();
+                            if (rekomedasi.toLowerCase().contains("sebelum")) {
+                                int startIndex = rekomedasi.toLowerCase().indexOf("sebelum") + "sebelum : ".length();
+                                int endIndex = rekomedasi.toLowerCase().contains("sesudah") ? rekomedasi.toLowerCase().indexOf("sesudah") : rekomedasi.length();
                                 rekomedasiSebelum = rekomedasi.substring(startIndex, endIndex).trim();
                             }
 
                             // Cek dan ambil bagian "sesudah"
-                            if (rekomedasi.contains("sesudah")|| rekomedasi.contains("SESUDAH")) {
-                                int startIndex = rekomedasi.indexOf("sesudah") + "sesudah : ".length();
+                            if (rekomedasi.toLowerCase().contains("sesudah")) {
+                                int startIndex = rekomedasi.toLowerCase().indexOf("sesudah") + "sesudah : ".length();
                                 rekomedasiSesudah = rekomedasi.substring(startIndex).trim();
                             }
                             // --------------------------------------
@@ -10715,7 +10725,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                        "YANG MELAKUKAN PEMERIKSAAN"+  
                                        "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0px' class='tbl_form'>"+
                                           "<tr>"+
-                                              "<td width='33%' border='0'>Tanggal : "+rs2.getString("tanggal")+"</td>"+
+                                              "<td width='33%' border='0'>Tanggal : "+formattedDate+"</td>"+
                                               "<td width='66%' border='0'>Dokter : "+rs2.getString("kd_dokter")+" "+rs2.getString("nm_dokter")+"</td>"+
                                           "</tr>"+
                                        "</table>"+
@@ -23185,13 +23195,21 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                         );
                         rs2.beforeFirst();
                         while(rs2.next()){
+                            // rspm
+                            // Parse tanggal asli
+                            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+                            Date date = inputFormat.parse(rs2.getString("tanggal"));
+
+                            // Format ulang ke yyyy-MM-dd
+                            SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+                            String formattedDate = outputFormat.format(date);
                             htmlContent.append(
                                  "<tr>"+
                                     "<td valign='top'>"+
                                        "YANG MELAKUKAN PENGKAJIAN"+  
                                        "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0px' class='tbl_form'>"+
                                           "<tr>"+
-                                              "<td width='33%' border='0'>Tanggal : "+rs2.getString("tanggal")+"</td>"+
+                                              "<td width='33%' border='0'>Tanggal : "+formattedDate+"</td>"+
                                               "<td width='33%' border='0'>Dokter : "+rs2.getString("kd_dokter")+" "+rs2.getString("nm_dokter")+"</td>"+
                                               "<td width='33%' border='0'>Anamnesis : "+rs2.getString("anamnesis")+(rs2.getString("hubungan").equals("")?"":", "+rs2.getString("hubungan"))+"</td>"+
                                           "</tr>"+
@@ -23217,7 +23235,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                  "</tr>"+
                                  "<tr>"+
                                     "<td valign='top'>"+
-                                       "II. PEMERIKSAAN FISIK"+  
+                                       "II. PEMERIKSAAN FISIK DAN UJI FUNGSI"+  
                                        "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0px' class='tbl_form'>"+
                                           "<tr>"+
                                                "<td width='25%' border='0'>Status Nyeri : "+rs2.getString("nyeri")+"</td>"+
@@ -23230,6 +23248,9 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                                "<td width='25%' border='0'>BB : "+rs2.getString("bb")+" Kg</td>"+
                                                "<td width='25%' border='0'>Suhu : "+rs2.getString("suhu")+" °C</td>"+
                                                "<td width='25%' border='0'>RR : "+rs2.getString("rr")+" x/menit</td>"+
+                                          "</tr>"+
+                                          "<tr>"+
+                                               "<td width='25%' border='0'>Lainnya : "+rs2.getString("lainnya").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
                                           "</tr>"+
                                        "</table>"+
                                     "</td>"+
@@ -23249,9 +23270,6 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                                "<td width='33%'>Muskuloskeletal : "+rs2.getString("muskulos")+(rs2.getString("keterangan_muskulos").equals("")?"":", "+rs2.getString("keterangan_muskulos"))+"</td>"+
                                           "</tr>"+
                                           "<tr>"+
-                                               "<td width='100%' colspan='3'>Lainnya : "+rs2.getString("lainnya").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
-                                          "</tr>"+
-                                          "<tr>"+
                                                "<td width='33%'>Risiko Jatuh : "+rs2.getString("resiko_jatuh")+"</td>"+
                                                "<td width='33%'>Resiko Nutrisional : "+rs2.getString("resiko_nutrisional")+"</td>"+
                                                "<td width='33%'>Kebutuhan Fungsional : "+rs2.getString("kebutuhan_fungsional")+"</td>"+
@@ -23261,7 +23279,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                  "</tr>"+
                                  "<tr>"+
                                     "<td valign='top'>"+
-                                       "IV. PEMERIKSAAN FISIK DAN UJI FUNGSI"+  
+                                       "IV. DIAGNOSA"+  
                                        "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0px' class='tbl_form'>"+
                                           "<tr>"+
                                                "<td width='100%'>Diagnosa Medis : "+rs2.getString("diagnosa_medis").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
@@ -23283,14 +23301,14 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                                "<td width='70%' border='0'>Fisioterapi : "+rs2.getString("fisio")+"</td>"+
                                                "<td width='30%' border='0'>"+(rs2.getString("fisioterapi")==null?"":"Tanggal : "+rs2.getString("fisioterapi"))+"</td>"+
                                           "</tr>"+
-                                          "<tr>"+
-                                               "<td width='70%' border='0'>Terapi Okupasi : "+rs2.getString("okupasi")+"</td>"+
-                                               "<td width='30%' border='0'>"+(rs2.getString("terapi_okupasi")==null?"":"Tanggal : "+rs2.getString("terapi_okupasi"))+"</td>"+
-                                          "</tr>"+
-                                          "<tr>"+
-                                               "<td width='70%' border='0'>Terapi Wicara : "+rs2.getString("wicara")+"</td>"+
-                                               "<td width='30%' border='0'>"+(rs2.getString("terapi_wicara")==null?"":"Tanggal : "+rs2.getString("terapi_wicara"))+"</td>"+
-                                          "</tr>"+
+//                                          "<tr>"+
+//                                               "<td width='70%' border='0'>Terapi Okupasi : "+rs2.getString("okupasi")+"</td>"+
+//                                               "<td width='30%' border='0'>"+(rs2.getString("terapi_okupasi")==null?"":"Tanggal : "+rs2.getString("terapi_okupasi"))+"</td>"+
+//                                          "</tr>"+
+//                                          "<tr>"+
+//                                               "<td width='70%' border='0'>Terapi Wicara : "+rs2.getString("wicara")+"</td>"+
+//                                               "<td width='30%' border='0'>"+(rs2.getString("terapi_wicara")==null?"":"Tanggal : "+rs2.getString("terapi_wicara"))+"</td>"+
+//                                          "</tr>"+
                                           "<tr>"+
                                                "<td width='70%' border='0'>Goal : "+rs2.getString("akupuntur")+"</td>"+
                                                "<td width='30%' border='0'>"+(rs2.getString("terapi_akupuntur")==null?"":"Tanggal : "+rs2.getString("terapi_akupuntur"))+"</td>"+

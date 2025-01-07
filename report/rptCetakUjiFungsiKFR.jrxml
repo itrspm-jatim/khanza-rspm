@@ -401,10 +401,10 @@ inner join dokter on uji_fungsi_kfr.kd_dokter=dokter.kd_dokter]]>
 					<font fontName="Tahoma" size="8" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{hasil_didapat}.contains("sebelum") || $F{hasil_didapat}.contains("SEBELUM") ? 
-    "Hasil Yang Didapat : "+$F{hasil_didapat}.substring($F{hasil_didapat}.indexOf("sebelum") + "sebelum : ".length(), 
-                                $F{hasil_didapat}.contains("sesudah") ? 
-                                    $F{hasil_didapat}.indexOf("sesudah") : 
+				<textFieldExpression><![CDATA[($F{hasil_didapat}.toLowerCase().contains("sebelum") ? 
+    "Hasil Yang Didapat : "+$F{hasil_didapat}.substring($F{hasil_didapat}.toLowerCase().indexOf("sebelum") + "sebelum : ".length(), 
+                                $F{hasil_didapat}.toLowerCase().contains("sesudah") ? 
+                                    $F{hasil_didapat}.toLowerCase().indexOf("sesudah") : 
                                     $F{hasil_didapat}.length()).trim() : 
     "")]]></textFieldExpression>
 			</textField>
@@ -476,10 +476,10 @@ inner join dokter on uji_fungsi_kfr.kd_dokter=dokter.kd_dokter]]>
 					<font fontName="Tahoma" size="8" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{kesimpulan}.contains("sebelum") || $F{kesimpulan}.contains("SEBELUM") ? 
-   "Kesimpulan : "+$F{kesimpulan}.substring($F{kesimpulan}.indexOf("sebelum") + "sebelum : ".length(), 
-                                $F{kesimpulan}.contains("sesudah") ? 
-                                    $F{kesimpulan}.indexOf("sesudah") : 
+				<textFieldExpression><![CDATA[($F{kesimpulan}.toLowerCase().contains("sebelum") ? 
+   "Kesimpulan : "+$F{kesimpulan}.substring($F{kesimpulan}.toLowerCase().indexOf("sebelum") + "sebelum : ".length(), 
+                                $F{kesimpulan}.toLowerCase().contains("sesudah") ? 
+                                    $F{kesimpulan}.toLowerCase().indexOf("sesudah") : 
                                     $F{kesimpulan}.length()).trim() : 
     "")]]></textFieldExpression>
 			</textField>
@@ -489,10 +489,10 @@ inner join dokter on uji_fungsi_kfr.kd_dokter=dokter.kd_dokter]]>
 					<font fontName="Tahoma" size="8" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{rekomedasi}.contains("sebelum") || $F{rekomedasi}.contains("SEBELUM") ? 
-    "Rekomendasi : "+$F{rekomedasi}.substring($F{rekomedasi}.indexOf("sebelum") + "sebelum : ".length(), 
-                               $F{rekomedasi}.contains("sesudah") ? 
-                                    $F{rekomedasi}.indexOf("sesudah") : 
+				<textFieldExpression><![CDATA[($F{rekomedasi}.toLowerCase().contains("sebelum") ? 
+    "Rekomendasi : "+$F{rekomedasi}.substring($F{rekomedasi}.toLowerCase().indexOf("sebelum") + "sebelum : ".length(), 
+                               $F{rekomedasi}.toLowerCase().contains("sesudah") ? 
+                                    $F{rekomedasi}.toLowerCase().indexOf("sesudah") : 
                                     $F{rekomedasi}.length()).trim() : 
     "")]]></textFieldExpression>
 			</textField>
@@ -766,8 +766,8 @@ inner join dokter on uji_fungsi_kfr.kd_dokter=dokter.kd_dokter]]>
 					<font fontName="Tahoma" size="8" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{rekomedasi}.contains("sesudah") || $F{rekomedasi}.contains("SESUDAH") ? 
-    "Rekomendasi : " + $F{rekomedasi}.substring($F{rekomedasi}.indexOf("sesudah") + "sesudah : ".length()).trim() : 
+				<textFieldExpression><![CDATA[($F{rekomedasi}.toLowerCase().contains("sesudah") ? 
+    "Rekomendasi : " + $F{rekomedasi}.substring($F{rekomedasi}.toLowerCase().indexOf("sesudah") + "sesudah : ".length()).trim() : 
     "")]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -778,8 +778,8 @@ inner join dokter on uji_fungsi_kfr.kd_dokter=dokter.kd_dokter]]>
 					<font fontName="Tahoma" size="8" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{hasil_didapat}.contains("sesudah") || $F{hasil_didapat}.contains("SESUDAH") ? 
-    "Hasil Yang Didapat : " + $F{hasil_didapat}.substring($F{hasil_didapat}.indexOf("sesudah") + "sesudah : ".length()).trim() : 
+				<textFieldExpression><![CDATA[($F{hasil_didapat}.toLowerCase().contains("sesudah") ? 
+    "Hasil Yang Didapat : " + $F{hasil_didapat}.substring($F{hasil_didapat}.toLowerCase().indexOf("sesudah") + "sesudah : ".length()).trim() : 
     "")]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -788,8 +788,8 @@ inner join dokter on uji_fungsi_kfr.kd_dokter=dokter.kd_dokter]]>
 					<font fontName="Tahoma" size="8" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{kesimpulan}.contains("sesudah") || $F{kesimpulan}.contains("SESUDAH") ? 
-    "Kesimpulan : " + $F{kesimpulan}.substring($F{kesimpulan}.indexOf("sesudah") + "sesudah : ".length()).trim() : 
+				<textFieldExpression><![CDATA[($F{kesimpulan}.toLowerCase().contains("sesudah") ? 
+    "Kesimpulan : " + $F{kesimpulan}.substring($F{kesimpulan}.toLowerCase().indexOf("sesudah") + "sesudah : ".length()).trim() : 
     "")]]></textFieldExpression>
 			</textField>
 		</band>

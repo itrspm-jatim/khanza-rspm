@@ -113,9 +113,10 @@ public final class RMUjiFungsiKFR extends javax.swing.JDialog {
         KdDokter.setDocument(new batasInput((byte)20).getKata(KdDokter));
         DiagnosisFungsional.setDocument(new batasInput((int)50).getKata(DiagnosisFungsional));
         DiagnosisMedis.setDocument(new batasInput((int)50).getKata(DiagnosisMedis));
-        HasilYangDidapat.setDocument(new batasInput((int)100).getKata(HasilYangDidapat));
-        Kesimpulan.setDocument(new batasInput((int)100).getKata(Kesimpulan));
-        HasilYangDidapat.setDocument(new batasInput((int)100).getKata(HasilYangDidapat));
+        // rspm
+        HasilYangDidapat.setDocument(new batasInput((int)500).getKata(HasilYangDidapat));
+        Kesimpulan.setDocument(new batasInput((int)500).getKata(Kesimpulan));
+        // -------
         Rekomendasi.setDocument(new batasInput((int)100).getKata(Rekomendasi));
         TCari.setDocument(new batasInput((int)100).getKata(TCari));
         

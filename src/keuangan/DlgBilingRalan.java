@@ -178,11 +178,11 @@ public class DlgBilingRalan extends javax.swing.JDialog {
     private PreparedStatement pscaripoli2,pscekbilling,pscarirm,pscaripasien,psreg,pscaripoli,pscarialamat,psrekening,
             psdokterralan,psdokterralan2,pscariralandokter,pscariralanperawat,pscariralandrpr,pscarilab,pscariobat,psdetaillab,
             psobatlangsung,pstambahan,psbiling,pstemporary,pspotongan,psbilling,pscariradiologi,
-            pstamkur,psnota,psoperasi,psobatoperasi,psakunbayar,psakunpiutang;
+            pstamkur,psnota,psoperasi,psobatoperasi,psakunbayar,psakunpiutang,psresume;
     private ResultSet rscekbilling,rscarirm,rscaripasien,rsreg,rscaripoli,rscarialamat,rsrekening,rsobatoperasi,
             rsdokterralan,rsdokterralan2,rscariralandokter,rscariralanperawat,rscariralandrpr,rscarilab,rscariobat,rsdetaillab,
             rsobatlangsung,rstambahan,rspotongan,rsbilling,rscariradiologi,rstamkur,rsoperasi,
-            rsakunbayar,rsakunpiutang,rscaripoli2;
+            rsakunbayar,rsakunpiutang,rscaripoli2,rsresume;
     private WarnaTable2 warna=new WarnaTable2();
     private WarnaTable2 warna2=new WarnaTable2();
     private File file;
@@ -6127,6 +6127,37 @@ private void MnPeriksaLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
                 System.out.println("Notifikasi : "+ex);            
                 JOptionPane.showMessageDialog(null,"Maaf, gagal menyimpan data. Data yang sama dimasukkan sebelumnya...!");
             }
+        }
+    }
+    private void isResume() {
+        try {
+            psresume=koneksi.prepareStatement(
+                    "select pasien.no_rkm_medis,pasien.nm_pasien,pasien.jk,pasien.tmp_lahir,pasien.tgl_lahir,pasien.agama,"+
+                    "bahasa_pasien.nama_bahasa,cacat_fisik.nama_cacat,pasien.gol_darah,pasien.nm_ibu,pasien.stts_nikah,pasien.pnd, "+
+                    "concat(pasien.alamat,', ',kelurahan.nm_kel,', ',kecamatan.nm_kec,', ',kabupaten.nm_kab) as alamat,pasien.pekerjaan "+
+                    "from pasien inner join bahasa_pasien on bahasa_pasien.id=pasien.bahasa_pasien "+
+                    "inner join cacat_fisik on cacat_fisik.id=pasien.cacat_fisik "+
+                    "inner join kelurahan on pasien.kd_kel=kelurahan.kd_kel "+
+                    "inner join kecamatan on pasien.kd_kec=kecamatan.kd_kec "+
+                    "inner join kabupaten on pasien.kd_kab=kabupaten.kd_kab "+
+                    "where pasien.no_rkm_medis=?");
+            try {
+                psresume.setString(1,TNoRM.getText());
+                rsresume = psresume.executeQuery();
+                while(rsresume.next()){
+                Sequel.menyimpantf("resume_pasien","?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?","No.Rawat",26,new String[]{
+                        TNoRw.getText(),"1","2","3","4","5", 
+                        "6","7","8","9","10", 
+                        "11","12","13","14","15", 
+                        "16","17","18","19","20", 
+                        "21","22","23","24","25"
+                    });
+                }
+            } catch(Exception ex){
+                System.out.println("Notifikasi : "+ex);
+            } 
+        } catch(Exception ex){
+            System.out.println("Notifikasi : "+ex);
         }
     }
     
