@@ -3558,15 +3558,15 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
         }          
     }
     private void saveSKDP(String noRawat) {
-        String noSEP = Sequel.cariIsi("select bridging_sep.no_sep from bridging_sep "
+        String noSKDP = Sequel.cariIsi("select bridging_sep.noskdp from bridging_sep "
                 + "join bridging_surat_kontrol_bpjs on bridging_surat_kontrol_bpjs.no_surat and bridging_sep.noskdp "
                 + "where bridging_sep.no_rawat=? ORDER BY bridging_sep.no_sep DESC LIMIT 1",noRawat);
-        if(Sequel.cariInteger("select count(bridging_surat_kontrol_bpjs.no_sep) from bridging_surat_kontrol_bpjs where bridging_surat_kontrol_bpjs.no_sep=?",noSEP)>0) {
+        if(Sequel.cariInteger("select count(bridging_surat_kontrol_bpjs.no_sep) from bridging_surat_kontrol_bpjs where bridging_surat_kontrol_bpjs.no_surat=?",noSKDP)>0) {
             try {
-                String nmDokterBPJS = Sequel.cariIsi("select bridging_surat_kontrol_bpjs.nm_dokter_bpjs from bridging_surat_kontrol_bpjs where bridging_surat_kontrol_bpjs.no_sep=?",noSEP);
-                String tglSurat = Sequel.cariIsi("select bridging_surat_kontrol_bpjs.tgl_surat from bridging_surat_kontrol_bpjs where bridging_surat_kontrol_bpjs.no_sep=?",noSEP);
-                String tglRencana = Sequel.cariIsi("select bridging_surat_kontrol_bpjs.tgl_rencana from bridging_surat_kontrol_bpjs where bridging_surat_kontrol_bpjs.no_sep=?",noSEP);
-                String noSurat = Sequel.cariIsi("select bridging_surat_kontrol_bpjs.no_surat from bridging_surat_kontrol_bpjs where bridging_surat_kontrol_bpjs.no_sep=?",noSEP);
+                String nmDokterBPJS = Sequel.cariIsi("select bridging_surat_kontrol_bpjs.nm_dokter_bpjs from bridging_surat_kontrol_bpjs where bridging_surat_kontrol_bpjs.no_surat=?",noSKDP);
+                String tglSurat = Sequel.cariIsi("select bridging_surat_kontrol_bpjs.tgl_surat from bridging_surat_kontrol_bpjs where bridging_surat_kontrol_bpjs.no_surat=?",noSKDP);
+                String tglRencana = Sequel.cariIsi("select bridging_surat_kontrol_bpjs.tgl_rencana from bridging_surat_kontrol_bpjs where bridging_surat_kontrol_bpjs.no_surat=?",noSKDP);
+                //String noSurat = Sequel.cariIsi("select bridging_surat_kontrol_bpjs.no_surat from bridging_surat_kontrol_bpjs where bridging_surat_kontrol_bpjs.no_surat=?",noSKDP);
 
                 Map<String, Object> param = new HashMap<>();
                 param.put("namars",akses.getnamars());
@@ -3582,7 +3582,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                         "bridging_sep.jkel,bridging_sep.diagawal,bridging_sep.nmdiagnosaawal,bridging_surat_kontrol_bpjs.tgl_surat,bridging_surat_kontrol_bpjs.no_surat,"+
                         "bridging_surat_kontrol_bpjs.tgl_rencana,bridging_surat_kontrol_bpjs.kd_dokter_bpjs,bridging_surat_kontrol_bpjs.nm_dokter_bpjs,"+
                         "bridging_surat_kontrol_bpjs.kd_poli_bpjs,bridging_surat_kontrol_bpjs.nm_poli_bpjs from bridging_sep inner join bridging_surat_kontrol_bpjs "+
-                        "on bridging_surat_kontrol_bpjs.no_sep=bridging_sep.no_sep where bridging_surat_kontrol_bpjs.no_surat='"+noSurat+"'",param,noRawat);
+                        "on bridging_surat_kontrol_bpjs.no_sep=bridging_sep.no_sep where bridging_surat_kontrol_bpjs.no_surat='"+noSKDP+"'",param,noRawat);
             } catch (Exception e) {
                 System.out.println("Notif : "+e);
             }
@@ -16945,8 +16945,8 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                           "<td><img src='./sep_"+noRwt+".jpg' width='480'/></td>"+
                        "</tr>"
             );
-            if(Sequel.cariInteger("select count(bridging_surat_kontrol_bpjs.no_sep) from bridging_surat_kontrol_bpjs "
-                    + "join bridging_sep on bridging_sep.no_sep = bridging_surat_kontrol_bpjs.no_sep "
+            if(Sequel.cariInteger("select count(bridging_surat_kontrol_bpjs.no_surat) from bridging_surat_kontrol_bpjs "
+                    + "join bridging_sep on bridging_sep.noskdp = bridging_surat_kontrol_bpjs.no_surat "
                     + "where bridging_sep.no_rawat=?",norawat)>0) {
             saveSKDP(norawat);
             htmlContent.append(
