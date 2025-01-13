@@ -4781,7 +4781,39 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         TNoRM.setText(norm);
         TPasien.setText(namapasien);
         TCari.setText(norwt);   
+        isIsian();
     }
+    
+    // rspm
+    private void isIsian() {
+        try {
+            ps=koneksi.prepareStatement(
+                    "SELECT keluhan, tensi, nadi, tinggi, berat, suhu_tubuh, respirasi,spo2, gcs, pemeriksaan, penilaian, instruksi, rtl, evaluasi FROM pemeriksaan_ralan WHERE no_rawat ='"+TNoRw.getText()+"'");
+            try {
+                rs=ps.executeQuery();
+                while (rs.next()) {
+                PrimerKeluhanUtama.setText(rs.getString("keluhan"));
+                PrimerTensi.setText(rs.getString("tensi"));
+                PrimerNadi.setText(rs.getString("nadi"));
+                PrimerRespirasi.setText(rs.getString("respirasi"));
+                PrimerSuhu.setText(rs.getString("suhu_tubuh"));
+                PrimerSaturasi.setText(rs.getString("spo2"));
+            }
+            } catch (Exception e) {
+                System.out.println("Notif : "+e);
+            } finally{
+                if(rs!=null){
+                    rs.close();
+                }
+                if(ps!=null){
+                    ps.close();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notif : "+e);
+        } 
+    }
+    // ------------
     
     public void tampilPemeriksaan() {        
         Valid.tabelKosong(tabModePemeriksaan);

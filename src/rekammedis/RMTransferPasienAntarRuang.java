@@ -2508,12 +2508,49 @@ public final class RMTransferPasienAntarRuang extends javax.swing.JDialog {
             System.out.println("Notif : "+e);
         }
     }
+    
+    // rspm
+    private void isIsian() {
+        try {
+            ps=koneksi.prepareStatement(
+                    "SELECT pemeriksaan_ralan.keluhan, catatan_observasi_igd.td, catatan_observasi_igd.hr, tinggi, berat, catatan_observasi_igd.suhu, catatan_observasi_igd.rr,"
+                            + "catatan_observasi_igd.spo2, pemeriksaan_ralan.penilaian, pemeriksaan_ralan.instruksi "
+                            + "FROM pemeriksaan_ralan "
+                            + "JOIN catatan_observasi_igd ON pemeriksaan_ralan.no_rawat = catatan_observasi_igd.no_rawat "
+                            + "WHERE pemeriksaan_ralan.no_rawat ='"+TNoRw.getText()+"'");
+            try {
+                rs=ps.executeQuery();
+                while (rs.next()) {
+                DiagnosaUtama.setText(rs.getString("penilaian"));
+                ObatYangDiberikan.setText(rs.getString("instruksi"));
+                KeluhanUtamaSebelumTransfer.setText(rs.getString("keluhan"));
+                TDSebelumTransfer.setText(rs.getString("td"));
+                NadiSebelumTransfer.setText(rs.getString("hr"));
+                RRSebelumTransfer.setText(rs.getString("rr"));
+                SuhuSebelumTransfer.setText(rs.getString("suhu"));
+                }
+            } catch (Exception e) {
+                System.out.println("Notif : "+e);
+            } finally{
+                if(rs!=null){
+                    rs.close();
+                }
+                if(ps!=null){
+                    ps.close();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notif : "+e);
+        } 
+    }
+    // ------------
  
     public void setNoRm(String norwt,Date tgl2) {
         TNoRw.setText(norwt);
         TCari.setText(norwt);
         DTPCari2.setDate(tgl2);    
         isRawat(); 
+        isIsian();
     }
     
     public void isCek(){

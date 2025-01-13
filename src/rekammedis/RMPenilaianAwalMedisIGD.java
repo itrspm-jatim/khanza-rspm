@@ -2391,6 +2391,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         TCari.setText(norwt);
         DTPCari2.setDate(tgl2);    
         isRawat(); 
+        isIsian();
     }
     
     public void isCek(){
@@ -2415,7 +2416,42 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
             }
         }
     }
-    
+    // rspm
+    private void isIsian() {
+        try {
+            ps=koneksi.prepareStatement(
+                    "SELECT keluhan, tensi, nadi, tinggi, berat, suhu_tubuh, respirasi,spo2, gcs, pemeriksaan, penilaian, instruksi, rtl, evaluasi FROM pemeriksaan_ralan WHERE no_rawat ='"+TNoRw.getText()+"'");
+            try {
+                rs=ps.executeQuery();
+                while (rs.next()) {
+                KeluhanUtama.setText(rs.getString("keluhan"));
+                TD.setText(rs.getString("tensi"));
+                Nadi.setText(rs.getString("nadi"));
+                RR.setText(rs.getString("respirasi"));
+                Suhu.setText(rs.getString("suhu_tubuh"));
+                SPO.setText(rs.getString("spo2"));
+                TB.setText(rs.getString("tinggi"));
+                BB.setText(rs.getString("berat"));
+                GCS.setText(rs.getString("gcs"));
+                KetFisik.setText(rs.getString("pemeriksaan"));
+                Diagnosis.setText(rs.getString("penilaian"));
+                Tatalaksana.setText(rs.getString("instruksi"));
+            }
+            } catch (Exception e) {
+                System.out.println("Notif : "+e);
+            } finally{
+                if(rs!=null){
+                    rs.close();
+                }
+                if(ps!=null){
+                    ps.close();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notif : "+e);
+        } 
+    }
+    // ------------
     public void setTampil(){
        TabRawat.setSelectedIndex(1);
     }

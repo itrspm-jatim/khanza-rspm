@@ -7450,13 +7450,12 @@ public class frmUtama extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(50, 50, 50));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/History.png"))); // NOI18N
-        jLabel9.setText("Dev RSPM : v1.0.5");
+        jLabel9.setText("Dev RSPM : v1.0.6");
         jLabel9.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jLabel9.setIconTextGap(3);
         jLabel9.setName("jLabel9"); // NOI18N
         jLabel9.setPreferredSize(new java.awt.Dimension(287, 23));
         internalFrame4.add(jLabel9);
-        jLabel9.getAccessibleContext().setAccessibleName("Dev RSPM : v1.0.5");
 
         getContentPane().add(internalFrame4, java.awt.BorderLayout.PAGE_END);
 
