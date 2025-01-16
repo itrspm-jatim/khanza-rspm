@@ -843,7 +843,9 @@ public class PanelDiagnosa extends widget.panelisi {
         try {
             koneksi.setAutoCommit(false);
             index=1;
+            StringBuilder diagnosaLain = new StringBuilder();
             for(i=0;i<tbDiagnosa.getRowCount();i++){ 
+                String prioritas = Sequel.cariIsi("select ifnull(MAX(diagnosa_pasien.prioritas)+1,1) from diagnosa_pasien where diagnosa_pasien.no_rawat=? and diagnosa_pasien.status='"+status+"'",norawat);
                 if(tbDiagnosa.getValueAt(i,0).toString().equals("true")){
                     if(Sequel.cariInteger(
                             "select count(diagnosa_pasien.kd_penyakit) from diagnosa_pasien "+
@@ -852,15 +854,15 @@ public class PanelDiagnosa extends widget.panelisi {
                             "pasien.no_rkm_medis='"+norm+"' and diagnosa_pasien.kd_penyakit='"+tbDiagnosa.getValueAt(i,1).toString()+"'")>0){
                         Sequel.menyimpan("diagnosa_pasien","?,?,?,?,?","Penyakit",5,new String[]{
                             norawat,tbDiagnosa.getValueAt(i,1).toString(),status,
-                            Sequel.cariIsi("select ifnull(MAX(diagnosa_pasien.prioritas)+1,1) from diagnosa_pasien where diagnosa_pasien.no_rawat=? and diagnosa_pasien.status='"+status+"'",norawat),"Lama"
+                            prioritas,"Lama"
                         });
                     }else{
                         Sequel.menyimpan("diagnosa_pasien","?,?,?,?,?","Penyakit",5,new String[]{
                             norawat,tbDiagnosa.getValueAt(i,1).toString(),status,
-                            Sequel.cariIsi("select ifnull(MAX(diagnosa_pasien.prioritas)+1,1) from diagnosa_pasien where diagnosa_pasien.no_rawat=? and diagnosa_pasien.status='"+status+"'",norawat),"Baru"
+                            prioritas,"Baru"
                         });
                     }
-                    if(index==1){
+                    if(Integer.parseInt(prioritas)==1){
                         if(status.equals("Ralan")){
                             Sequel.mengedit("resume_pasien","no_rawat=?","kd_diagnosa_utama=?",2,new String[]{
                                 tbDiagnosa.getValueAt(i,1).toString(),norawat
@@ -877,7 +879,7 @@ public class PanelDiagnosa extends widget.panelisi {
                                 tbDiagnosa.getValueAt(i,1).toString(),norawat
                             });
                         }   
-                    }else if(index==2){
+                    }else if(Integer.parseInt(prioritas)==2){
                         if(status.equals("Ralan")){
                             Sequel.mengedit("resume_pasien","no_rawat=?","kd_diagnosa_sekunder=?",2,new String[]{
                                 tbDiagnosa.getValueAt(i,1).toString(),norawat
@@ -894,7 +896,7 @@ public class PanelDiagnosa extends widget.panelisi {
                                 tbDiagnosa.getValueAt(i,1).toString(),norawat
                             });
                         }
-                    }else if(index==3){
+                    }else if(Integer.parseInt(prioritas)==3){
                         if(status.equals("Ralan")){
                             Sequel.mengedit("resume_pasien","no_rawat=?","kd_diagnosa_sekunder2=?",2,new String[]{
                                 tbDiagnosa.getValueAt(i,1).toString(),norawat
@@ -911,7 +913,7 @@ public class PanelDiagnosa extends widget.panelisi {
                                 tbDiagnosa.getValueAt(i,1).toString(),norawat
                             });
                         }
-                    }else if(index==4){
+                    }else if(Integer.parseInt(prioritas)==4){
                         if(status.equals("Ralan")){
                             Sequel.mengedit("resume_pasien","no_rawat=?","kd_diagnosa_sekunder3=?",2,new String[]{
                                 tbDiagnosa.getValueAt(i,1).toString(),norawat
@@ -928,7 +930,7 @@ public class PanelDiagnosa extends widget.panelisi {
                                 tbDiagnosa.getValueAt(i,1).toString(),norawat
                             });
                         }   
-                    }else if(index==5){
+                    }else if(Integer.parseInt(prioritas)==5){
                         if(status.equals("Ralan")){
                             Sequel.mengedit("resume_pasien","no_rawat=?","kd_diagnosa_sekunder4=?",2,new String[]{
                                 tbDiagnosa.getValueAt(i,1).toString(),norawat
@@ -944,11 +946,25 @@ public class PanelDiagnosa extends widget.panelisi {
                             Sequel.mengedit("resume_pasien_ranap","no_rawat=?","kd_diagnosa_sekunder4=?",2,new String[]{
                                 tbDiagnosa.getValueAt(i,1).toString(),norawat
                             });
+                        }   
+                    }else if(Integer.parseInt(prioritas)>5){
+                        // rspm
+                        if(status.equals("Ranap")){
+                            if (diagnosaLain.length() > 0) {
+                                diagnosaLain.append(","); // Tambahkan koma sebagai pemisah jika sudah ada data
+                            }
+                            diagnosaLain.append(tbDiagnosa.getValueAt(i,1).toString()); // Tambahkan kode prosedur
                         }
+                        // ------
                     }
                         
                     index++;
-                }                    
+                }
+                if (diagnosaLain.length() > 0) {
+                    Sequel.mengedit("rspm_resume_pasien_ranap","no_rawat=?","kd_diagnosa=?",2,new String[]{
+                        diagnosaLain.toString(),norawat
+                    });
+                }
             }
             koneksi.setAutoCommit(true);  
             for(i=0;i<tbDiagnosa.getRowCount();i++){ 
@@ -961,13 +977,15 @@ public class PanelDiagnosa extends widget.panelisi {
         try {
             koneksi.setAutoCommit(false);
             index=1;
+            StringBuilder prosedurLain = new StringBuilder();
             for(i=0;i<tbProsedur.getRowCount();i++){ 
+                String prioritas = Sequel.cariIsi("select ifnull(MAX(prosedur_pasien.prioritas)+1,1) from prosedur_pasien where prosedur_pasien.no_rawat=? and prosedur_pasien.status='"+status+"'",norawat);
                 if(tbProsedur.getValueAt(i,0).toString().equals("true")){
                     Sequel.menyimpan("prosedur_pasien","?,?,?,?","ICD 9",4,new String[]{
                         norawat,tbProsedur.getValueAt(i,1).toString(),status,Sequel.cariIsi("select ifnull(MAX(prosedur_pasien.prioritas)+1,1) from prosedur_pasien where prosedur_pasien.no_rawat=? and prosedur_pasien.status='"+status+"'",norawat)
                     });
                     
-                    if(index==1){
+                    if(Integer.parseInt(prioritas)==1){
                         if(status.equals("Ralan")){
                             Sequel.mengedit("resume_pasien","no_rawat=?","kd_prosedur_utama=?",2,new String[]{
                                 tbProsedur.getValueAt(i,1).toString(),norawat
@@ -984,7 +1002,7 @@ public class PanelDiagnosa extends widget.panelisi {
                                 tbProsedur.getValueAt(i,1).toString(),norawat
                             });
                         }
-                    }else if(index==2){
+                    }else if(Integer.parseInt(prioritas)==2){
                         if(status.equals("Ralan")){
                             Sequel.mengedit("resume_pasien","no_rawat=?","kd_prosedur_sekunder=?",2,new String[]{
                                 tbProsedur.getValueAt(i,1).toString(),norawat
@@ -1001,7 +1019,7 @@ public class PanelDiagnosa extends widget.panelisi {
                                 tbProsedur.getValueAt(i,1).toString(),norawat
                             });
                         }
-                    }else if(index==3){
+                    }else if(Integer.parseInt(prioritas)==3){
                         if(status.equals("Ralan")){
                             Sequel.mengedit("resume_pasien","no_rawat=?","kd_prosedur_sekunder2=?",2,new String[]{
                                 tbProsedur.getValueAt(i,1).toString(),norawat
@@ -1018,7 +1036,7 @@ public class PanelDiagnosa extends widget.panelisi {
                                 tbProsedur.getValueAt(i,1).toString(),norawat
                             });
                         }
-                    }else if(index==4){
+                    }else if(Integer.parseInt(prioritas)==4){
                         if(status.equals("Ralan")){
                             Sequel.mengedit("resume_pasien","no_rawat=?","kd_prosedur_sekunder3=?",2,new String[]{
                                 tbProsedur.getValueAt(i,1).toString(),norawat
@@ -1035,10 +1053,23 @@ public class PanelDiagnosa extends widget.panelisi {
                                 tbProsedur.getValueAt(i,1).toString(),norawat
                             });
                         }
+                    }else if(Integer.parseInt(prioritas)>4){
+                        // rspm
+                        if(status.equals("Ranap")){
+                            if (prosedurLain.length() > 0) {
+                                prosedurLain.append(","); // Tambahkan koma sebagai pemisah jika sudah ada data
+                            }
+                            prosedurLain.append(tbProsedur.getValueAt(i,1).toString()); // Tambahkan kode prosedur
+                        }
                     }
-                        
                     index++;
-                }                    
+                }    
+                if (prosedurLain.length() > 0) {
+                    Sequel.mengedit("rspm_resume_pasien_ranap","no_rawat=?","kd_prosedur=?",2,new String[]{
+                        prosedurLain.toString(),norawat
+                    });
+                }    
+                // ------
             }
             koneksi.setAutoCommit(true);  
             for(i=0;i<tbProsedur.getRowCount();i++){ 

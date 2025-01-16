@@ -5798,8 +5798,10 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                 "resume_pasien_ranap.kd_diagnosa_sekunder4,resume_pasien_ranap.prosedur_utama,resume_pasien_ranap.kd_prosedur_utama,resume_pasien_ranap.prosedur_sekunder,resume_pasien_ranap.kd_prosedur_sekunder,"+
                                 "resume_pasien_ranap.prosedur_sekunder2,resume_pasien_ranap.kd_prosedur_sekunder2,resume_pasien_ranap.prosedur_sekunder3,resume_pasien_ranap.kd_prosedur_sekunder3,resume_pasien_ranap.alergi,"+
                                 "resume_pasien_ranap.diet,resume_pasien_ranap.lab_belum,resume_pasien_ranap.edukasi,resume_pasien_ranap.cara_keluar,resume_pasien_ranap.ket_keluar,resume_pasien_ranap.keadaan,"+
-                                "resume_pasien_ranap.ket_keadaan,resume_pasien_ranap.dilanjutkan,resume_pasien_ranap.ket_dilanjutkan,resume_pasien_ranap.kontrol,resume_pasien_ranap.obat_pulang "+
-                                "from resume_pasien_ranap inner join dokter on resume_pasien_ranap.kd_dokter=dokter.kd_dokter where resume_pasien_ranap.no_rawat='"+rs.getString("no_rawat")+"'").executeQuery();
+                                "resume_pasien_ranap.ket_keadaan,resume_pasien_ranap.dilanjutkan,resume_pasien_ranap.ket_dilanjutkan,resume_pasien_ranap.kontrol,resume_pasien_ranap.obat_pulang,rspm_resume_pasien_ranap.kd_diagnosa,rspm_resume_pasien_ranap.kd_prosedur "+
+                                "from resume_pasien_ranap "+ 
+                                "left join rspm_resume_pasien_ranap on resume_pasien_ranap.no_rawat=rspm_resume_pasien_ranap.no_rawat "+ 
+                                "inner join dokter on resume_pasien_ranap.kd_dokter=dokter.kd_dokter where resume_pasien_ranap.no_rawat='"+rs.getString("no_rawat")+"'").executeQuery();
                             if(rs2.next()){
                                 htmlContent.append(
                                   "<tr class='isi'>"+ 
@@ -5820,6 +5822,9 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                 );
                                 rs2.beforeFirst();
                                 while(rs2.next()){
+                                    // rspm
+                                    String kdDiagnosa = rs2.getString("kd_diagnosa"); // Ambil data diagnosa
+                                    String kdProsedur = rs2.getString("kd_prosedur"); // Ambil data prosedur
                                     htmlContent.append(
                                          "<tr>"+
                                             "<td valign='top' align='center'>"+rs.getString("status_lanjut")+"</td>"+
@@ -5874,8 +5879,18 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                                     "</tr>"+
                                                     "<tr align='left' border='0'>"+
                                                         "<td valign='top' width='20%' border='0'>Diagnosa Sekunder 4</td><td valign='top' width='60%' border='0'>:&nbsp;"+rs2.getString("diagnosa_sekunder4")+"</td><td valign='top' width='20%' border='0'>&nbsp;"+rs2.getString("kd_diagnosa_sekunder4")+"</td>"+
-                                                    "</tr>"+
-                                                    "<tr align='left' border='0'>"+
+                                                    "</tr>");
+                                                    if (kdDiagnosa != null && !kdDiagnosa.isEmpty()) {
+                                                        String[] diagnosaArray = kdDiagnosa.split(","); // Pisahkan berdasarkan koma
+                                                        for (int i = 0; i < diagnosaArray.length; i++) {
+                                                            htmlContent.append("<tr align='left' border='0'>")
+                                                            .append("<td valign='top' width='20%' border='0'>Diagnosa Sekunder ").append(i + 5).append("</td>")
+                                                            .append("<td valign='top' width='60%' border='0'>:&nbsp;</td>")
+                                                            .append("<td valign='top' width='20%' border='0'>&nbsp;").append(diagnosaArray[i]).append("</td>")
+                                                            .append("</tr>");
+                                                        }
+                                                    }
+                                                    htmlContent.append("<tr align='left' border='0'>"+
                                                         "<td valign='top' width='20%' border='0'>Prosedur Utama</td><td valign='top' width='60%' border='0'>:&nbsp;"+rs2.getString("prosedur_utama")+"</td><td valign='top' width='20%' border='0'>&nbsp;"+rs2.getString("kd_prosedur_utama")+"</td>"+
                                                     "</tr>"+
                                                     "<tr align='left' border='0'>"+
@@ -5886,8 +5901,18 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                                     "</tr>"+
                                                     "<tr align='left' border='0'>"+
                                                         "<td valign='top' width='20%' border='0'>Prosedur Sekunder 3</td><td valign='top' width='60%' border='0'>:&nbsp;"+rs2.getString("prosedur_sekunder3")+"</td><td valign='top' width='20%' border='0'>&nbsp;"+rs2.getString("kd_prosedur_sekunder3")+"</td>"+
-                                                    "</tr>"+
-                                                "</table>"+
+                                                    "</tr>");
+                                                    if (kdProsedur != null && !kdProsedur.isEmpty()) {
+                                                        String[] prosedurArray = kdProsedur.split(","); // Pisahkan berdasarkan koma
+                                                        for (int i = 0; i < prosedurArray.length; i++) {
+                                                            htmlContent.append("<tr align='left' border='0'>")
+                                                            .append("<td valign='top' width='20%' border='0'>Prosedur Sekunder ").append(i + 5).append("</td>")
+                                                            .append("<td valign='top' width='60%' border='0'>:&nbsp;</td>")
+                                                            .append("<td valign='top' width='20%' border='0'>&nbsp;").append(prosedurArray[i]).append("</td>")
+                                                            .append("</tr>");
+                                                        }
+                                                    }
+                                                htmlContent.append("</table>"+
                                             "</td>"+
                                          "</tr>"+
                                          "<tr>"+
