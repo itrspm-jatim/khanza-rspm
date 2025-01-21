@@ -2998,7 +2998,6 @@ public final class RMDataResumePasienRanap extends javax.swing.JDialog {
             KodeDiagnosaSekunder3.setText(tbObat.getValueAt(tbObat.getSelectedRow(),29).toString());  
             DiagnosaSekunder4.setText(tbObat.getValueAt(tbObat.getSelectedRow(),30).toString());  
             KodeDiagnosaSekunder4.setText(tbObat.getValueAt(tbObat.getSelectedRow(),31).toString());
-            KodeDiagnosaLain.setText(tbObat.getValueAt(tbObat.getSelectedRow(),32).toString());
             ProsedurUtama.setText(tbObat.getValueAt(tbObat.getSelectedRow(),33).toString());  
             KodeProsedurUtama.setText(tbObat.getValueAt(tbObat.getSelectedRow(),34).toString());  
             ProsedurSekunder1.setText(tbObat.getValueAt(tbObat.getSelectedRow(),35).toString());  
@@ -3007,7 +3006,6 @@ public final class RMDataResumePasienRanap extends javax.swing.JDialog {
             KodeProsedurSekunder2.setText(tbObat.getValueAt(tbObat.getSelectedRow(),38).toString());  
             ProsedurSekunder3.setText(tbObat.getValueAt(tbObat.getSelectedRow(),39).toString());  
             KodeProsedurSekunder3.setText(tbObat.getValueAt(tbObat.getSelectedRow(),40).toString());
-            KodeProsedurLain.setText(tbObat.getValueAt(tbObat.getSelectedRow(),41).toString());
             Alergi.setText(tbObat.getValueAt(tbObat.getSelectedRow(),42).toString());  
             Diet.setText(tbObat.getValueAt(tbObat.getSelectedRow(),43).toString());  
             LabBelum.setText(tbObat.getValueAt(tbObat.getSelectedRow(),44).toString());  
@@ -3022,6 +3020,8 @@ public final class RMDataResumePasienRanap extends javax.swing.JDialog {
             KdPj.setText(tbObat.getValueAt(tbObat.getSelectedRow(),54).toString());     
             CaraBayar.setText(tbObat.getValueAt(tbObat.getSelectedRow(),55).toString());  
             Valid.SetTgl2(Kontrol,tbObat.getValueAt(tbObat.getSelectedRow(),52).toString());
+            KodeDiagnosaLain.setText(tbObat.getValueAt(tbObat.getSelectedRow(),32).toString());
+            KodeProsedurLain.setText(tbObat.getValueAt(tbObat.getSelectedRow(),41).toString());
         }
     }
     

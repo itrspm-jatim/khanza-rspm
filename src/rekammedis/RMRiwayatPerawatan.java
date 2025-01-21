@@ -3541,7 +3541,12 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
         }
     }
     private void saveSEP(String noRawat) {
-        String noSEP = Sequel.cariIsi("select bridging_sep.no_sep from bridging_sep where bridging_sep.no_rawat=?",noRawat);
+        String noSEP = "";
+        if(Sequel.cariInteger("select bridging_sep.no_sep from bridging_sep where bridging_sep.no_rawat=? and bridging_sep.jnspelayanan =1",noRawat)>0) {
+            noSEP = Sequel.cariIsi("select bridging_sep.no_sep from bridging_sep where bridging_sep.no_rawat=? and bridging_sep.jnspelayanan =1",noRawat);
+        } else {
+            noSEP = Sequel.cariIsi("select bridging_sep.no_sep from bridging_sep where bridging_sep.no_rawat=?",noRawat);
+        }
         Map<String, Object> param = new HashMap<>();
         param.put("namars",akses.getnamars());
         param.put("alamatrs",akses.getalamatrs());

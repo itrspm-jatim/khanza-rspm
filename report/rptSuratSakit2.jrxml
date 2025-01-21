@@ -282,7 +282,7 @@
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement x="183" y="118" width="180" height="14" uuid="be6621d1-5f61-4436-9093-7ac0a55e4efc"/>
+				<reportElement x="0" y="120" width="555" height="14" uuid="be6621d1-5f61-4436-9093-7ac0a55e4efc"/>
 				<textElement textAlignment="Center">
 					<font fontName="Tahoma" size="10"/>
 					<paragraph lineSpacing="Single"/>

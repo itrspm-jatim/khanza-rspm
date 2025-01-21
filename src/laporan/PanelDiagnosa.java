@@ -961,9 +961,15 @@ public class PanelDiagnosa extends widget.panelisi {
                     index++;
                 }
                 if (diagnosaLain.length() > 0) {
-                    Sequel.mengedit("rspm_resume_pasien_ranap","no_rawat=?","kd_diagnosa=?",2,new String[]{
-                        diagnosaLain.toString(),norawat
-                    });
+                    if(Sequel.cariInteger("select count(no_rawat) from rspm_resume_pasien_ranap where rspm_resume_pasien_ranap.no_rawat='"+norawat+"'")>0) {
+                        Sequel.mengedit("rspm_resume_pasien_ranap","no_rawat=?","kd_diagnosa=?",2,new String[]{
+                            diagnosaLain.toString(),norawat
+                        });
+                    } else {
+                        Sequel.menyimpantf("rspm_resume_pasien_ranap","?,NULL,?,NULL","No.Rawat",2,new String[]{
+                                norawat,diagnosaLain.toString()
+                            });
+                    }
                 }
             }
             koneksi.setAutoCommit(true);  
@@ -1065,9 +1071,15 @@ public class PanelDiagnosa extends widget.panelisi {
                     index++;
                 }    
                 if (prosedurLain.length() > 0) {
-                    Sequel.mengedit("rspm_resume_pasien_ranap","no_rawat=?","kd_prosedur=?",2,new String[]{
-                        prosedurLain.toString(),norawat
-                    });
+                    if(Sequel.cariInteger("select count(no_rawat) from rspm_resume_pasien_ranap where rspm_resume_pasien_ranap.no_rawat='"+norawat+"'")>0) {
+                        Sequel.mengedit("rspm_resume_pasien_ranap","no_rawat=?","kd_prosedur=?",2,new String[]{
+                            prosedurLain.toString(),norawat
+                        });
+                    } else {
+                        Sequel.menyimpantf("rspm_resume_pasien_ranap","?,NULL,NULL,?","No.Rawat",2,new String[]{
+                            norawat,prosedurLain.toString()
+                        });
+                    }
                 }    
                 // ------
             }
