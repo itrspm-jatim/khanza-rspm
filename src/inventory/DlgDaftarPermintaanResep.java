@@ -2,6 +2,7 @@ package inventory;
 import bridging.BPJSDataSEP;
 import fungsi.BackgroundMusic;
 import fungsi.WarnaTable;
+import fungsi.WarnaTableResepFarmasi;
 import fungsi.batasInput;
 import fungsi.koneksiDB;
 import fungsi.sekuel;
@@ -111,7 +112,7 @@ public class DlgDaftarPermintaanResep extends javax.swing.JDialog {
                 column.setPreferredWidth(90);
             }
         }
-        tbResepRalan.setDefaultRenderer(Object.class, new WarnaTable());
+        tbResepRalan.setDefaultRenderer(Object.class, new WarnaTableResepFarmasi());
         
         tabMode2=new DefaultTableModel(null,new Object[]{
                 "No.Resep","Tgl.Resep","Poli/Unit","Status","Pasien","Dokter Peresep"
