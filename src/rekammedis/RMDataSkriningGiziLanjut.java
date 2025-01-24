@@ -1608,6 +1608,40 @@ public final class RMDataSkriningGiziLanjut extends javax.swing.JDialog {
         isRawat();
         ChkInput.setSelected(true);
         isForm();
+        isIsian();
+    }
+   
+    // rspm
+    private void isIsian() {
+        try {
+            ps=koneksi.prepareStatement(
+                    "SELECT keluhan, tensi, nadi, tinggi, berat, suhu_tubuh, respirasi,spo2, gcs, pemeriksaan, penilaian, instruksi, rtl, evaluasi FROM pemeriksaan_ralan WHERE no_rawat ='"+TNoRw.getText()+"'");
+            try {
+                rs=ps.executeQuery();
+                while (rs.next()) {
+                BB.setText(rs.getString("berat"));
+                TB.setText(rs.getString("tinggi"));
+                String beratStr = rs.getString("berat");
+                String tinggiStr = rs.getString("tinggi");
+
+                double berat = Double.parseDouble(beratStr);
+                double tinggi = Double.parseDouble(tinggiStr);
+                double result = berat / tinggi;
+                IMT.setText(Double.toString(result));
+            }
+            } catch (Exception e) {
+                System.out.println("Notif : "+e);
+            } finally{
+                if(rs!=null){
+                    rs.close();
+                }
+                if(ps!=null){
+                    ps.close();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notif : "+e);
+        } 
     }
     
     private void isForm(){
