@@ -1976,7 +1976,39 @@ public final class RMSkriningNutrisiAnak extends javax.swing.JDialog {
         isPsien();
         ChkInput.setSelected(true);
         isForm();
+        isIsian();
     }
+
+    // rspm
+    private void isIsian() {
+        try {
+            ps=koneksi.prepareStatement(
+                    "SELECT keluhan, tensi, nadi, tinggi, berat, suhu_tubuh, respirasi,spo2, gcs, pemeriksaan, penilaian, instruksi, rtl, evaluasi FROM pemeriksaan_ralan WHERE no_rawat ='"+TNoRw.getText()+"'");
+            try {
+                rs=ps.executeQuery();
+                while (rs.next()) {
+                TD.setText(rs.getString("tensi"));
+                RR.setText(rs.getString("respirasi"));
+                Suhu.setText(rs.getString("suhu_tubuh"));
+                SpO2.setText(rs.getString("spo2"));
+                BB.setText(rs.getString("berat"));
+                TBPB.setText(rs.getString("tinggi"));
+                HR.setText(rs.getString("nadi"));
+            }
+            } catch (Exception e) {
+                System.out.println("Notif : "+e);
+            } finally{
+                if(rs!=null){
+                    rs.close();
+                }
+                if(ps!=null){
+                    ps.close();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notif : "+e);
+        } 
+    }    
     
     private void isForm(){
         if(ChkInput.isSelected()==true){

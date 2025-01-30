@@ -443,7 +443,7 @@ public final class RMDataCatatanObservasiIGD extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-01-2024" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-10-2024" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -457,7 +457,7 @@ public final class RMDataCatatanObservasiIGD extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-01-2024" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-10-2024" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -553,7 +553,7 @@ public final class RMDataCatatanObservasiIGD extends javax.swing.JDialog {
         TPasien.setBounds(336, 10, 285, 23);
 
         Tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-01-2024" }));
+        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-10-2024" }));
         Tanggal.setDisplayFormat("dd-MM-yyyy");
         Tanggal.setName("Tanggal"); // NOI18N
         Tanggal.setOpaque(false);
@@ -676,6 +676,11 @@ public final class RMDataCatatanObservasiIGD extends javax.swing.JDialog {
 
         GCS.setFocusTraversalPolicyProvider(true);
         GCS.setName("GCS"); // NOI18N
+        GCS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GCSActionPerformed(evt);
+            }
+        });
         GCS.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 GCSKeyPressed(evt);
@@ -1142,6 +1147,10 @@ public final class RMDataCatatanObservasiIGD extends javax.swing.JDialog {
         Valid.pindah(evt,Suhu,BtnSimpan);
     }//GEN-LAST:event_SPOKeyPressed
 
+    private void GCSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GCSActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GCSActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -1359,6 +1368,37 @@ public final class RMDataCatatanObservasiIGD extends javax.swing.JDialog {
         isRawat();
         ChkInput.setSelected(true);
         isForm();
+        isIsian();
+    }
+    
+    // rspm
+    private void isIsian() {
+        try {
+            ps=koneksi.prepareStatement(
+                    "SELECT keluhan, tensi, nadi, tinggi, berat, suhu_tubuh, respirasi,spo2, gcs, pemeriksaan, penilaian, instruksi, rtl, evaluasi FROM pemeriksaan_ralan WHERE no_rawat ='"+TNoRw.getText()+"'");
+            try {
+                rs=ps.executeQuery();
+                while (rs.next()) {
+                TD.setText(rs.getString("tensi"));
+                RR.setText(rs.getString("respirasi"));
+                Suhu.setText(rs.getString("suhu_tubuh"));
+                SPO.setText(rs.getString("spo2"));
+                GCS.setText(rs.getString("gcs"));
+                HR.setText(rs.getString("nadi"));
+            }
+            } catch (Exception e) {
+                System.out.println("Notif : "+e);
+            } finally{
+                if(rs!=null){
+                    rs.close();
+                }
+                if(ps!=null){
+                    ps.close();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notif : "+e);
+        } 
     }
     
     private void isForm(){
