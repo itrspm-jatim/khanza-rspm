@@ -866,7 +866,7 @@ public class PanelDiagnosa extends widget.panelisi {
                                 tbDiagnosa.getValueAt(i,1).toString(),norawat
                             });
                             // rspm
-                            if(Sequel.cariInteger("select count(*) from reg_periksa where reg_periksa.no_rawat='"+norawat+"' and reg_periksa.kd_poli='P0006'")>0) {
+                            if(Sequel.cariInteger("select count(fisik_rehab_medik.no_rawat) from fisik_rehab_medik where fisik_rehab_medik.no_rawat=?",norawat)>0) {
                                 Sequel.mengedit("fisik_rehab_medik","no_rawat=?","kd_diagnosa_utama=?",2,new String[]{
                                 tbDiagnosa.getValueAt(i,1).toString(),norawat
                                 });
@@ -883,7 +883,7 @@ public class PanelDiagnosa extends widget.panelisi {
                                 tbDiagnosa.getValueAt(i,1).toString(),norawat
                             });
                             // rspm
-                            if(Sequel.cariInteger("select count(*) from reg_periksa where reg_periksa.no_rawat='"+norawat+"' and reg_periksa.kd_poli='P0006'")>0) {
+                            if(Sequel.cariInteger("select count(fisik_rehab_medik.no_rawat) from fisik_rehab_medik where fisik_rehab_medik.no_rawat=?",norawat)>0) {
                                 Sequel.mengedit("fisik_rehab_medik","no_rawat=?","kd_diagnosa_sekunder=?",2,new String[]{
                                 tbDiagnosa.getValueAt(i,1).toString(),norawat
                                 });
@@ -900,7 +900,7 @@ public class PanelDiagnosa extends widget.panelisi {
                                 tbDiagnosa.getValueAt(i,1).toString(),norawat
                             });
                             // rspm
-                            if(Sequel.cariInteger("select count(*) from reg_periksa where reg_periksa.no_rawat='"+norawat+"' and reg_periksa.kd_poli='P0006'")>0) {
+                            if(Sequel.cariInteger("select count(fisik_rehab_medik.no_rawat) from fisik_rehab_medik where fisik_rehab_medik.no_rawat=?",norawat)>0) {
                                 Sequel.mengedit("fisik_rehab_medik","no_rawat=?","kd_diagnosa_sekunder2=?",2,new String[]{
                                 tbDiagnosa.getValueAt(i,1).toString(),norawat
                                 });
@@ -917,7 +917,7 @@ public class PanelDiagnosa extends widget.panelisi {
                                 tbDiagnosa.getValueAt(i,1).toString(),norawat
                             });
                             // rspm
-                            if(Sequel.cariInteger("select count(*) from reg_periksa where reg_periksa.no_rawat='"+norawat+"' and reg_periksa.kd_poli='P0006'")>0) {
+                            if(Sequel.cariInteger("select count(fisik_rehab_medik.no_rawat) from fisik_rehab_medik where fisik_rehab_medik.no_rawat=?",norawat)>0) {
                                 Sequel.mengedit("fisik_rehab_medik","no_rawat=?","kd_diagnosa_sekunder3=?",2,new String[]{
                                 tbDiagnosa.getValueAt(i,1).toString(),norawat
                                 });
@@ -934,7 +934,7 @@ public class PanelDiagnosa extends widget.panelisi {
                                 tbDiagnosa.getValueAt(i,1).toString(),norawat
                             });
                             // rspm
-                            if(Sequel.cariInteger("select count(*) from reg_periksa where reg_periksa.no_rawat='"+norawat+"' and reg_periksa.kd_poli='P0006'")>0) {
+                            if(Sequel.cariInteger("select count(fisik_rehab_medik.no_rawat) from fisik_rehab_medik where fisik_rehab_medik.no_rawat=?",norawat)>0) {
                                 Sequel.mengedit("fisik_rehab_medik","no_rawat=?","kd_diagnosa_sekunder4=?",2,new String[]{
                                 tbDiagnosa.getValueAt(i,1).toString(),norawat
                                 });
@@ -973,7 +973,7 @@ public class PanelDiagnosa extends widget.panelisi {
                                 tbProsedur.getValueAt(i,1).toString(),norawat
                             });
                             // rspm
-                            if(Sequel.cariInteger("select count(*) from reg_periksa where reg_periksa.no_rawat='"+norawat+"' and reg_periksa.kd_poli='P0006'")>0) {
+                            if(Sequel.cariInteger("select count(fisik_rehab_medik.no_rawat) from fisik_rehab_medik where fisik_rehab_medik.no_rawat=?",norawat)>0) {
                                 Sequel.mengedit("fisik_rehab_medik","no_rawat=?","kd_prosedur_utama=?",2,new String[]{
                                 tbProsedur.getValueAt(i,1).toString(),norawat
                                 });
@@ -990,7 +990,7 @@ public class PanelDiagnosa extends widget.panelisi {
                                 tbProsedur.getValueAt(i,1).toString(),norawat
                             });
                             // rspm
-                            if(Sequel.cariInteger("select count(*) from reg_periksa where reg_periksa.no_rawat='"+norawat+"' and reg_periksa.kd_poli='P0006'")>0) {
+                            if(Sequel.cariInteger("select count(fisik_rehab_medik.no_rawat) from fisik_rehab_medik where fisik_rehab_medik.no_rawat=?",norawat)>0) {
                                 Sequel.mengedit("fisik_rehab_medik","no_rawat=?","kd_prosedur_sekunder=?",2,new String[]{
                                 tbProsedur.getValueAt(i,1).toString(),norawat
                                 });
@@ -1007,7 +1007,7 @@ public class PanelDiagnosa extends widget.panelisi {
                                 tbProsedur.getValueAt(i,1).toString(),norawat
                             });
                             // rspm
-                            if(Sequel.cariInteger("select count(*) from reg_periksa where reg_periksa.no_rawat='"+norawat+"' and reg_periksa.kd_poli='P0006'")>0) {
+                            if(Sequel.cariInteger("select count(fisik_rehab_medik.no_rawat) from fisik_rehab_medik where fisik_rehab_medik.no_rawat=?",norawat)>0) {
                                 Sequel.mengedit("fisik_rehab_medik","no_rawat=?","kd_prosedur_sekunder2=?",2,new String[]{
                                 tbProsedur.getValueAt(i,1).toString(),norawat
                                 });
@@ -1024,7 +1024,7 @@ public class PanelDiagnosa extends widget.panelisi {
                                 tbProsedur.getValueAt(i,1).toString(),norawat
                             });
                             // rspm
-                            if(Sequel.cariInteger("select count(*) from reg_periksa where reg_periksa.no_rawat='"+norawat+"' and reg_periksa.kd_poli='P0006'")>0) {
+                            if(Sequel.cariInteger("select count(fisik_rehab_medik.no_rawat) from fisik_rehab_medik where fisik_rehab_medik.no_rawat=?",norawat)>0) {
                                 Sequel.mengedit("fisik_rehab_medik","no_rawat=?","kd_prosedur_sekunder3=?",2,new String[]{
                                 tbProsedur.getValueAt(i,1).toString(),norawat
                                 });

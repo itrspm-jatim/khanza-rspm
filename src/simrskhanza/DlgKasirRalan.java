@@ -7642,6 +7642,17 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
                                         tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(),11).toString(),norawatdipilih
                                     }
                                 );
+                                // rspm
+                                Sequel.queryu2("update penilaian_medis_ralan_rehab_medik set no_rawat=? where no_rawat=?",2,
+                                    new String[]{
+                                        tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(),11).toString(),norawatdipilih
+                                    }
+                                );
+                                Sequel.queryu2("update fisik_rehab_medik set no_rawat=? where no_rawat=?",2,
+                                    new String[]{
+                                        tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(),11).toString(),norawatdipilih
+                                    }
+                                );
                                 if(Sequel.queryu2tf("delete from reg_periksa where no_rawat=?",1,new String[]{norawatdipilih})==true){
                                     for(i=0;i<tbKasirRalan.getRowCount();i++){
                                         if(tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(),11).toString().equals(norawatdipilih)){

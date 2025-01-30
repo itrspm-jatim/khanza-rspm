@@ -5689,6 +5689,112 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                     );
                     //menampilkan resume perawatan
                     if(chkResume.isSelected()==true){
+                        if(Sequel.cariInteger("select count(fisik_rehab_medik.no_rawat) from fisik_rehab_medik where fisik_rehab_medik.no_rawat=?",rs.getString("no_rawat"))>0) {
+                            try {
+                                // rspm
+                                String kdDiagnosa = Sequel.cariIsi("SELECT GROUP_CONCAT(kd_penyakit order by prioritas asc SEPARATOR ',') AS daftar_penyakit FROM diagnosa_pasien WHERE no_rawat='"+rs.getString("no_rawat")+"'"); // Ambil data diagnosa
+                                String kdProsedur = Sequel.cariIsi("SELECT GROUP_CONCAT(kode order by prioritas asc SEPARATOR ',') AS kode FROM prosedur_pasien WHERE no_rawat='"+rs.getString("no_rawat")+"'"); // Ambil data prosedur 
+                                String nmDiagnosa = Sequel.cariIsi("SELECT GROUP_CONCAT(p.nm_penyakit ORDER BY dg.prioritas ASC SEPARATOR ',') AS nm_penyakit FROM diagnosa_pasien dg JOIN penyakit p on dg.kd_penyakit = p.kd_penyakit WHERE dg.no_rawat='"+rs.getString("no_rawat")+"'"); // Ambil nama diagnosa
+                                String nmProsedur = Sequel.cariIsi("SELECT GROUP_CONCAT(p.deskripsi_panjang ORDER BY dg.prioritas ASC SEPARATOR ',') AS nm_kode FROM prosedur_pasien dg JOIN icd9 p on dg.kode = p.kode WHERE dg.no_rawat='"+rs.getString("no_rawat")+"'"); // Ambil nama prosedur 
+                                // Berikan nilai default jika null
+                                kdDiagnosa = (kdDiagnosa == null) ? "" : kdDiagnosa;
+                                kdProsedur = (kdProsedur == null) ? "Tidak Ada Prosedur" : kdProsedur;
+                                nmDiagnosa = (nmDiagnosa == null) ? "" : nmDiagnosa;
+                                nmProsedur = (nmProsedur == null) ? "Tidak Ada Prosedur" : nmProsedur;
+
+                                String[] diagnosaArray = kdDiagnosa.split(",");
+                                String[] prosedurArray = kdProsedur.split(",");
+                                String[] nmDiagnosaArray = nmDiagnosa.split(",");
+                                String[] nmProsedurArray = nmProsedur.split(",");
+                                rs2=koneksi.prepareStatement(
+                                "select fisik_rehab_medik.kd_dokter,dokter.nm_dokter,fisik_rehab_medik.anamesa, "+
+                                "fisik_rehab_medik.fisik_ujifungsi,fisik_rehab_medik.pemeriksaan_penunjang,fisik_rehab_medik.diagnosa_utama,fisik_rehab_medik.kd_diagnosa_utama, "+
+                                "fisik_rehab_medik.diagnosa_sekunder,fisik_rehab_medik.kd_diagnosa_sekunder,fisik_rehab_medik.diagnosa_sekunder2,fisik_rehab_medik.kd_diagnosa_sekunder2, "+
+                                "fisik_rehab_medik.diagnosa_sekunder3,fisik_rehab_medik.kd_diagnosa_sekunder3,fisik_rehab_medik.diagnosa_sekunder4,fisik_rehab_medik.kd_diagnosa_sekunder4, "+
+                                "fisik_rehab_medik.prosedur_utama,fisik_rehab_medik.kd_prosedur_utama,fisik_rehab_medik.prosedur_sekunder,fisik_rehab_medik.kd_prosedur_sekunder, "+
+                                "fisik_rehab_medik.prosedur_sekunder2,fisik_rehab_medik.kd_prosedur_sekunder2,fisik_rehab_medik.prosedur_sekunder3,fisik_rehab_medik.kd_prosedur_sekunder3, "+
+                                "fisik_rehab_medik.anjuran,fisik_rehab_medik.evaluasi,fisik_rehab_medik.suspek from fisik_rehab_medik inner join dokter on fisik_rehab_medik.kd_dokter=dokter.kd_dokter "+
+                                "where fisik_rehab_medik.no_rawat='"+rs.getString("no_rawat")+"'").executeQuery();
+                                if(rs2.next()){
+                                    htmlContent.append(
+                                        "<tr class='isi'>"+ 
+                                          "<td valign='top' width='2%'></td>"+        
+                                          "<td valign='top' width='18%'>Resume Pasien Rehab Medik</td>"+
+                                          "<td valign='top' width='1%' align='center'>:</td>"+
+                                          "<td valign='top' width='79%'>"+
+                                            "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"+
+                                               "<tr align='center'>"+
+                                                  "<td valign='top' width='20%' bgcolor='#FFFAF8'>Status</td>"+
+                                                  "<td valign='top' width='20%' bgcolor='#FFFAF8'>Kode Dokter</td>"+
+                                                  "<td valign='top' width='40%' bgcolor='#FFFAF8'>Nama Dokter</td>"+
+                                               "</tr>"
+                                    );
+                                    rs2.beforeFirst();
+                                    while(rs2.next()){
+                                        htmlContent.append(
+                                            "<tr>"+
+                                               "<td valign='top'>"+rs.getString("status_lanjut")+"</td>"+
+                                               "<td valign='top'>"+rs2.getString("kd_dokter")+"</td>"+
+                                               "<td valign='top'>"+rs2.getString("nm_dokter")+"</td>"+
+                                            "</tr>"+
+                                            "<tr>"+
+                                               "<td valign='top' colspan='4'>Anamesa :<br>"+rs2.getString("anamesa").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
+                                            "</tr>"+
+                                            "<tr>"+
+                                               "<td valign='top' colspan='4'>Pemeriksaan Fisik dan Uji Fungsi :<br>"+rs2.getString("fisik_ujifungsi").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
+                                            "</tr>"+
+                                            "<tr>"+
+                                               "<td valign='top' colspan='4'>Pemeriksaan penunjang yang positif :<br>"+rs2.getString("pemeriksaan_penunjang").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
+                                            "</tr>"+
+                                            "<tr>"+
+                                               "<td valign='top' colspan='4'>Diagnosa Akhir :<br>"+
+                                                   "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>");
+                                                   for (int i = 0; i < diagnosaArray.length; i++) {
+                                                       htmlContent.append("<tr align='left' border='0'>")
+                                                       .append("<td valign='top' width='20%' border='0'>")
+                                                       .append(i == 0 ? "Diagnosa Utama" : "Diagnosa Sekunder " + i)
+                                                       .append("</td>")
+                                                       .append("<td valign='top' width='60%' border='0'>:&nbsp;").append(nmDiagnosaArray[i]).append("</td>")
+                                                       .append("<td valign='top' width='20%' border='0'>&nbsp;").append(diagnosaArray[i]).append("</td>")
+                                                       .append("</tr>");
+                                                   }
+                                                   for (int i = 0; i < prosedurArray.length; i++) {
+                                                       htmlContent.append("<tr align='left' border='0'>")
+                                                       .append("<td valign='top' width='20%' border='0'>")
+                                                       .append(i == 0 ? "Prosedur Utama" : "Prosedur Sekunder " + i)
+                                                       .append("</td>")
+                                                       .append("<td valign='top' width='60%' border='0'>:&nbsp;").append(nmProsedurArray[i]).append("</td>")
+                                                       .append("<td valign='top' width='20%' border='0'>&nbsp;").append(prosedurArray[i]).append("</td>")
+                                                       .append("</tr>");
+                                                   }
+                                               htmlContent.append("</table>"+
+                                               "</td>"+
+                                            "</tr>"+
+                                            "<tr>"+
+                                               "<td valign='top' colspan='4'>Anjuran :<br>"+rs2.getString("anjuran").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
+                                            "</tr>"+
+                                            "<tr>"+
+                                               "<td valign='top' colspan='4'>Evaluasi :<br>"+rs2.getString("evaluasi").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
+                                            "</tr>"+
+                                            "<tr>"+
+                                               "<td valign='top' colspan='4'>Suspek Penyakit Akibat Kerja :<br>"+rs2.getString("suspek").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
+                                            "</tr>"
+                                       );                                        
+                                       w++;
+                                   }
+                                   htmlContent.append(
+                                         "</table>"+
+                                       "</td>"+
+                                     "</tr>");
+                               }   
+                            } catch (Exception e) {
+                            System.out.println("Notifikasi : "+e);
+                            } finally{
+                                if(rs2!=null){
+                                    rs2.close();
+                                }
+                            }
+                        }
                         try {
                             // rspm
                             String kdDiagnosa = Sequel.cariIsi("SELECT GROUP_CONCAT(kd_penyakit order by prioritas asc SEPARATOR ',') AS daftar_penyakit FROM diagnosa_pasien WHERE no_rawat='"+rs.getString("no_rawat")+"'"); // Ambil data diagnosa
@@ -5705,170 +5811,86 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                             String[] prosedurArray = kdProsedur.split(",");
                             String[] nmDiagnosaArray = nmDiagnosa.split(",");
                             String[] nmProsedurArray = nmProsedur.split(",");
-                            if(Sequel.cariInteger("select count(fisik_rehab_medik.no_rawat) from fisik_rehab_medik where fisik_rehab_medik.no_rawat=?",rs.getString("no_rawat"))>0) {
-                                rs2=koneksi.prepareStatement(
-                                "select fisik_rehab_medik.kd_dokter,dokter.nm_dokter,fisik_rehab_medik.anamesa, "+
-                                "fisik_rehab_medik.fisik_ujifungsi,fisik_rehab_medik.pemeriksaan_penunjang,fisik_rehab_medik.diagnosa_utama,fisik_rehab_medik.kd_diagnosa_utama, "+
-                                "fisik_rehab_medik.diagnosa_sekunder,fisik_rehab_medik.kd_diagnosa_sekunder,fisik_rehab_medik.diagnosa_sekunder2,fisik_rehab_medik.kd_diagnosa_sekunder2, "+
-                                "fisik_rehab_medik.diagnosa_sekunder3,fisik_rehab_medik.kd_diagnosa_sekunder3,fisik_rehab_medik.diagnosa_sekunder4,fisik_rehab_medik.kd_diagnosa_sekunder4, "+
-                                "fisik_rehab_medik.prosedur_utama,fisik_rehab_medik.kd_prosedur_utama,fisik_rehab_medik.prosedur_sekunder,fisik_rehab_medik.kd_prosedur_sekunder, "+
-                                "fisik_rehab_medik.prosedur_sekunder2,fisik_rehab_medik.kd_prosedur_sekunder2,fisik_rehab_medik.prosedur_sekunder3,fisik_rehab_medik.kd_prosedur_sekunder3, "+
-                                "fisik_rehab_medik.anjuran,fisik_rehab_medik.evaluasi,fisik_rehab_medik.suspek from fisik_rehab_medik inner join dokter on fisik_rehab_medik.kd_dokter=dokter.kd_dokter "+
-                                "where fisik_rehab_medik.no_rawat='"+rs.getString("no_rawat")+"'").executeQuery();
-                                if(rs2.next()){
+                            // ------------------------------
+                            rs2=koneksi.prepareStatement(
+                                "select resume_pasien.kd_dokter,dokter.nm_dokter,resume_pasien.kondisi_pulang,resume_pasien.keluhan_utama, "+
+                                "resume_pasien.jalannya_penyakit,resume_pasien.pemeriksaan_penunjang,resume_pasien.hasil_laborat,resume_pasien.diagnosa_utama,resume_pasien.kd_diagnosa_utama, "+
+                                "resume_pasien.diagnosa_sekunder,resume_pasien.kd_diagnosa_sekunder,resume_pasien.diagnosa_sekunder2,resume_pasien.kd_diagnosa_sekunder2, "+
+                                "resume_pasien.diagnosa_sekunder3,resume_pasien.kd_diagnosa_sekunder3,resume_pasien.diagnosa_sekunder4,resume_pasien.kd_diagnosa_sekunder4, "+
+                                "resume_pasien.prosedur_utama,resume_pasien.kd_prosedur_utama,resume_pasien.prosedur_sekunder,resume_pasien.kd_prosedur_sekunder, "+
+                                "resume_pasien.prosedur_sekunder2,resume_pasien.kd_prosedur_sekunder2,resume_pasien.prosedur_sekunder3,resume_pasien.kd_prosedur_sekunder3, "+
+                                "resume_pasien.obat_pulang from resume_pasien inner join dokter on resume_pasien.kd_dokter=dokter.kd_dokter "+
+                                "where resume_pasien.no_rawat='"+rs.getString("no_rawat")+"'").executeQuery();
+                            if(rs2.next()){
+                                htmlContent.append(
+                                  "<tr class='isi'>"+ 
+                                    "<td valign='top' width='2%'></td>"+        
+                                    "<td valign='top' width='18%'>Resume Pasien</td>"+
+                                    "<td valign='top' width='1%' align='center'>:</td>"+
+                                    "<td valign='top' width='79%'>"+
+                                      "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"+
+                                         "<tr align='center'>"+
+                                            "<td valign='top' width='20%' bgcolor='#FFFAF8'>Status</td>"+
+                                            "<td valign='top' width='20%' bgcolor='#FFFAF8'>Kode Dokter</td>"+
+                                            "<td valign='top' width='40%' bgcolor='#FFFAF8'>Nama Dokter</td>"+
+                                            "<td valign='top' width='20%' bgcolor='#FFFAF8'>Kondisi Pulang</td>"+
+                                         "</tr>"
+                                );
+                                rs2.beforeFirst();
+                                while(rs2.next()){
                                     htmlContent.append(
-                                      "<tr class='isi'>"+ 
-                                        "<td valign='top' width='2%'></td>"+        
-                                        "<td valign='top' width='18%'>Resume Pasien</td>"+
-                                        "<td valign='top' width='1%' align='center'>:</td>"+
-                                        "<td valign='top' width='79%'>"+
-                                          "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"+
-                                             "<tr align='center'>"+
-                                                "<td valign='top' width='20%' bgcolor='#FFFAF8'>Status</td>"+
-                                                "<td valign='top' width='20%' bgcolor='#FFFAF8'>Kode Dokter</td>"+
-                                                "<td valign='top' width='40%' bgcolor='#FFFAF8'>Nama Dokter</td>"+
-                                             "</tr>"
-                                    );
-                                    rs2.beforeFirst();
-                                    while(rs2.next()){
-                                        htmlContent.append(
-                                             "<tr>"+
-                                                "<td valign='top'>"+rs.getString("status_lanjut")+"</td>"+
-                                                "<td valign='top'>"+rs2.getString("kd_dokter")+"</td>"+
-                                                "<td valign='top'>"+rs2.getString("nm_dokter")+"</td>"+
-                                             "</tr>"+
-                                             "<tr>"+
-                                                "<td valign='top' colspan='4'>Anamesa :<br>"+rs2.getString("anamesa").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
-                                             "</tr>"+
-                                             "<tr>"+
-                                                "<td valign='top' colspan='4'>Pemeriksaan Fisik dan Uji Fungsi :<br>"+rs2.getString("fisik_ujifungsi").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
-                                             "</tr>"+
-                                             "<tr>"+
-                                                "<td valign='top' colspan='4'>Pemeriksaan penunjang yang positif :<br>"+rs2.getString("pemeriksaan_penunjang").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
-                                             "</tr>"+
-                                             "<tr>"+
-                                                "<td valign='top' colspan='4'>Diagnosa Akhir :<br>"+
-                                                    "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>");
-                                                    for (int i = 0; i < diagnosaArray.length; i++) {
-                                                        htmlContent.append("<tr align='left' border='0'>")
-                                                        .append("<td valign='top' width='20%' border='0'>")
-                                                        .append(i == 0 ? "Diagnosa Utama" : "Diagnosa Sekunder " + i)
-                                                        .append("</td>")
-                                                        .append("<td valign='top' width='60%' border='0'>:&nbsp;").append(nmDiagnosaArray[i]).append("</td>")
-                                                        .append("<td valign='top' width='20%' border='0'>&nbsp;").append(diagnosaArray[i]).append("</td>")
-                                                        .append("</tr>");
-                                                    }
-                                                    for (int i = 0; i < prosedurArray.length; i++) {
-                                                        htmlContent.append("<tr align='left' border='0'>")
-                                                        .append("<td valign='top' width='20%' border='0'>")
-                                                        .append(i == 0 ? "Prosedur Utama" : "Prosedur Sekunder " + i)
-                                                        .append("</td>")
-                                                        .append("<td valign='top' width='60%' border='0'>:&nbsp;").append(nmProsedurArray[i]).append("</td>")
-                                                        .append("<td valign='top' width='20%' border='0'>&nbsp;").append(prosedurArray[i]).append("</td>")
-                                                        .append("</tr>");
-                                                    }
-                                                htmlContent.append("</table>"+
-                                                "</td>"+
-                                             "</tr>"+
-                                             "<tr>"+
-                                                "<td valign='top' colspan='4'>Anjuran :<br>"+rs2.getString("anjuran").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
-                                             "</tr>"+
-                                             "<tr>"+
-                                                "<td valign='top' colspan='4'>Evaluasi :<br>"+rs2.getString("evaluasi").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
-                                             "</tr>"+
-                                             "<tr>"+
-                                                "<td valign='top' colspan='4'>Suspek Penyakit Akibat Kerja :<br>"+rs2.getString("suspek").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
-                                             "</tr>"
-                                        );                                        
-                                        w++;
-                                    }
-                                    htmlContent.append(
-                                          "</table>"+
-                                        "</td>"+
-                                      "</tr>");
+                                         "<tr>"+
+                                            "<td valign='top'>"+rs.getString("status_lanjut")+"</td>"+
+                                            "<td valign='top'>"+rs2.getString("kd_dokter")+"</td>"+
+                                            "<td valign='top'>"+rs2.getString("nm_dokter")+"</td>"+
+                                            "<td valign='top'>"+rs2.getString("kondisi_pulang")+"</td>"+
+                                         "</tr>"+
+                                         "<tr>"+
+                                            "<td valign='top' colspan='4'>Keluhan utama riwayat penyakit yang positif :<br>"+rs2.getString("keluhan_utama").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
+                                         "</tr>"+
+                                         "<tr>"+
+                                            "<td valign='top' colspan='4'>Jalannya penyakit selama perawatan :<br>"+rs2.getString("jalannya_penyakit").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
+                                         "</tr>"+
+                                         "<tr>"+
+                                            "<td valign='top' colspan='4'>Pemeriksaan penunjang yang positif :<br>"+rs2.getString("pemeriksaan_penunjang").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
+                                         "</tr>"+
+                                         "<tr>"+
+                                            "<td valign='top' colspan='4'>Hasil laboratorium yang positif :<br>"+rs2.getString("hasil_laborat").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
+                                         "</tr>"+
+                                         "<tr>"+
+                                            "<td valign='top' colspan='4'>Diagnosa Akhir :<br>"+
+                                                "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>");
+                                                for (int i = 0; i < diagnosaArray.length; i++) {
+                                                    htmlContent.append("<tr align='left' border='0'>")
+                                                    .append("<td valign='top' width='20%' border='0'>")
+                                                    .append(i == 0 ? "Diagnosa Utama" : "Diagnosa Sekunder " + i)
+                                                    .append("</td>")
+                                                    .append("<td valign='top' width='60%' border='0'>:&nbsp;").append(nmDiagnosaArray[i]).append("</td>")
+                                                    .append("<td valign='top' width='20%' border='0'>&nbsp;").append(diagnosaArray[i]).append("</td>")
+                                                    .append("</tr>");
+                                                }
+                                                for (int i = 0; i < prosedurArray.length; i++) {
+                                                    htmlContent.append("<tr align='left' border='0'>")
+                                                    .append("<td valign='top' width='20%' border='0'>")
+                                                    .append(i == 0 ? "Prosedur Utama" : "Prosedur Sekunder " + i)
+                                                    .append("</td>")
+                                                    .append("<td valign='top' width='60%' border='0'>:&nbsp;").append(nmProsedurArray[i]).append("</td>")
+                                                    .append("<td valign='top' width='20%' border='0'>&nbsp;").append(prosedurArray[i]).append("</td>")
+                                                    .append("</tr>");
+                                                }
+                                            htmlContent.append("</table>"+
+                                            "</td>"+
+                                         "</tr>"+
+                                         "<tr>"+
+                                            "<td valign='top' colspan='4'>Obat-obatan waktu pulang/nasihat :<br>"+rs2.getString("obat_pulang").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
+                                         "</tr>"
+                                    );                                        
+                                    w++;
                                 }
-                            } else {
-                                // ------------------------------
-                                rs2=koneksi.prepareStatement(
-                                    "select resume_pasien.kd_dokter,dokter.nm_dokter,resume_pasien.kondisi_pulang,resume_pasien.keluhan_utama, "+
-                                    "resume_pasien.jalannya_penyakit,resume_pasien.pemeriksaan_penunjang,resume_pasien.hasil_laborat,resume_pasien.diagnosa_utama,resume_pasien.kd_diagnosa_utama, "+
-                                    "resume_pasien.diagnosa_sekunder,resume_pasien.kd_diagnosa_sekunder,resume_pasien.diagnosa_sekunder2,resume_pasien.kd_diagnosa_sekunder2, "+
-                                    "resume_pasien.diagnosa_sekunder3,resume_pasien.kd_diagnosa_sekunder3,resume_pasien.diagnosa_sekunder4,resume_pasien.kd_diagnosa_sekunder4, "+
-                                    "resume_pasien.prosedur_utama,resume_pasien.kd_prosedur_utama,resume_pasien.prosedur_sekunder,resume_pasien.kd_prosedur_sekunder, "+
-                                    "resume_pasien.prosedur_sekunder2,resume_pasien.kd_prosedur_sekunder2,resume_pasien.prosedur_sekunder3,resume_pasien.kd_prosedur_sekunder3, "+
-                                    "resume_pasien.obat_pulang from resume_pasien inner join dokter on resume_pasien.kd_dokter=dokter.kd_dokter "+
-                                    "where resume_pasien.no_rawat='"+rs.getString("no_rawat")+"'").executeQuery();
-                                if(rs2.next()){
-                                    htmlContent.append(
-                                      "<tr class='isi'>"+ 
-                                        "<td valign='top' width='2%'></td>"+        
-                                        "<td valign='top' width='18%'>Resume Pasien</td>"+
-                                        "<td valign='top' width='1%' align='center'>:</td>"+
-                                        "<td valign='top' width='79%'>"+
-                                          "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"+
-                                             "<tr align='center'>"+
-                                                "<td valign='top' width='20%' bgcolor='#FFFAF8'>Status</td>"+
-                                                "<td valign='top' width='20%' bgcolor='#FFFAF8'>Kode Dokter</td>"+
-                                                "<td valign='top' width='40%' bgcolor='#FFFAF8'>Nama Dokter</td>"+
-                                                "<td valign='top' width='20%' bgcolor='#FFFAF8'>Kondisi Pulang</td>"+
-                                             "</tr>"
-                                    );
-                                    rs2.beforeFirst();
-                                    while(rs2.next()){
-                                        htmlContent.append(
-                                             "<tr>"+
-                                                "<td valign='top'>"+rs.getString("status_lanjut")+"</td>"+
-                                                "<td valign='top'>"+rs2.getString("kd_dokter")+"</td>"+
-                                                "<td valign='top'>"+rs2.getString("nm_dokter")+"</td>"+
-                                                "<td valign='top'>"+rs2.getString("kondisi_pulang")+"</td>"+
-                                             "</tr>"+
-                                             "<tr>"+
-                                                "<td valign='top' colspan='4'>Keluhan utama riwayat penyakit yang positif :<br>"+rs2.getString("keluhan_utama").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
-                                             "</tr>"+
-                                             "<tr>"+
-                                                "<td valign='top' colspan='4'>Jalannya penyakit selama perawatan :<br>"+rs2.getString("jalannya_penyakit").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
-                                             "</tr>"+
-                                             "<tr>"+
-                                                "<td valign='top' colspan='4'>Pemeriksaan penunjang yang positif :<br>"+rs2.getString("pemeriksaan_penunjang").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
-                                             "</tr>"+
-                                             "<tr>"+
-                                                "<td valign='top' colspan='4'>Hasil laboratorium yang positif :<br>"+rs2.getString("hasil_laborat").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
-                                             "</tr>"+
-                                             "<tr>"+
-                                                "<td valign='top' colspan='4'>Diagnosa Akhir :<br>"+
-                                                    "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>");
-                                                    for (int i = 0; i < diagnosaArray.length; i++) {
-                                                        htmlContent.append("<tr align='left' border='0'>")
-                                                        .append("<td valign='top' width='20%' border='0'>")
-                                                        .append(i == 0 ? "Diagnosa Utama" : "Diagnosa Sekunder " + i)
-                                                        .append("</td>")
-                                                        .append("<td valign='top' width='60%' border='0'>:&nbsp;").append(nmDiagnosaArray[i]).append("</td>")
-                                                        .append("<td valign='top' width='20%' border='0'>&nbsp;").append(diagnosaArray[i]).append("</td>")
-                                                        .append("</tr>");
-                                                    }
-                                                    for (int i = 0; i < prosedurArray.length; i++) {
-                                                        htmlContent.append("<tr align='left' border='0'>")
-                                                        .append("<td valign='top' width='20%' border='0'>")
-                                                        .append(i == 0 ? "Prosedur Utama" : "Prosedur Sekunder " + i)
-                                                        .append("</td>")
-                                                        .append("<td valign='top' width='60%' border='0'>:&nbsp;").append(nmProsedurArray[i]).append("</td>")
-                                                        .append("<td valign='top' width='20%' border='0'>&nbsp;").append(prosedurArray[i]).append("</td>")
-                                                        .append("</tr>");
-                                                    }
-                                                htmlContent.append("</table>"+
-                                                "</td>"+
-                                             "</tr>"+
-                                             "<tr>"+
-                                                "<td valign='top' colspan='4'>Obat-obatan waktu pulang/nasihat :<br>"+rs2.getString("obat_pulang").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
-                                             "</tr>"
-                                        );                                        
-                                        w++;
-                                    }
-                                    htmlContent.append(
-                                          "</table>"+
-                                        "</td>"+
-                                      "</tr>");
-                                }
+                                htmlContent.append(
+                                      "</table>"+
+                                    "</td>"+
+                                  "</tr>");
                             }
                         } catch (Exception e) {
                             System.out.println("Notifikasi : "+e);
