@@ -1868,11 +1868,22 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         copy=false;
     }
     
-    public void setNoRm(String norwt,String KodeDokter,String NamaDokter,String Pasien,String kodepj,String status) {        
+    public void setNoRm(String norwt,String KodeDokter,String NamaDokter,String Pasien,String kodepj,String status) {  
+        // rspm
+        try {
+            PreparedStatement psDokter;
+            ResultSet rsDokter;
+            psDokter = koneksi.prepareStatement("select reg_periksa.kd_dokter, dokter.nm_dokter from reg_periksa join dokter on dokter.kd_dokter = reg_periksa.kd_dokter where reg_periksa.no_rawat='"+norwt+"'");
+            rsDokter = psDokter.executeQuery();
+            while(rsDokter.next()) {
+                KdDokter.setText(rsDokter.getString("kd_dokter"));
+                NmDokter.setText(rsDokter.getString("nm_dokter"));
+            }
+        } catch(Exception e){
+            System.out.println("Notifikasi : "+e);
+        }
         TNoRw.setText(norwt);
         TPasien.setText(Pasien);
-        KdDokter.setText(KodeDokter);
-        NmDokter.setText(NamaDokter);
         KdPj.setText(kodepj);
         TCari.requestFocus();
         this.status=status;
