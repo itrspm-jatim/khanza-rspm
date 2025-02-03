@@ -5692,20 +5692,20 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                         if(Sequel.cariInteger("select count(fisik_rehab_medik.no_rawat) from fisik_rehab_medik where fisik_rehab_medik.no_rawat=?",rs.getString("no_rawat"))>0) {
                             try {
                                 // rspm
-                                String kdDiagnosa = Sequel.cariIsi("SELECT GROUP_CONCAT(kd_penyakit order by prioritas asc SEPARATOR ',') AS daftar_penyakit FROM diagnosa_pasien WHERE no_rawat='"+rs.getString("no_rawat")+"'"); // Ambil data diagnosa
-                                String kdProsedur = Sequel.cariIsi("SELECT GROUP_CONCAT(kode order by prioritas asc SEPARATOR ',') AS kode FROM prosedur_pasien WHERE no_rawat='"+rs.getString("no_rawat")+"'"); // Ambil data prosedur 
-                                String nmDiagnosa = Sequel.cariIsi("SELECT GROUP_CONCAT(p.nm_penyakit ORDER BY dg.prioritas ASC SEPARATOR ',') AS nm_penyakit FROM diagnosa_pasien dg JOIN penyakit p on dg.kd_penyakit = p.kd_penyakit WHERE dg.no_rawat='"+rs.getString("no_rawat")+"'"); // Ambil nama diagnosa
-                                String nmProsedur = Sequel.cariIsi("SELECT GROUP_CONCAT(p.deskripsi_panjang ORDER BY dg.prioritas ASC SEPARATOR ',') AS nm_kode FROM prosedur_pasien dg JOIN icd9 p on dg.kode = p.kode WHERE dg.no_rawat='"+rs.getString("no_rawat")+"'"); // Ambil nama prosedur 
+                                String kdDiagnosa = Sequel.cariIsi("SELECT GROUP_CONCAT(kd_penyakit order by prioritas asc SEPARATOR ';') AS daftar_penyakit FROM diagnosa_pasien WHERE no_rawat='"+rs.getString("no_rawat")+"'"); // Ambil data diagnosa
+                                String kdProsedur = Sequel.cariIsi("SELECT GROUP_CONCAT(kode order by prioritas asc SEPARATOR ';') AS kode FROM prosedur_pasien WHERE no_rawat='"+rs.getString("no_rawat")+"'"); // Ambil data prosedur 
+                                String nmDiagnosa = Sequel.cariIsi("SELECT GROUP_CONCAT(p.nm_penyakit ORDER BY dg.prioritas ASC SEPARATOR ';') AS nm_penyakit FROM diagnosa_pasien dg JOIN penyakit p on dg.kd_penyakit = p.kd_penyakit WHERE dg.no_rawat='"+rs.getString("no_rawat")+"'"); // Ambil nama diagnosa
+                                String nmProsedur = Sequel.cariIsi("SELECT GROUP_CONCAT(p.deskripsi_panjang ORDER BY dg.prioritas ASC SEPARATOR ';') AS nm_kode FROM prosedur_pasien dg JOIN icd9 p on dg.kode = p.kode WHERE dg.no_rawat='"+rs.getString("no_rawat")+"'"); // Ambil nama prosedur 
                                 // Berikan nilai default jika null
                                 kdDiagnosa = (kdDiagnosa == null) ? "" : kdDiagnosa;
                                 kdProsedur = (kdProsedur == null) ? "Tidak Ada Prosedur" : kdProsedur;
                                 nmDiagnosa = (nmDiagnosa == null) ? "" : nmDiagnosa;
                                 nmProsedur = (nmProsedur == null) ? "Tidak Ada Prosedur" : nmProsedur;
 
-                                String[] diagnosaArray = kdDiagnosa.split(",");
-                                String[] prosedurArray = kdProsedur.split(",");
-                                String[] nmDiagnosaArray = nmDiagnosa.split(",");
-                                String[] nmProsedurArray = nmProsedur.split(",");
+                                String[] diagnosaArray = kdDiagnosa.split(";");
+                                String[] prosedurArray = kdProsedur.split(";");
+                                String[] nmDiagnosaArray = nmDiagnosa.split(";");
+                                String[] nmProsedurArray = nmProsedur.split(";");
                                 rs2=koneksi.prepareStatement(
                                 "select fisik_rehab_medik.kd_dokter,dokter.nm_dokter,fisik_rehab_medik.anamesa, "+
                                 "fisik_rehab_medik.fisik_ujifungsi,fisik_rehab_medik.pemeriksaan_penunjang,fisik_rehab_medik.diagnosa_utama,fisik_rehab_medik.kd_diagnosa_utama, "+
@@ -5797,20 +5797,20 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                         }
                         try {
                             // rspm
-                            String kdDiagnosa = Sequel.cariIsi("SELECT GROUP_CONCAT(kd_penyakit order by prioritas asc SEPARATOR ',') AS daftar_penyakit FROM diagnosa_pasien WHERE no_rawat='"+rs.getString("no_rawat")+"'"); // Ambil data diagnosa
-                            String kdProsedur = Sequel.cariIsi("SELECT GROUP_CONCAT(kode order by prioritas asc SEPARATOR ',') AS kode FROM prosedur_pasien WHERE no_rawat='"+rs.getString("no_rawat")+"'"); // Ambil data prosedur 
-                            String nmDiagnosa = Sequel.cariIsi("SELECT GROUP_CONCAT(p.nm_penyakit ORDER BY dg.prioritas ASC SEPARATOR ',') AS nm_penyakit FROM diagnosa_pasien dg JOIN penyakit p on dg.kd_penyakit = p.kd_penyakit WHERE dg.no_rawat='"+rs.getString("no_rawat")+"'"); // Ambil nama diagnosa
-                            String nmProsedur = Sequel.cariIsi("SELECT GROUP_CONCAT(p.deskripsi_panjang ORDER BY dg.prioritas ASC SEPARATOR ',') AS nm_kode FROM prosedur_pasien dg JOIN icd9 p on dg.kode = p.kode WHERE dg.no_rawat='"+rs.getString("no_rawat")+"'"); // Ambil nama prosedur 
+                            String kdDiagnosa = Sequel.cariIsi("SELECT GROUP_CONCAT(kd_penyakit order by prioritas asc SEPARATOR ';') AS daftar_penyakit FROM diagnosa_pasien WHERE no_rawat='"+rs.getString("no_rawat")+"'"); // Ambil data diagnosa
+                            String kdProsedur = Sequel.cariIsi("SELECT GROUP_CONCAT(kode order by prioritas asc SEPARATOR ';') AS kode FROM prosedur_pasien WHERE no_rawat='"+rs.getString("no_rawat")+"'"); // Ambil data prosedur 
+                            String nmDiagnosa = Sequel.cariIsi("SELECT GROUP_CONCAT(p.nm_penyakit ORDER BY dg.prioritas ASC SEPARATOR ';') AS nm_penyakit FROM diagnosa_pasien dg JOIN penyakit p on dg.kd_penyakit = p.kd_penyakit WHERE dg.no_rawat='"+rs.getString("no_rawat")+"'"); // Ambil nama diagnosa
+                            String nmProsedur = Sequel.cariIsi("SELECT GROUP_CONCAT(p.deskripsi_panjang ORDER BY dg.prioritas ASC SEPARATOR ';') AS nm_kode FROM prosedur_pasien dg JOIN icd9 p on dg.kode = p.kode WHERE dg.no_rawat='"+rs.getString("no_rawat")+"'"); // Ambil nama prosedur 
                             // Berikan nilai default jika null
                             kdDiagnosa = (kdDiagnosa == null) ? "" : kdDiagnosa;
                             kdProsedur = (kdProsedur == null) ? "Tidak Ada Prosedur" : kdProsedur;
                             nmDiagnosa = (nmDiagnosa == null) ? "" : nmDiagnosa;
                             nmProsedur = (nmProsedur == null) ? "Tidak Ada Prosedur" : nmProsedur;
                             
-                            String[] diagnosaArray = kdDiagnosa.split(",");
-                            String[] prosedurArray = kdProsedur.split(",");
-                            String[] nmDiagnosaArray = nmDiagnosa.split(",");
-                            String[] nmProsedurArray = nmProsedur.split(",");
+                            String[] diagnosaArray = kdDiagnosa.split(";");
+                            String[] prosedurArray = kdProsedur.split(";");
+                            String[] nmDiagnosaArray = nmDiagnosa.split(";");
+                            String[] nmProsedurArray = nmProsedur.split(";");
                             // ------------------------------
                             rs2=koneksi.prepareStatement(
                                 "select resume_pasien.kd_dokter,dokter.nm_dokter,resume_pasien.kondisi_pulang,resume_pasien.keluhan_utama, "+
@@ -5900,20 +5900,20 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                             }
                         }
                         try {
-                            String kdDiagnosa = Sequel.cariIsi("SELECT GROUP_CONCAT(kd_penyakit order by prioritas asc SEPARATOR ',') AS daftar_penyakit FROM diagnosa_pasien WHERE no_rawat='"+rs.getString("no_rawat")+"'"); // Ambil data diagnosa
-                            String kdProsedur = Sequel.cariIsi("SELECT GROUP_CONCAT(kode order by prioritas asc SEPARATOR ',') AS kode FROM prosedur_pasien WHERE no_rawat='"+rs.getString("no_rawat")+"'"); // Ambil data prosedur 
-                            String nmDiagnosa = Sequel.cariIsi("SELECT GROUP_CONCAT(p.nm_penyakit ORDER BY dg.prioritas ASC SEPARATOR ',') AS nm_penyakit FROM diagnosa_pasien dg JOIN penyakit p on dg.kd_penyakit = p.kd_penyakit WHERE dg.no_rawat='"+rs.getString("no_rawat")+"'"); // Ambil nama diagnosa
-                            String nmProsedur = Sequel.cariIsi("SELECT GROUP_CONCAT(p.deskripsi_panjang ORDER BY dg.prioritas ASC SEPARATOR ',') AS nm_kode FROM prosedur_pasien dg JOIN icd9 p on dg.kode = p.kode WHERE dg.no_rawat='"+rs.getString("no_rawat")+"'"); // Ambil nama prosedur 
+                            String kdDiagnosa = Sequel.cariIsi("SELECT GROUP_CONCAT(kd_penyakit order by prioritas asc SEPARATOR ';') AS daftar_penyakit FROM diagnosa_pasien WHERE no_rawat='"+rs.getString("no_rawat")+"'"); // Ambil data diagnosa
+                            String kdProsedur = Sequel.cariIsi("SELECT GROUP_CONCAT(kode order by prioritas asc SEPARATOR ';') AS kode FROM prosedur_pasien WHERE no_rawat='"+rs.getString("no_rawat")+"'"); // Ambil data prosedur 
+                            String nmDiagnosa = Sequel.cariIsi("SELECT GROUP_CONCAT(p.nm_penyakit ORDER BY dg.prioritas ASC SEPARATOR ';') AS nm_penyakit FROM diagnosa_pasien dg JOIN penyakit p on dg.kd_penyakit = p.kd_penyakit WHERE dg.no_rawat='"+rs.getString("no_rawat")+"'"); // Ambil nama diagnosa
+                            String nmProsedur = Sequel.cariIsi("SELECT GROUP_CONCAT(p.deskripsi_panjang ORDER BY dg.prioritas ASC SEPARATOR ';') AS nm_kode FROM prosedur_pasien dg JOIN icd9 p on dg.kode = p.kode WHERE dg.no_rawat='"+rs.getString("no_rawat")+"'"); // Ambil nama prosedur 
                             // Berikan nilai default jika null
                             kdDiagnosa = (kdDiagnosa == null) ? "" : kdDiagnosa;
                             kdProsedur = (kdProsedur == null) ? "Tidak Ada Prosedur" : kdProsedur;
                             nmDiagnosa = (nmDiagnosa == null) ? "" : nmDiagnosa;
                             nmProsedur = (nmProsedur == null) ? "Tidak Ada Prosedur" : nmProsedur;
                             
-                            String[] diagnosaArray = kdDiagnosa.split(",");
-                            String[] prosedurArray = kdProsedur.split(",");
-                            String[] nmDiagnosaArray = nmDiagnosa.split(",");
-                            String[] nmProsedurArray = nmProsedur.split(",");
+                            String[] diagnosaArray = kdDiagnosa.split(";");
+                            String[] prosedurArray = kdProsedur.split(";");
+                            String[] nmDiagnosaArray = nmDiagnosa.split(";");
+                            String[] nmProsedurArray = nmProsedur.split(";");
                             rs2=koneksi.prepareStatement(
                                 "select resume_pasien_ranap.kd_dokter,dokter.nm_dokter,resume_pasien_ranap.diagnosa_awal,resume_pasien_ranap.alasan,resume_pasien_ranap.keluhan_utama,resume_pasien_ranap.pemeriksaan_fisik,"+
                                 "resume_pasien_ranap.jalannya_penyakit,resume_pasien_ranap.pemeriksaan_penunjang,resume_pasien_ranap.hasil_laborat,resume_pasien_ranap.tindakan_dan_operasi,resume_pasien_ranap.obat_di_rs,"+

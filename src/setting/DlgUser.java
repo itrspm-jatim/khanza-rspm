@@ -6120,7 +6120,7 @@ private void BtnPrintKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                                         "catatan_observasi_restrain_nonfarma='"+tbUser.getValueAt(barisdicopy,1063).toString()+"',"+
                                         "catatan_observasi_ventilator='"+tbUser.getValueAt(barisdicopy,1064).toString()+"',"+
                                         "catatan_anestesi_sedasi='"+tbUser.getValueAt(barisdicopy,1065).toString()+"',"+
-                                        "rspm_perencaan_pemulangan_igd='"+tbUser.getValueAt(barisdicopy,1066).toString()+"'");
+                                        "rspm_perencanaan_pemulangan_igd='"+tbUser.getValueAt(barisdicopy,1066).toString()+"'");
                                 }
                                 userdicopy="";
                                 copyhakakses="";
