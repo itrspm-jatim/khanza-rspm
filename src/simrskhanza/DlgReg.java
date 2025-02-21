@@ -7097,20 +7097,42 @@ public final class DlgReg extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null,"Pasien sedang dalam masa perawatan di kamar inap..!!");
             TNoRM.requestFocus();
         }else{
-            if(akses.getkode().equals("Admin Utama")){
-                isRegistrasi();
-            }else{
-                if(aktifjadwal.equals("aktif")){
-                    if(Sequel.cariInteger("select count(reg_periksa.no_rawat) from reg_periksa where reg_periksa.kd_dokter='"+KdDokter.getText()+"' and reg_periksa.tgl_registrasi='"+Valid.SetTgl(DTPReg.getSelectedItem()+"")+"' ")>=kuota){
-                        JOptionPane.showMessageDialog(null,"Eiiits, Kuota registrasi penuh..!!!");
-                        TCari.requestFocus();
-                    }else{
+            if(kdpnj.getText().equals("UMU")) {
+                i=JOptionPane.showConfirmDialog(null, "Anda yakin ini pasien UMUM ?","Konfirmasi",JOptionPane.YES_NO_OPTION);
+                if(i==JOptionPane.YES_OPTION){
+                    if(akses.getkode().equals("Admin Utama")){
                         isRegistrasi();
-                    }                    
+                    }else{
+                        if(aktifjadwal.equals("aktif")){
+                            if(Sequel.cariInteger("select count(reg_periksa.no_rawat) from reg_periksa where reg_periksa.kd_dokter='"+KdDokter.getText()+"' and reg_periksa.tgl_registrasi='"+Valid.SetTgl(DTPReg.getSelectedItem()+"")+"' ")>=kuota){
+                                JOptionPane.showMessageDialog(null,"Eiiits, Kuota registrasi penuh..!!!");
+                                TCari.requestFocus();
+                            }else{
+                                isRegistrasi();
+                            }                    
+                        }else{
+                            isRegistrasi();
+                        }  
+                    }
+                } else {
+                    TNoRM.requestFocus();
+                }                            
+            } else {
+                if(akses.getkode().equals("Admin Utama")){
+                   isRegistrasi();
                 }else{
-                    isRegistrasi();
-                }  
-            }                          
+                   if(aktifjadwal.equals("aktif")){
+                       if(Sequel.cariInteger("select count(reg_periksa.no_rawat) from reg_periksa where reg_periksa.kd_dokter='"+KdDokter.getText()+"' and reg_periksa.tgl_registrasi='"+Valid.SetTgl(DTPReg.getSelectedItem()+"")+"' ")>=kuota){
+                           JOptionPane.showMessageDialog(null,"Eiiits, Kuota registrasi penuh..!!!");
+                           TCari.requestFocus();
+                       }else{
+                           isRegistrasi();
+                       }                    
+                   }else{
+                       isRegistrasi();
+                   }  
+                }    
+            }                         
         }
 }//GEN-LAST:event_BtnSimpanActionPerformed
 

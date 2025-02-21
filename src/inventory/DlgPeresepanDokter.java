@@ -1403,7 +1403,7 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                                     metoderacik.setVisible(true);
                                 }
                                 break;
-
+                            // rspm
                             case 1:
                                 templateracikan.isCek();
                                 templateracikan.setDokter(KdDokter.getText(),Valid.SetTgl(DTPBeri.getSelectedItem()+""),cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem(),TNoRw.getText(),TNoRw.getText());
