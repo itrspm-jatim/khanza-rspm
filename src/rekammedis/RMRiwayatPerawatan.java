@@ -3489,6 +3489,12 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
         BtnCari1ActionPerformed(null);
         printResume();
     }
+    // khanza
+    public void setNoRawat(String norawat) {
+        TabRawat.setSelectedIndex(2);
+        NoRawat.setText(norawat);
+        R4.setSelected(true);
+    }
     
     private void printResume() {
     if(NoRM.getText().trim().equals("")||NmPasien.getText().equals("")){

@@ -14925,10 +14925,10 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
                 "reg_periksa.kd_dokter,dokter.nm_dokter,reg_periksa.no_rkm_medis,pasien.nm_pasien,poliklinik.nm_poli,"+
                 "reg_periksa.p_jawab,reg_periksa.almt_pj,reg_periksa.hubunganpj,reg_periksa.biaya_reg,reg_periksa.stts,penjab.png_jawab,concat(reg_periksa.umurdaftar,' ',reg_periksa.sttsumur)as umur, "+
                 "reg_periksa.status_bayar,reg_periksa.status_poli,reg_periksa.kd_pj,reg_periksa.kd_poli,pasien.no_tlp,"+ 
-                "bridging_sep.no_sep," +
+                "CASE WHEN COUNT(bridging_sep.no_sep) > 1 THEN GROUP_CONCAT(DISTINCT bridging_sep.no_sep ORDER BY bridging_sep.no_sep ASC SEPARATOR ', ') ELSE bridging_sep.no_sep END AS no_sep,"+
                 "bridging_sep.noskdp as skdp_hari_ini," +
                 "bridging_surat_kontrol_bpjs.no_surat as skdp_selanjutnya," +
-                "DATE(skdp_bpjs.tanggal_datang) as tgl_surkon_selanjutnya "+
+                "CASE WHEN COUNT(DATE ( skdp_bpjs.tanggal_datang )) > 1 THEN GROUP_CONCAT(DISTINCT DATE ( skdp_bpjs.tanggal_datang ) ORDER BY DATE ( skdp_bpjs.tanggal_datang ) ASC SEPARATOR ', ') ELSE DATE ( skdp_bpjs.tanggal_datang ) END AS tgl_surkon_selanjutnya "+
                 "from reg_periksa inner join dokter on reg_periksa.kd_dokter=dokter.kd_dokter inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
                 "inner join poliklinik on reg_periksa.kd_poli=poliklinik.kd_poli inner join penjab on reg_periksa.kd_pj=penjab.kd_pj "+
                 "LEFT JOIN skdp_bpjs ON reg_periksa.no_rkm_medis = skdp_bpjs.no_rkm_medis AND DATE(reg_periksa.tgl_registrasi) = DATE(skdp_bpjs.tanggal_rujukan) " +
@@ -14938,6 +14938,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
                 (semua?"":"and reg_periksa.kd_pj like ? and poliklinik.nm_poli like ? and dokter.nm_dokter like ? and reg_periksa.stts like ? and reg_periksa.status_bayar like ? and "+
                 "(reg_periksa.no_reg like ? or reg_periksa.no_rawat like ? or reg_periksa.tgl_registrasi like ? or reg_periksa.kd_dokter like ? or dokter.nm_dokter like ? or reg_periksa.no_rkm_medis like ? or pasien.nm_pasien like ? or poliklinik.nm_poli like ? or "+
                 "reg_periksa.p_jawab like ? or penjab.png_jawab like ? or reg_periksa.almt_pj like ? or reg_periksa.status_bayar like ? or reg_periksa.hubunganpj like ?) ")+terbitsep+
+                "GROUP BY no_rawat "+
                 "order by "+order);
             try{
                 pskasir.setString(1,Valid.SetTgl(DTPCari1.getSelectedItem()+""));

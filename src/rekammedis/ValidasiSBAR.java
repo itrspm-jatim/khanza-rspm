@@ -1078,21 +1078,39 @@ public final class ValidasiSBAR extends javax.swing.JDialog {
     public void tampil() {
         Valid.tabelKosong(tabMode);
         try{
-            if(TCari.getText().equals("")){
-                ps=koneksi.prepareStatement(
-                    "select reg_periksa.tgl_registrasi,reg_periksa.status_lanjut,pemeriksaan_ranap_sbar.no_rawat,reg_periksa.no_rkm_medis,pasien.nm_pasien, "+
-                    "pemeriksaan_ranap_sbar.tgl_perawatan,pemeriksaan_ranap_sbar.jam_rawat,pemeriksaan_ranap_sbar.situation, " +
-                    "pemeriksaan_ranap_sbar.background,pemeriksaan_ranap_sbar.assesment,pemeriksaan_ranap_sbar.recommendation,pemeriksaan_ranap_sbar.nip,pegawai.nama from pasien inner join reg_periksa inner join pemeriksaan_ranap_sbar "+
-                    "on pemeriksaan_ranap_sbar.no_rawat=reg_periksa.no_rawat and reg_periksa.no_rkm_medis=pasien.no_rkm_medis inner join pegawai on pemeriksaan_ranap_sbar.nip=pegawai.nik LEFT JOIN validasi_pemeriksaan_sbar ON validasi_pemeriksaan_sbar.no_rawat = pemeriksaan_ranap_sbar.no_rawat AND validasi_pemeriksaan_sbar.tgl_perawatan = pemeriksaan_ranap_sbar.tgl_perawatan AND validasi_pemeriksaan_sbar.jam_rawat = pemeriksaan_ranap_sbar.jam_rawat where "+
-                    "pemeriksaan_ranap_sbar.no_rawat like ? and ISNULL(validasi_pemeriksaan_sbar.status_validasi) order by pemeriksaan_ranap_sbar.no_rawat desc");
+            String statusLanjut = Sequel.cariIsi("SELECT reg_periksa.status_lanjut from reg_periksa where reg_periksa.no_rawat ='"+TNoRw.getText()+"'");
+            if(statusLanjut.equals("Ranap")){
+                if(TCari.getText().equals("")){
+                   ps=koneksi.prepareStatement(
+                        "select reg_periksa.tgl_registrasi,reg_periksa.status_lanjut,pemeriksaan_ranap_sbar.no_rawat,reg_periksa.no_rkm_medis,pasien.nm_pasien, "+
+                        "pemeriksaan_ranap_sbar.tgl_perawatan,pemeriksaan_ranap_sbar.jam_rawat,pemeriksaan_ranap_sbar.situation, " +
+                        "pemeriksaan_ranap_sbar.background,pemeriksaan_ranap_sbar.assesment,pemeriksaan_ranap_sbar.recommendation,pemeriksaan_ranap_sbar.nip,pegawai.nama from pasien inner join reg_periksa inner join pemeriksaan_ranap_sbar "+
+                        "on pemeriksaan_ranap_sbar.no_rawat=reg_periksa.no_rawat and reg_periksa.no_rkm_medis=pasien.no_rkm_medis inner join pegawai on pemeriksaan_ranap_sbar.nip=pegawai.nik LEFT JOIN validasi_pemeriksaan_sbar ON validasi_pemeriksaan_sbar.no_rawat = pemeriksaan_ranap_sbar.no_rawat AND validasi_pemeriksaan_sbar.tgl_perawatan = pemeriksaan_ranap_sbar.tgl_perawatan AND validasi_pemeriksaan_sbar.jam_rawat = pemeriksaan_ranap_sbar.jam_rawat where "+
+                        "pemeriksaan_ranap_sbar.no_rawat like ? and ISNULL(validasi_pemeriksaan_sbar.status_validasi) order by pemeriksaan_ranap_sbar.no_rawat desc");
+                }else{
+                   ps=koneksi.prepareStatement(
+                        "select reg_periksa.tgl_registrasi,reg_periksa.status_lanjut,pemeriksaan_ranap_sbar.no_rawat,reg_periksa.no_rkm_medis,pasien.nm_pasien, "+
+                        "pemeriksaan_ranap_sbar.tgl_perawatan,pemeriksaan_ranap_sbar.jam_rawat,pemeriksaan_ranap_sbar.situation, " +
+                        "pemeriksaan_ranap_sbar.background,pemeriksaan_ranap_sbar.assesment,pemeriksaan_ranap_sbar.recommendation,pemeriksaan_ranap_sbar.nip,pegawai.nama from pasien inner join reg_periksa inner join pemeriksaan_ranap_sbar "+
+                        "on pemeriksaan_ranap_sbar.no_rawat=reg_periksa.no_rawat and reg_periksa.no_rkm_medis=pasien.no_rkm_medis inner join pegawai on pemeriksaan_ranap_sbar.nip=pegawai.nik LEFT JOIN validasi_pemeriksaan_sbar ON validasi_pemeriksaan_sbar.no_rawat = pemeriksaan_ranap_sbar.no_rawat AND validasi_pemeriksaan_sbar.tgl_perawatan = pemeriksaan_ranap_sbar.tgl_perawatan AND validasi_pemeriksaan_sbar.jam_rawat = pemeriksaan_ranap_sbar.jam_rawat where "+
+                        "pemeriksaan_ranap_sbar.no_rawat like ? and ISNULL(validasi_pemeriksaan_sbar.status_validasi) order by pemeriksaan_ranap_sbar.no_rawat desc");
+                }   
             }else{
-                ps=koneksi.prepareStatement(
-                    "select reg_periksa.tgl_registrasi,reg_periksa.status_lanjut,pemeriksaan_ranap_sbar.no_rawat,reg_periksa.no_rkm_medis,pasien.nm_pasien, "+
-                    "pemeriksaan_ranap_sbar.tgl_perawatan,pemeriksaan_ranap_sbar.jam_rawat,pemeriksaan_ranap_sbar.situation, " +
-                    "pemeriksaan_ranap_sbar.background,pemeriksaan_ranap_sbar.assesment,pemeriksaan_ranap_sbar.recommendation,pemeriksaan_ranap_sbar.nip,pegawai.nama from pasien inner join reg_periksa inner join pemeriksaan_ranap_sbar "+
-                    "on pemeriksaan_ranap_sbar.no_rawat=reg_periksa.no_rawat and reg_periksa.no_rkm_medis=pasien.no_rkm_medis inner join pegawai on pemeriksaan_ranap_sbar.nip=pegawai.nik LEFT JOIN validasi_pemeriksaan_sbar ON validasi_pemeriksaan_sbar.no_rawat = pemeriksaan_ranap_sbar.no_rawat AND validasi_pemeriksaan_sbar.tgl_perawatan = pemeriksaan_ranap_sbar.tgl_perawatan AND validasi_pemeriksaan_sbar.jam_rawat = pemeriksaan_ranap_sbar.jam_rawat where "+
- 
-                            "pemeriksaan_ranap_sbar.no_rawat like ? and ISNULL(validasi_pemeriksaan_sbar.status_validasi) order by pemeriksaan_ranap_sbar.no_rawat desc");
+                if(TCari.getText().equals("")) {
+                   ps=koneksi.prepareStatement(
+                        "select reg_periksa.tgl_registrasi,reg_periksa.status_lanjut,pemeriksaan_ralan_sbar.no_rawat,reg_periksa.no_rkm_medis,pasien.nm_pasien, "+
+                        "pemeriksaan_ralan_sbar.tgl_perawatan,pemeriksaan_ralan_sbar.jam_rawat,pemeriksaan_ralan_sbar.situation, " +
+                        "pemeriksaan_ralan_sbar.background,pemeriksaan_ralan_sbar.assesment,pemeriksaan_ralan_sbar.recommendation,pemeriksaan_ralan_sbar.nip,pegawai.nama from pasien inner join reg_periksa inner join pemeriksaan_ralan_sbar "+
+                        "on pemeriksaan_ralan_sbar.no_rawat=reg_periksa.no_rawat and reg_periksa.no_rkm_medis=pasien.no_rkm_medis inner join pegawai on pemeriksaan_ralan_sbar.nip=pegawai.nik LEFT JOIN validasi_pemeriksaan_sbar ON validasi_pemeriksaan_sbar.no_rawat = pemeriksaan_ralan_sbar.no_rawat AND validasi_pemeriksaan_sbar.tgl_perawatan = pemeriksaan_ralan_sbar.tgl_perawatan AND validasi_pemeriksaan_sbar.jam_rawat = pemeriksaan_ralan_sbar.jam_rawat where "+
+                        "pemeriksaan_ralan_sbar.no_rawat like ? and ISNULL(validasi_pemeriksaan_sbar.status_validasi) order by pemeriksaan_ralan_sbar.no_rawat desc");
+                } else {
+                   ps=koneksi.prepareStatement(
+                        "select reg_periksa.tgl_registrasi,reg_periksa.status_lanjut,pemeriksaan_ralan_sbar.no_rawat,reg_periksa.no_rkm_medis,pasien.nm_pasien, "+
+                        "pemeriksaan_ralan_sbar.tgl_perawatan,pemeriksaan_ralan_sbar.jam_rawat,pemeriksaan_ralan_sbar.situation, " +
+                        "pemeriksaan_ralan_sbar.background,pemeriksaan_ralan_sbar.assesment,pemeriksaan_ralan_sbar.recommendation,pemeriksaan_ralan_sbar.nip,pegawai.nama from pasien inner join reg_periksa inner join pemeriksaan_ralan_sbar "+
+                        "on pemeriksaan_ralan_sbar.no_rawat=reg_periksa.no_rawat and reg_periksa.no_rkm_medis=pasien.no_rkm_medis inner join pegawai on pemeriksaan_ralan_sbar.nip=pegawai.nik LEFT JOIN validasi_pemeriksaan_sbar ON validasi_pemeriksaan_sbar.no_rawat = pemeriksaan_ralan_sbar.no_rawat AND validasi_pemeriksaan_sbar.tgl_perawatan = pemeriksaan_ralan_sbar.tgl_perawatan AND validasi_pemeriksaan_sbar.jam_rawat = pemeriksaan_ralan_sbar.jam_rawat where "+
+                        "pemeriksaan_ralan_sbar.no_rawat like ? and ISNULL(validasi_pemeriksaan_sbar.status_validasi) order by pemeriksaan_ralan_sbar.no_rawat desc");
+                }
             }
             try {
                 if(!TCari.getText().equals("")){
