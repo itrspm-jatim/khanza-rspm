@@ -2758,12 +2758,48 @@ public final class RMPenilaianAwalMedisRalanRehabMedik extends javax.swing.JDial
             System.out.println("Notif : "+e);
         }
     }
+    
+    private void isKeluhan() {
+        try {
+            ps=koneksi.prepareStatement(
+                    "select keluhan,pemeriksaan,penilaian,suhu_tubuh,tensi,nadi,respirasi,tinggi,berat,spo2,gcs,kesadaran,alergi from pemeriksaan_ralan where no_rawat=? "+
+                    "ORDER BY tgl_perawatan, jam_rawat DESC LIMIT 1");
+            try {
+                ps.setString(1,TNoRw.getText());
+                rs=ps.executeQuery();
+                if(rs.next()){
+                    KeluhanUtama.setText(rs.getString("keluhan"));
+                    Nadi.setText(rs.getString("nadi"));
+                    Suhu.setText(rs.getString("suhu_tubuh"));
+                    Kesadaran.setSelectedItem(rs.getString("kesadaran"));
+                    BB.setText(rs.getString("berat"));
+                    TD.setText(rs.getString("tensi"));
+                    RR.setText(rs.getString("respirasi"));
+                    Alergi.setText(rs.getString("alergi"));
+                    Lainnya.setText(rs.getString("pemeriksaan"));
+                    DiagnosaMedis.setText(rs.getString("penilaian"));
+                }
+            } catch (Exception e) {
+                System.out.println("Notif : "+e);
+            } finally{
+                if(rs!=null){
+                    rs.close();
+                }
+                if(ps!=null){
+                    ps.close();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notif : "+e);
+        }
+    }
  
     public void setNoRm(String norwt,Date tgl2) {
         TNoRw.setText(norwt);
         TCari.setText(norwt);
         DTPCari2.setDate(tgl2);    
         isRawat(); 
+        isKeluhan();
     }
     
     public void isCek(){

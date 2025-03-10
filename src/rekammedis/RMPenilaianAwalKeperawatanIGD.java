@@ -79,7 +79,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             "Jml Perdarahan (cc)","Warna Perdarahan","Intoksikasi","Frekuensi BAB","x/","Konsistensi BAB","Warna BAB","Frekuensi BAK","x/","Warna BAK","Lain-lain BAK","Kondisi Psikologis",
             "Gangguan Jiwa Di Masa Lalu","Adakah Perilaku","Dilaporkan Ke","Sebutkan","Hubungan Pasien Dengan Anggota Keluarga","Status Pernikahan","Tinggal Dengan","Ket. Tinggal Dengan",
             "Pekerjaan","Pembayaran","Nilai-nilai Kebudayaan","Ket. Nilai-nilai Kebudayaan","Pendidikan Pasien","Pendidikan PJ","Ket. Pendidikan PJ",
-            "Edukasi Diberikan Kepada","Ket. Edukasi Diberikan Kepada","Kemampuan Aktifitas Sehari-hari","Aktifitas","Alat bantu","Ket. Alat bantu",
+            "Edukasi Diberikan Kepada","Ket. Edukasi Diberikan Kepada","Iden. Penyakit Berbahaya","Kemampuan Aktifitas Sehari-hari","Aktifitas","Alat bantu","Ket. Alat bantu",
             "Tingkat Nyeri","Provokes","Ket. Provokes","Kualitas","Ket. Kualitas","Lokasi","Menyebar","Skala Nyeri","Durasi","Nyeri Hilang","Ket. Hilang Nyeri","Lapor Ke Dokter",
             "Jam Lapor","Cara Berjalan A","Cara Berjalan B","Cara Berjalan C","Hasil Penilaian Resiko Jatuh","Lapor Dokter","Ket. Lapor","Rencana","NIP","Nama Petugas"
         }){
@@ -87,176 +87,28 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
         };
         tbObat.setModel(tabMode);
 
-        //tbObat.setDefaultRenderer(Object.class, new WarnaTable(panelJudul.getBackground(),tbObat.getBackground()));
-        tbObat.setPreferredScrollableViewportSize(new Dimension(500,500));
+        // Pengaturan ukuran kolom menggunakan array
+        int[] columnWidths = {
+                105, 65, 160, 50, 60, 90, 90, 65, 120, 90,
+                200, 200, 200, 70, 50, 50, 50, 70, 110, 50,
+                160, 80, 67, 77, 77, 66, 107, 105, 90, 80,
+                65, 85, 80, 77, 65, 65, 80, 100, 147, 190,
+                90, 100, 220, 95, 95,85, 105, 100, 100, 120, 
+                150, 97, 97, 110, 135, 155, 175, 65, 63, 97, 
+                87, 85, 100, 90, 150, 80, 58, 65, 45, 85, 
+                100, 85, 60, 85, 85, 85, 203, 70, 90, 210,
+                75, 150
+        };
+
+        tbObat.setPreferredScrollableViewportSize(new Dimension(500, 500));
         tbObat.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (i = 0; i < 81; i++) {
-            TableColumn column = tbObat.getColumnModel().getColumn(i);
-            if(i==0){
-                column.setPreferredWidth(105);
-            }else if(i==1){
-                column.setPreferredWidth(65);
-            }else if(i==2){
-                column.setPreferredWidth(160);
-            }else if(i==3){
-                column.setPreferredWidth(50);
-            }else if(i==4){
-                column.setPreferredWidth(60);
-            }else if(i==5){
-                column.setPreferredWidth(90);
-            }else if(i==6){
-                column.setPreferredWidth(90);
-            }else if(i==7){
-                column.setPreferredWidth(65);
-            }else if(i==8){
-                column.setPreferredWidth(120);
-            }else if(i==9){
-                column.setPreferredWidth(90);
-            }else if(i==10){
-                column.setPreferredWidth(200);
-            }else if(i==11){
-                column.setPreferredWidth(200);
-            }else if(i==12){
-                column.setPreferredWidth(200);
-            }else if(i==13){
-                column.setPreferredWidth(70);
-            }else if(i==14){
-                column.setPreferredWidth(50);
-            }else if(i==15){
-                column.setPreferredWidth(50);
-            }else if(i==16){
-                column.setPreferredWidth(50);
-            }else if(i==17){
-                column.setPreferredWidth(70);
-            }else if(i==18){
-                column.setPreferredWidth(110);
-            }else if(i==19){
-                column.setPreferredWidth(50);
-            }else if(i==20){
-                column.setPreferredWidth(160);
-            }else if(i==21){
-                column.setPreferredWidth(80);
-            }else if(i==22){
-                column.setPreferredWidth(67);
-            }else if(i==23){
-                column.setPreferredWidth(77);
-            }else if(i==24){
-                column.setPreferredWidth(77);
-            }else if(i==25){
-                column.setPreferredWidth(66);
-            }else if(i==26){
-                column.setPreferredWidth(107);
-            }else if(i==27){
-                column.setPreferredWidth(105);
-            }else if(i==28){
-                column.setPreferredWidth(90);
-            }else if(i==29){
-                column.setPreferredWidth(80);
-            }else if(i==30){
-                column.setPreferredWidth(65);
-            }else if(i==31){
-                column.setPreferredWidth(85);
-            }else if(i==32){
-                column.setPreferredWidth(80);
-            }else if(i==33){
-                column.setPreferredWidth(77);
-            }else if(i==34){
-                column.setPreferredWidth(65);
-            }else if(i==35){
-                column.setPreferredWidth(65);
-            }else if(i==36){
-                column.setPreferredWidth(80);
-            }else if(i==37){
-                column.setPreferredWidth(100);
-            }else if(i==38){
-                column.setPreferredWidth(147);
-            }else if(i==39){
-                column.setPreferredWidth(190);
-            }else if(i==40){
-                column.setPreferredWidth(90);
-            }else if(i==41){
-                column.setPreferredWidth(100);
-            }else if(i==42){
-                column.setPreferredWidth(220);
-            }else if(i==43){
-                column.setPreferredWidth(95);
-            }else if(i==44){
-                column.setPreferredWidth(85);
-            }else if(i==45){
-                column.setPreferredWidth(105);
-            }else if(i==46){
-                column.setPreferredWidth(100);
-            }else if(i==47){
-                column.setPreferredWidth(100);
-            }else if(i==48){
-                column.setPreferredWidth(120);
-            }else if(i==49){
-                column.setPreferredWidth(150);
-            }else if(i==50){
-                column.setPreferredWidth(97);
-            }else if(i==51){
-                column.setPreferredWidth(97);
-            }else if(i==52){
-                column.setPreferredWidth(110);
-            }else if(i==53){
-                column.setPreferredWidth(135);
-            }else if(i==54){
-                column.setPreferredWidth(155);
-            }else if(i==55){
-                column.setPreferredWidth(175);
-            }else if(i==56){
-                column.setPreferredWidth(65);
-            }else if(i==57){
-                column.setPreferredWidth(63);
-            }else if(i==58){
-                column.setPreferredWidth(97);
-            }else if(i==59){
-                column.setPreferredWidth(87);
-            }else if(i==60){
-                column.setPreferredWidth(85);
-            }else if(i==61){
-                column.setPreferredWidth(100);
-            }else if(i==62){
-                column.setPreferredWidth(90);
-            }else if(i==63){
-                column.setPreferredWidth(150);
-            }else if(i==64){
-                column.setPreferredWidth(80);
-            }else if(i==65){
-                column.setPreferredWidth(58);
-            }else if(i==66){
-                column.setPreferredWidth(65);
-            }else if(i==67){
-                column.setPreferredWidth(45);
-            }else if(i==68){
-                column.setPreferredWidth(85);
-            }else if(i==69){
-                column.setPreferredWidth(100);
-            }else if(i==70){
-                column.setPreferredWidth(85);
-            }else if(i==71){
-                column.setPreferredWidth(60);
-            }else if(i==72){
-                column.setPreferredWidth(85);
-            }else if(i==73){
-                column.setPreferredWidth(85);
-            }else if(i==74){
-                column.setPreferredWidth(85);
-            }else if(i==75){
-                column.setPreferredWidth(203);
-            }else if(i==76){
-                column.setPreferredWidth(70);
-            }else if(i==77){
-                column.setPreferredWidth(90);
-            }else if(i==78){
-                column.setPreferredWidth(210);
-            }else if(i==79){
-                column.setPreferredWidth(75);
-            }else if(i==80){
-                column.setPreferredWidth(150);
-            }
+        // Set preferensi ukuran kolom dalam loop
+        for (int i = 0; i < columnWidths.length; i++) {
+            tbObat.getColumnModel().getColumn(i).setPreferredWidth(columnWidths[i]);
         }
+
+        // Menggunakan renderer warna
         tbObat.setDefaultRenderer(Object.class, new WarnaTable());
         
         tabModeMasalah=new DefaultTableModel(null,new Object[]{
@@ -401,6 +253,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
         KetBudaya.setDocument(new batasInput((int)50).getKata(KetBudaya));
         KetPendidikanPJ.setDocument(new batasInput((int)50).getKata(KetPendidikanPJ));
         KetEdukasi.setDocument(new batasInput((int)50).getKata(KetEdukasi));
+        PenyakitBahaya.setDocument(new batasInput((int)50).getKata(PenyakitBahaya));
         KetAlatBantu.setDocument(new batasInput((int)50).getKata(KetAlatBantu));
         KetProvokes.setDocument(new batasInput((int)40).getKata(KetProvokes));
         KetQuality.setDocument(new batasInput((int)50).getKata(KetQuality));
@@ -723,6 +576,8 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
         BtnCariRencana = new widget.Button();
         BtnAllRencana = new widget.Button();
         BtnTambahRencana = new widget.Button();
+        jLabel128 = new widget.Label();
+        PenyakitBahaya = new widget.TextBox();
         internalFrame3 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
         tbObat = new widget.Table();
@@ -766,7 +621,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
 
-        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Penilaian Awal Keperawatan IGD ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
+        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Penilaian Awal Keperawatan IGD ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(50, 50, 50))); // NOI18N
         internalFrame1.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
         internalFrame1.setLayout(new java.awt.BorderLayout(1, 1));
@@ -905,7 +760,6 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
 
         TabRawat.setBackground(new java.awt.Color(254, 255, 254));
         TabRawat.setForeground(new java.awt.Color(50, 50, 50));
-        TabRawat.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         TabRawat.setName("TabRawat"); // NOI18N
 
         internalFrame2.setBorder(null);
@@ -918,7 +772,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
         FormInput.setBackground(new java.awt.Color(255, 255, 255));
         FormInput.setBorder(null);
         FormInput.setName("FormInput"); // NOI18N
-        FormInput.setPreferredSize(new java.awt.Dimension(870, 1203));
+        FormInput.setPreferredSize(new java.awt.Dimension(870, 1269));
         FormInput.setLayout(null);
 
         TNoRw.setHighlighter(null);
@@ -1030,13 +884,13 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
         jLabel50.setText("d. Alat Bantu :");
         jLabel50.setName("jLabel50"); // NOI18N
         FormInput.add(jLabel50);
-        jLabel50.setBounds(1, 650, 112, 23);
+        jLabel50.setBounds(0, 680, 112, 23);
 
         jLabel52.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel52.setText("V. SKALA NYERI");
         jLabel52.setName("jLabel52"); // NOI18N
         FormInput.add(jLabel52);
-        jLabel52.setBounds(10, 680, 380, 23);
+        jLabel52.setBounds(10, 710, 380, 23);
 
         scrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         scrollPane1.setName("scrollPane1"); // NOI18N
@@ -1107,7 +961,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(Aktifitas);
-        Aktifitas.setBounds(490, 620, 112, 23);
+        Aktifitas.setBounds(490, 650, 112, 23);
 
         AlatBantu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tidak", "Ya" }));
         AlatBantu.setName("AlatBantu"); // NOI18N
@@ -1117,7 +971,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(AlatBantu);
-        AlatBantu.setBounds(117, 650, 80, 23);
+        AlatBantu.setBounds(120, 680, 80, 23);
 
         KetAlatBantu.setFocusTraversalPolicyProvider(true);
         KetAlatBantu.setName("KetAlatBantu"); // NOI18N
@@ -1127,12 +981,12 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(KetAlatBantu);
-        KetAlatBantu.setBounds(200, 650, 402, 23);
+        KetAlatBantu.setBounds(200, 680, 402, 23);
 
         jLabel55.setText("b. Aktifitas :");
         jLabel55.setName("jLabel55"); // NOI18N
         FormInput.add(jLabel55);
-        jLabel55.setBounds(406, 620, 80, 23);
+        jLabel55.setBounds(410, 650, 80, 23);
 
         ADL.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mandiri", "Bantuan Minimal", "Bantuan Sebagian", "Ketergantungan Total" }));
         ADL.setSelectedIndex(3);
@@ -1143,12 +997,12 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(ADL);
-        ADL.setBounds(227, 620, 160, 23);
+        ADL.setBounds(230, 650, 160, 23);
 
         jLabel57.setText("a. Kemampuan Aktifitas Sehari-hari :");
         jLabel57.setName("jLabel57"); // NOI18N
         FormInput.add(jLabel57);
-        jLabel57.setBounds(0, 620, 223, 23);
+        jLabel57.setBounds(0, 650, 223, 23);
 
         jLabel58.setText("n. Edukasi Diberikan Kepada :");
         jLabel58.setName("jLabel58"); // NOI18N
@@ -1203,17 +1057,17 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
         jLabel64.setText("Jam  :");
         jLabel64.setName("jLabel64"); // NOI18N
         FormInput.add(jLabel64);
-        jLabel64.setBounds(720, 850, 50, 23);
+        jLabel64.setBounds(720, 880, 50, 23);
 
         jLabel65.setText("1. Tidak seimbang / sempoyongan / limbung :");
         jLabel65.setName("jLabel65"); // NOI18N
         FormInput.add(jLabel65);
-        jLabel65.setBounds(35, 920, 250, 23);
+        jLabel65.setBounds(30, 950, 250, 23);
 
         jLabel66.setText("2. Jalan dengan menggunakan alat bantu (kruk, tripot, kursi roda, orang lain) :");
         jLabel66.setName("jLabel66"); // NOI18N
         FormInput.add(jLabel66);
-        jLabel66.setBounds(370, 920, 400, 23);
+        jLabel66.setBounds(370, 950, 400, 23);
 
         Lapor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tidak", "Ya" }));
         Lapor.setName("Lapor"); // NOI18N
@@ -1223,7 +1077,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(Lapor);
-        Lapor.setBounds(575, 980, 80, 23);
+        Lapor.setBounds(570, 1010, 80, 23);
 
         ATS.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tidak", "Ya" }));
         ATS.setName("ATS"); // NOI18N
@@ -1233,7 +1087,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(ATS);
-        ATS.setBounds(289, 920, 80, 23);
+        ATS.setBounds(290, 950, 80, 23);
 
         BJM.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tidak", "Ya" }));
         BJM.setName("BJM"); // NOI18N
@@ -1243,12 +1097,12 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(BJM);
-        BJM.setBounds(774, 920, 80, 23);
+        BJM.setBounds(770, 950, 80, 23);
 
         jLabel67.setText("Menyebar :");
         jLabel67.setName("jLabel67"); // NOI18N
         FormInput.add(jLabel67);
-        jLabel67.setBounds(691, 780, 79, 23);
+        jLabel67.setBounds(690, 810, 79, 23);
 
         Hasil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tidak beresiko (tidak ditemukan a dan b)", "Resiko rendah (ditemukan a/b)", "Resiko tinggi (ditemukan a dan b)" }));
         Hasil.setName("Hasil"); // NOI18N
@@ -1258,12 +1112,12 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(Hasil);
-        Hasil.setBounds(76, 980, 293, 23);
+        Hasil.setBounds(70, 1010, 293, 23);
 
         jLabel68.setText("Hasil :");
         jLabel68.setName("jLabel68"); // NOI18N
         FormInput.add(jLabel68);
-        jLabel68.setBounds(0, 980, 72, 23);
+        jLabel68.setBounds(0, 1010, 72, 23);
 
         KetLapor.setFocusTraversalPolicyProvider(true);
         KetLapor.setName("KetLapor"); // NOI18N
@@ -1273,17 +1127,17 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(KetLapor);
-        KetLapor.setBounds(774, 980, 80, 23);
+        KetLapor.setBounds(770, 1010, 80, 23);
 
         jLabel70.setText("b. Menopang saat akan duduk, tampak memegang pinggiran kursi atau meja / benda lain sebagai penopang :");
         jLabel70.setName("jLabel70"); // NOI18N
         FormInput.add(jLabel70);
-        jLabel70.setBounds(0, 950, 571, 23);
+        jLabel70.setBounds(0, 980, 571, 23);
 
         jLabel72.setText("a. Cara Berjalan :");
         jLabel72.setName("jLabel72"); // NOI18N
         FormInput.add(jLabel72);
-        jLabel72.setBounds(0, 900, 126, 23);
+        jLabel72.setBounds(0, 930, 126, 23);
 
         MSA.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tidak", "Ya" }));
         MSA.setName("MSA"); // NOI18N
@@ -1293,7 +1147,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(MSA);
-        MSA.setBounds(575, 950, 80, 23);
+        MSA.setBounds(570, 980, 80, 23);
 
         Nyeri.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tidak Ada Nyeri", "Nyeri Akut", "Nyeri Kronis" }));
         Nyeri.setName("Nyeri"); // NOI18N
@@ -1303,7 +1157,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(Nyeri);
-        Nyeri.setBounds(375, 700, 130, 23);
+        Nyeri.setBounds(370, 730, 130, 23);
 
         Provokes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Proses Penyakit", "Benturan", "Lain-lain" }));
         Provokes.setName("Provokes"); // NOI18N
@@ -1313,7 +1167,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(Provokes);
-        Provokes.setBounds(574, 700, 130, 23);
+        Provokes.setBounds(570, 730, 130, 23);
 
         KetProvokes.setFocusTraversalPolicyProvider(true);
         KetProvokes.setName("KetProvokes"); // NOI18N
@@ -1323,12 +1177,12 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(KetProvokes);
-        KetProvokes.setBounds(708, 700, 146, 23);
+        KetProvokes.setBounds(710, 730, 146, 23);
 
         jLabel80.setText("Penyebab :");
         jLabel80.setName("jLabel80"); // NOI18N
         FormInput.add(jLabel80);
-        jLabel80.setBounds(510, 700, 60, 23);
+        jLabel80.setBounds(510, 730, 60, 23);
 
         Quality.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seperti Tertusuk", "Berdenyut", "Teriris", "Tertindih", "Tertiban", "Lain-lain" }));
         Quality.setName("Quality"); // NOI18N
@@ -1338,7 +1192,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(Quality);
-        Quality.setBounds(429, 730, 140, 23);
+        Quality.setBounds(430, 760, 140, 23);
 
         KetQuality.setFocusTraversalPolicyProvider(true);
         KetQuality.setName("KetQuality"); // NOI18N
@@ -1348,17 +1202,17 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(KetQuality);
-        KetQuality.setBounds(573, 730, 281, 23);
+        KetQuality.setBounds(570, 760, 281, 23);
 
         jLabel81.setText("Kualitas :");
         jLabel81.setName("jLabel81"); // NOI18N
         FormInput.add(jLabel81);
-        jLabel81.setBounds(370, 730, 55, 23);
+        jLabel81.setBounds(370, 760, 55, 23);
 
         jLabel82.setText("Wilayah :");
         jLabel82.setName("jLabel82"); // NOI18N
         FormInput.add(jLabel82);
-        jLabel82.setBounds(370, 760, 55, 23);
+        jLabel82.setBounds(370, 790, 55, 23);
 
         Lokasi.setFocusTraversalPolicyProvider(true);
         Lokasi.setName("Lokasi"); // NOI18N
@@ -1368,12 +1222,12 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(Lokasi);
-        Lokasi.setBounds(458, 780, 220, 23);
+        Lokasi.setBounds(460, 810, 220, 23);
 
         jLabel83.setText("Lokasi :");
         jLabel83.setName("jLabel83"); // NOI18N
         FormInput.add(jLabel83);
-        jLabel83.setBounds(394, 780, 60, 23);
+        jLabel83.setBounds(390, 810, 60, 23);
 
         Menyebar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tidak", "Ya" }));
         Menyebar.setName("Menyebar"); // NOI18N
@@ -1383,19 +1237,19 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(Menyebar);
-        Menyebar.setBounds(774, 780, 80, 23);
+        Menyebar.setBounds(770, 810, 80, 23);
 
         jLabel84.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel84.setText("Menit");
         jLabel84.setName("jLabel84"); // NOI18N
         FormInput.add(jLabel84);
-        jLabel84.setBounds(815, 810, 35, 23);
+        jLabel84.setBounds(810, 840, 35, 23);
 
         jLabel85.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel85.setText("Skala Nyeri");
         jLabel85.setName("jLabel85"); // NOI18N
         FormInput.add(jLabel85);
-        jLabel85.setBounds(428, 810, 60, 23);
+        jLabel85.setBounds(430, 840, 60, 23);
 
         SkalaNyeri.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
         SkalaNyeri.setName("SkalaNyeri"); // NOI18N
@@ -1405,12 +1259,12 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(SkalaNyeri);
-        SkalaNyeri.setBounds(491, 810, 70, 23);
+        SkalaNyeri.setBounds(490, 840, 70, 23);
 
         jLabel86.setText("Diberitahukan pada dokter ?");
         jLabel86.setName("jLabel86"); // NOI18N
         FormInput.add(jLabel86);
-        jLabel86.setBounds(480, 850, 150, 23);
+        jLabel86.setBounds(480, 880, 150, 23);
 
         Durasi.setFocusTraversalPolicyProvider(true);
         Durasi.setName("Durasi"); // NOI18N
@@ -1420,17 +1274,17 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(Durasi);
-        Durasi.setBounds(721, 810, 90, 23);
+        Durasi.setBounds(720, 840, 90, 23);
 
         jLabel87.setText("Waktu / Durasi :");
         jLabel87.setName("jLabel87"); // NOI18N
         FormInput.add(jLabel87);
-        jLabel87.setBounds(627, 810, 90, 23);
+        jLabel87.setBounds(630, 840, 90, 23);
 
         jLabel88.setText("Severity :");
         jLabel88.setName("jLabel88"); // NOI18N
         FormInput.add(jLabel88);
-        jLabel88.setBounds(370, 810, 55, 23);
+        jLabel88.setBounds(370, 840, 55, 23);
 
         NyeriHilang.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Istirahat", "Medengar Musik", "Minum Obat" }));
         NyeriHilang.setName("NyeriHilang"); // NOI18N
@@ -1440,7 +1294,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(NyeriHilang);
-        NyeriHilang.setBounds(134, 850, 130, 23);
+        NyeriHilang.setBounds(130, 880, 130, 23);
 
         KetNyeri.setFocusTraversalPolicyProvider(true);
         KetNyeri.setName("KetNyeri"); // NOI18N
@@ -1450,12 +1304,12 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(KetNyeri);
-        KetNyeri.setBounds(268, 850, 150, 23);
+        KetNyeri.setBounds(270, 880, 150, 23);
 
         jLabel89.setText("Nyeri hilang bila :");
         jLabel89.setName("jLabel89"); // NOI18N
         FormInput.add(jLabel89);
-        jLabel89.setBounds(0, 850, 130, 23);
+        jLabel89.setBounds(0, 880, 130, 23);
 
         PadaDokter.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tidak", "Ya" }));
         PadaDokter.setName("PadaDokter"); // NOI18N
@@ -1465,7 +1319,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(PadaDokter);
-        PadaDokter.setBounds(634, 850, 80, 23);
+        PadaDokter.setBounds(630, 880, 80, 23);
 
         KetDokter.setFocusTraversalPolicyProvider(true);
         KetDokter.setName("KetDokter"); // NOI18N
@@ -1475,10 +1329,10 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(KetDokter);
-        KetDokter.setBounds(774, 850, 80, 23);
+        KetDokter.setBounds(770, 880, 80, 23);
 
         TglAsuhan.setForeground(new java.awt.Color(50, 70, 50));
-        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16-04-2024 11:49:26" }));
+        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-01-2025 10:25:33" }));
         TglAsuhan.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TglAsuhan.setName("TglAsuhan"); // NOI18N
         TglAsuhan.setOpaque(false);
@@ -1499,19 +1353,19 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
         jLabel51.setText("c. Cacat Fisik :");
         jLabel51.setName("jLabel51"); // NOI18N
         FormInput.add(jLabel51);
-        jLabel51.setBounds(615, 620, 100, 23);
+        jLabel51.setBounds(620, 650, 100, 23);
 
         CacatFisik.setEditable(false);
         CacatFisik.setFocusTraversalPolicyProvider(true);
         CacatFisik.setName("CacatFisik"); // NOI18N
         FormInput.add(CacatFisik);
-        CacatFisik.setBounds(719, 620, 135, 23);
+        CacatFisik.setBounds(720, 650, 135, 23);
 
         jLabel56.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel56.setText("IV. PENGKAJIAN FUNGSI");
         jLabel56.setName("jLabel56"); // NOI18N
         FormInput.add(jLabel56);
-        jLabel56.setBounds(10, 600, 230, 23);
+        jLabel56.setBounds(10, 630, 230, 23);
 
         jLabel95.setText("l. Kepercayaan / Budaya / Nilai-nilai Khusus Yang Perlu Diperhatikan :");
         jLabel95.setName("jLabel95"); // NOI18N
@@ -1541,13 +1395,13 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
         jLabel97.setText("Dilaporkan kepada dokter ?");
         jLabel97.setName("jLabel97"); // NOI18N
         FormInput.add(jLabel97);
-        jLabel97.setBounds(381, 980, 190, 23);
+        jLabel97.setBounds(380, 1010, 190, 23);
 
         jLabel63.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel63.setText("VI. PENILAIAN RESIKO JATUH (GET UP AND GO)");
         jLabel63.setName("jLabel63"); // NOI18N
         FormInput.add(jLabel63);
-        jLabel63.setBounds(10, 880, 380, 23);
+        jLabel63.setBounds(10, 910, 380, 23);
 
         jSeparator1.setBackground(new java.awt.Color(239, 244, 234));
         jSeparator1.setForeground(new java.awt.Color(239, 244, 234));
@@ -1561,21 +1415,21 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
         jSeparator4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(239, 244, 234)));
         jSeparator4.setName("jSeparator4"); // NOI18N
         FormInput.add(jSeparator4);
-        jSeparator4.setBounds(0, 600, 880, 1);
+        jSeparator4.setBounds(0, 630, 880, 1);
 
         jSeparator6.setBackground(new java.awt.Color(239, 244, 234));
         jSeparator6.setForeground(new java.awt.Color(239, 244, 234));
         jSeparator6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(239, 244, 234)));
         jSeparator6.setName("jSeparator6"); // NOI18N
         FormInput.add(jSeparator6);
-        jSeparator6.setBounds(0, 880, 880, 1);
+        jSeparator6.setBounds(0, 910, 880, 1);
 
         jSeparator8.setBackground(new java.awt.Color(239, 244, 234));
         jSeparator8.setForeground(new java.awt.Color(239, 244, 234));
         jSeparator8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(239, 244, 234)));
         jSeparator8.setName("jSeparator8"); // NOI18N
         FormInput.add(jSeparator8);
-        jSeparator8.setBounds(0, 680, 880, 1);
+        jSeparator8.setBounds(0, 710, 880, 1);
 
         PanelWall.setBackground(new java.awt.Color(29, 29, 29));
         PanelWall.setBackgroundImage(new javax.swing.ImageIcon(getClass().getResource("/picture/nyeri.png"))); // NOI18N
@@ -1585,7 +1439,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
         PanelWall.setWarna(new java.awt.Color(110, 110, 110));
         PanelWall.setLayout(null);
         FormInput.add(PanelWall);
-        PanelWall.setBounds(40, 700, 320, 130);
+        PanelWall.setBounds(40, 730, 320, 130);
 
         jSeparator9.setBackground(new java.awt.Color(239, 244, 234));
         jSeparator9.setForeground(new java.awt.Color(239, 244, 234));
@@ -1593,19 +1447,19 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
         jSeparator9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(239, 244, 234)));
         jSeparator9.setName("jSeparator9"); // NOI18N
         FormInput.add(jSeparator9);
-        jSeparator9.setBounds(360, 700, 1, 140);
+        jSeparator9.setBounds(360, 730, 1, 140);
 
         jLabel71.setText("Jam dilaporkan :");
         jLabel71.setName("jLabel71"); // NOI18N
         FormInput.add(jLabel71);
-        jLabel71.setBounds(680, 980, 90, 23);
+        jLabel71.setBounds(680, 1010, 90, 23);
 
         jSeparator10.setBackground(new java.awt.Color(239, 244, 234));
         jSeparator10.setForeground(new java.awt.Color(239, 244, 234));
         jSeparator10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(239, 244, 234)));
         jSeparator10.setName("jSeparator10"); // NOI18N
         FormInput.add(jSeparator10);
-        jSeparator10.setBounds(0, 1010, 880, 1);
+        jSeparator10.setBounds(0, 1040, 880, 1);
 
         Bahasa.setEditable(false);
         Bahasa.setFocusTraversalPolicyProvider(true);
@@ -2171,10 +2025,10 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
         FormInput.add(PendidikanPasien);
         PendidikanPasien.setBounds(734, 510, 120, 23);
 
-        jLabel127.setText("m. Pendidikan P.J. :");
+        jLabel127.setText("o. identifikasi penyakit berbahaya :");
         jLabel127.setName("jLabel127"); // NOI18N
         FormInput.add(jLabel127);
-        jLabel127.setBounds(0, 570, 138, 23);
+        jLabel127.setBounds(0, 600, 210, 23);
 
         PendidikanPJ.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "TS", "TK", "SD", "SMP", "SMA", "SLTA/SEDERAJAT", "D1", "D2", "D3", "D4", "S1", "S2", "S3" }));
         PendidikanPJ.setName("PendidikanPJ"); // NOI18N
@@ -2194,7 +2048,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(KetPendidikanPJ);
-        KetPendidikanPJ.setBounds(282, 570, 150, 23);
+        KetPendidikanPJ.setBounds(280, 570, 150, 23);
 
         jLabel39.setText("Informasi didapat dari :");
         jLabel39.setName("jLabel39"); // NOI18N
@@ -2232,7 +2086,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
         Scroll8.setViewportView(tbMasalahKeperawatan);
 
         FormInput.add(Scroll8);
-        Scroll8.setBounds(10, 1020, 400, 143);
+        Scroll8.setBounds(10, 1050, 400, 143);
 
         BtnTambahMasalah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/plus_16.png"))); // NOI18N
         BtnTambahMasalah.setMnemonic('3');
@@ -2245,7 +2099,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(BtnTambahMasalah);
-        BtnTambahMasalah.setBounds(363, 1170, 28, 23);
+        BtnTambahMasalah.setBounds(360, 1200, 28, 23);
 
         BtnAllMasalah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Search-16x16.png"))); // NOI18N
         BtnAllMasalah.setMnemonic('2');
@@ -2263,7 +2117,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(BtnAllMasalah);
-        BtnAllMasalah.setBounds(331, 1170, 28, 23);
+        BtnAllMasalah.setBounds(330, 1200, 28, 23);
 
         BtnCariMasalah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
         BtnCariMasalah.setMnemonic('1');
@@ -2281,7 +2135,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(BtnCariMasalah);
-        BtnCariMasalah.setBounds(299, 1170, 28, 23);
+        BtnCariMasalah.setBounds(300, 1200, 28, 23);
 
         TCariMasalah.setToolTipText("Alt+C");
         TCariMasalah.setName("TCariMasalah"); // NOI18N
@@ -2292,18 +2146,17 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(TCariMasalah);
-        TCariMasalah.setBounds(80, 1170, 215, 23);
+        TCariMasalah.setBounds(80, 1200, 215, 23);
 
         label12.setText("Key Word :");
         label12.setName("label12"); // NOI18N
         label12.setPreferredSize(new java.awt.Dimension(60, 23));
         FormInput.add(label12);
-        label12.setBounds(16, 1170, 60, 23);
+        label12.setBounds(10, 1200, 60, 23);
 
         TabRencanaKeperawatan.setBackground(new java.awt.Color(255, 255, 254));
         TabRencanaKeperawatan.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         TabRencanaKeperawatan.setForeground(new java.awt.Color(50, 50, 50));
-        TabRencanaKeperawatan.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         TabRencanaKeperawatan.setName("TabRencanaKeperawatan"); // NOI18N
 
         panelBiasa1.setName("panelBiasa1"); // NOI18N
@@ -2338,13 +2191,13 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
         TabRencanaKeperawatan.addTab("Rencana Keperawatan Lainnya", scrollPane5);
 
         FormInput.add(TabRencanaKeperawatan);
-        TabRencanaKeperawatan.setBounds(433, 1020, 420, 143);
+        TabRencanaKeperawatan.setBounds(430, 1050, 420, 143);
 
         label13.setText("Key Word :");
         label13.setName("label13"); // NOI18N
         label13.setPreferredSize(new java.awt.Dimension(60, 23));
         FormInput.add(label13);
-        label13.setBounds(439, 1170, 60, 23);
+        label13.setBounds(440, 1200, 60, 23);
 
         TCariRencana.setToolTipText("Alt+C");
         TCariRencana.setName("TCariRencana"); // NOI18N
@@ -2355,7 +2208,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(TCariRencana);
-        TCariRencana.setBounds(503, 1170, 235, 23);
+        TCariRencana.setBounds(500, 1200, 235, 23);
 
         BtnCariRencana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
         BtnCariRencana.setMnemonic('1');
@@ -2373,7 +2226,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(BtnCariRencana);
-        BtnCariRencana.setBounds(742, 1170, 28, 23);
+        BtnCariRencana.setBounds(740, 1200, 28, 23);
 
         BtnAllRencana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Search-16x16.png"))); // NOI18N
         BtnAllRencana.setMnemonic('2');
@@ -2391,7 +2244,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(BtnAllRencana);
-        BtnAllRencana.setBounds(774, 1170, 28, 23);
+        BtnAllRencana.setBounds(770, 1200, 28, 23);
 
         BtnTambahRencana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/plus_16.png"))); // NOI18N
         BtnTambahRencana.setMnemonic('3');
@@ -2404,7 +2257,17 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             }
         });
         FormInput.add(BtnTambahRencana);
-        BtnTambahRencana.setBounds(806, 1170, 28, 23);
+        BtnTambahRencana.setBounds(800, 1200, 28, 23);
+
+        jLabel128.setText("m. Pendidikan P.J. :");
+        jLabel128.setName("jLabel128"); // NOI18N
+        FormInput.add(jLabel128);
+        jLabel128.setBounds(0, 570, 138, 23);
+
+        PenyakitBahaya.setFocusTraversalPolicyProvider(true);
+        PenyakitBahaya.setName("PenyakitBahaya"); // NOI18N
+        FormInput.add(PenyakitBahaya);
+        PenyakitBahaya.setBounds(210, 600, 150, 23);
 
         scrollInput.setViewportView(FormInput);
 
@@ -2446,7 +2309,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16-04-2024" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-01-2025" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -2460,7 +2323,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16-04-2024" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-01-2025" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -2594,7 +2457,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
 
         FormMasalahRencana.add(Scroll10);
 
-        scrollPane6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 254)), "Rencana Keperawatan Lainnya :", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
+        scrollPane6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 254)), "Rencana Keperawatan Lainnya :", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(50, 50, 50))); // NOI18N
         scrollPane6.setName("scrollPane6"); // NOI18N
 
         DetailRencana.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
@@ -2766,7 +2629,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
                             "penilaian_awal_keperawatan_igd.bab,penilaian_awal_keperawatan_igd.xbab,penilaian_awal_keperawatan_igd.kbab,penilaian_awal_keperawatan_igd.wbab,penilaian_awal_keperawatan_igd.bak,penilaian_awal_keperawatan_igd.xbak,penilaian_awal_keperawatan_igd.wbak,"+
                             "penilaian_awal_keperawatan_igd.lbak,penilaian_awal_keperawatan_igd.psikologis,penilaian_awal_keperawatan_igd.jiwa,penilaian_awal_keperawatan_igd.perilaku,penilaian_awal_keperawatan_igd.dilaporkan,penilaian_awal_keperawatan_igd.sebutkan,penilaian_awal_keperawatan_igd.hubungan,pasien.stts_nikah,"+ 
                             "penilaian_awal_keperawatan_igd.tinggal_dengan,penilaian_awal_keperawatan_igd.ket_tinggal,pasien.pekerjaan,penjab.png_jawab,penilaian_awal_keperawatan_igd.budaya,penilaian_awal_keperawatan_igd.ket_budaya,pasien.pnd,penilaian_awal_keperawatan_igd.pendidikan_pj,penilaian_awal_keperawatan_igd.ket_pendidikan_pj,"+  
-                            "penilaian_awal_keperawatan_igd.edukasi,penilaian_awal_keperawatan_igd.ket_edukasi,penilaian_awal_keperawatan_igd.kemampuan,penilaian_awal_keperawatan_igd.aktifitas,penilaian_awal_keperawatan_igd.alat_bantu,penilaian_awal_keperawatan_igd.ket_bantu,"+
+                            "penilaian_awal_keperawatan_igd.edukasi,penilaian_awal_keperawatan_igd.ket_edukasi,penilaian_awal_keperawatan_igd.iden_penyakit_bahaya,penilaian_awal_keperawatan_igd.kemampuan,penilaian_awal_keperawatan_igd.aktifitas,penilaian_awal_keperawatan_igd.alat_bantu,penilaian_awal_keperawatan_igd.ket_bantu,"+
                             "penilaian_awal_keperawatan_igd.nyeri,penilaian_awal_keperawatan_igd.provokes,penilaian_awal_keperawatan_igd.ket_provokes,penilaian_awal_keperawatan_igd.quality,penilaian_awal_keperawatan_igd.ket_quality,penilaian_awal_keperawatan_igd.lokasi,penilaian_awal_keperawatan_igd.menyebar,"+
                             "penilaian_awal_keperawatan_igd.skala_nyeri,penilaian_awal_keperawatan_igd.durasi,penilaian_awal_keperawatan_igd.nyeri_hilang,penilaian_awal_keperawatan_igd.ket_nyeri,penilaian_awal_keperawatan_igd.pada_dokter,penilaian_awal_keperawatan_igd.ket_dokter,"+
                             "penilaian_awal_keperawatan_igd.berjalan_a,penilaian_awal_keperawatan_igd.berjalan_b,penilaian_awal_keperawatan_igd.berjalan_c,penilaian_awal_keperawatan_igd.hasil,penilaian_awal_keperawatan_igd.lapor,penilaian_awal_keperawatan_igd.ket_lapor,"+
@@ -2787,7 +2650,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
                             "penilaian_awal_keperawatan_igd.bab,penilaian_awal_keperawatan_igd.xbab,penilaian_awal_keperawatan_igd.kbab,penilaian_awal_keperawatan_igd.wbab,penilaian_awal_keperawatan_igd.bak,penilaian_awal_keperawatan_igd.xbak,penilaian_awal_keperawatan_igd.wbak,"+
                             "penilaian_awal_keperawatan_igd.lbak,penilaian_awal_keperawatan_igd.psikologis,penilaian_awal_keperawatan_igd.jiwa,penilaian_awal_keperawatan_igd.perilaku,penilaian_awal_keperawatan_igd.dilaporkan,penilaian_awal_keperawatan_igd.sebutkan,penilaian_awal_keperawatan_igd.hubungan,pasien.stts_nikah,"+ 
                             "penilaian_awal_keperawatan_igd.tinggal_dengan,penilaian_awal_keperawatan_igd.ket_tinggal,pasien.pekerjaan,penjab.png_jawab,penilaian_awal_keperawatan_igd.budaya,penilaian_awal_keperawatan_igd.ket_budaya,pasien.pnd,penilaian_awal_keperawatan_igd.pendidikan_pj,penilaian_awal_keperawatan_igd.ket_pendidikan_pj,"+  
-                            "penilaian_awal_keperawatan_igd.edukasi,penilaian_awal_keperawatan_igd.ket_edukasi,penilaian_awal_keperawatan_igd.kemampuan,penilaian_awal_keperawatan_igd.aktifitas,penilaian_awal_keperawatan_igd.alat_bantu,penilaian_awal_keperawatan_igd.ket_bantu,"+
+                            "penilaian_awal_keperawatan_igd.edukasi,penilaian_awal_keperawatan_igd.ket_edukasi,penilaian_awal_keperawatan_igd.iden_penyakit_bahaya,penilaian_awal_keperawatan_igd.kemampuan,penilaian_awal_keperawatan_igd.aktifitas,penilaian_awal_keperawatan_igd.alat_bantu,penilaian_awal_keperawatan_igd.ket_bantu,"+
                             "penilaian_awal_keperawatan_igd.nyeri,penilaian_awal_keperawatan_igd.provokes,penilaian_awal_keperawatan_igd.ket_provokes,penilaian_awal_keperawatan_igd.quality,penilaian_awal_keperawatan_igd.ket_quality,penilaian_awal_keperawatan_igd.lokasi,penilaian_awal_keperawatan_igd.menyebar,"+
                             "penilaian_awal_keperawatan_igd.skala_nyeri,penilaian_awal_keperawatan_igd.durasi,penilaian_awal_keperawatan_igd.nyeri_hilang,penilaian_awal_keperawatan_igd.ket_nyeri,penilaian_awal_keperawatan_igd.pada_dokter,penilaian_awal_keperawatan_igd.ket_dokter,"+
                             "penilaian_awal_keperawatan_igd.berjalan_a,penilaian_awal_keperawatan_igd.berjalan_b,penilaian_awal_keperawatan_igd.berjalan_c,penilaian_awal_keperawatan_igd.hasil,penilaian_awal_keperawatan_igd.lapor,penilaian_awal_keperawatan_igd.ket_lapor,"+
@@ -2994,6 +2857,9 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
                                         "</tr>"+
                                         "<tr class='isi2'>"+
                                             "<td width='44%' valign='top'>Edukasi Diberikan Kepada</td><td valign='top'>:&nbsp;</td><td width='55%' valign='top'>"+rs.getString("edukasi")+(rs.getString("ket_edukasi").equals("")?"":", "+rs.getString("ket_edukasi"))+"</td>"+
+                                        "</tr>"+
+                                        "<tr class='isi2'>"+
+                                            "<td width='44%' valign='top'>Identifikasi Penyakit Bahaya</td><td valign='top'>:&nbsp;</td><td width='55%' valign='top'>"+rs.getString("iden_penyakit_bahaya")+"</td>"+
                                         "</tr>"+
                                     "</table>"+
                                 "</td>"+
@@ -3840,6 +3706,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
     private widget.TextBox Pembayaran;
     private widget.ComboBox PendidikanPJ;
     private widget.TextBox PendidikanPasien;
+    private widget.TextBox PenyakitBahaya;
     private widget.ComboBox Perdarahan;
     private widget.ComboBox Perilaku;
     private widget.ComboBox Provokes;
@@ -3913,6 +3780,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
     private widget.Label jLabel125;
     private widget.Label jLabel126;
     private widget.Label jLabel127;
+    private widget.Label jLabel128;
     private widget.Label jLabel19;
     private widget.Label jLabel21;
     private widget.Label jLabel29;
@@ -3997,66 +3865,57 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
      private void tampil() {
         Valid.tabelKosong(tabMode);
         try{
-            if(TCari.getText().equals("")){
-                ps=koneksi.prepareStatement(
-                        "select reg_periksa.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,if(pasien.jk='L','Laki-Laki','Perempuan') as jk,pasien.tgl_lahir,pasien.agama,bahasa_pasien.nama_bahasa,cacat_fisik.nama_cacat,penilaian_awal_keperawatan_igd.tanggal,penilaian_awal_keperawatan_igd.informasi,"+
-                        "penilaian_awal_keperawatan_igd.keluhan_utama,penilaian_awal_keperawatan_igd.rpd,penilaian_awal_keperawatan_igd.rpo,penilaian_awal_keperawatan_igd.status_kehamilan,penilaian_awal_keperawatan_igd.gravida,penilaian_awal_keperawatan_igd.para,"+
-                        "penilaian_awal_keperawatan_igd.abortus,penilaian_awal_keperawatan_igd.hpht,penilaian_awal_keperawatan_igd.tekanan,penilaian_awal_keperawatan_igd.pupil,penilaian_awal_keperawatan_igd.neurosensorik,penilaian_awal_keperawatan_igd.integumen,penilaian_awal_keperawatan_igd.turgor,"+ 
-                        "penilaian_awal_keperawatan_igd.edema,penilaian_awal_keperawatan_igd.mukosa,penilaian_awal_keperawatan_igd.perdarahan,penilaian_awal_keperawatan_igd.jumlah_perdarahan,penilaian_awal_keperawatan_igd.warna_perdarahan,penilaian_awal_keperawatan_igd.intoksikasi,"+
-                        "penilaian_awal_keperawatan_igd.bab,penilaian_awal_keperawatan_igd.xbab,penilaian_awal_keperawatan_igd.kbab,penilaian_awal_keperawatan_igd.wbab,penilaian_awal_keperawatan_igd.bak,penilaian_awal_keperawatan_igd.xbak,penilaian_awal_keperawatan_igd.wbak,"+
-                        "penilaian_awal_keperawatan_igd.lbak,penilaian_awal_keperawatan_igd.psikologis,penilaian_awal_keperawatan_igd.jiwa,penilaian_awal_keperawatan_igd.perilaku,penilaian_awal_keperawatan_igd.dilaporkan,penilaian_awal_keperawatan_igd.sebutkan,penilaian_awal_keperawatan_igd.hubungan,pasien.stts_nikah,"+ 
-                        "penilaian_awal_keperawatan_igd.tinggal_dengan,penilaian_awal_keperawatan_igd.ket_tinggal,pasien.pekerjaan,penjab.png_jawab,penilaian_awal_keperawatan_igd.budaya,penilaian_awal_keperawatan_igd.ket_budaya,pasien.pnd,penilaian_awal_keperawatan_igd.pendidikan_pj,penilaian_awal_keperawatan_igd.ket_pendidikan_pj,"+  
-                        "penilaian_awal_keperawatan_igd.edukasi,penilaian_awal_keperawatan_igd.ket_edukasi,penilaian_awal_keperawatan_igd.kemampuan,penilaian_awal_keperawatan_igd.aktifitas,penilaian_awal_keperawatan_igd.alat_bantu,penilaian_awal_keperawatan_igd.ket_bantu,"+
-                        "penilaian_awal_keperawatan_igd.nyeri,penilaian_awal_keperawatan_igd.provokes,penilaian_awal_keperawatan_igd.ket_provokes,penilaian_awal_keperawatan_igd.quality,penilaian_awal_keperawatan_igd.ket_quality,penilaian_awal_keperawatan_igd.lokasi,penilaian_awal_keperawatan_igd.menyebar,"+
-                        "penilaian_awal_keperawatan_igd.skala_nyeri,penilaian_awal_keperawatan_igd.durasi,penilaian_awal_keperawatan_igd.nyeri_hilang,penilaian_awal_keperawatan_igd.ket_nyeri,penilaian_awal_keperawatan_igd.pada_dokter,penilaian_awal_keperawatan_igd.ket_dokter,"+
-                        "penilaian_awal_keperawatan_igd.berjalan_a,penilaian_awal_keperawatan_igd.berjalan_b,penilaian_awal_keperawatan_igd.berjalan_c,penilaian_awal_keperawatan_igd.hasil,penilaian_awal_keperawatan_igd.lapor,penilaian_awal_keperawatan_igd.ket_lapor,"+
-                        "penilaian_awal_keperawatan_igd.rencana,penilaian_awal_keperawatan_igd.nip,petugas.nama "+
-                        "from reg_periksa inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
-                        "inner join penilaian_awal_keperawatan_igd on reg_periksa.no_rawat=penilaian_awal_keperawatan_igd.no_rawat "+
-                        "inner join petugas on penilaian_awal_keperawatan_igd.nip=petugas.nip "+
-                        "inner join bahasa_pasien on bahasa_pasien.id=pasien.bahasa_pasien "+
-                        "inner join penjab on penjab.kd_pj=reg_periksa.kd_pj "+
-                        "inner join cacat_fisik on cacat_fisik.id=pasien.cacat_fisik where "+
-                        "penilaian_awal_keperawatan_igd.tanggal between ? and ? order by penilaian_awal_keperawatan_igd.tanggal");
-            }else{
-                ps=koneksi.prepareStatement(
-                        "select reg_periksa.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,if(pasien.jk='L','Laki-Laki','Perempuan') as jk,pasien.tgl_lahir,pasien.agama,bahasa_pasien.nama_bahasa,cacat_fisik.nama_cacat,penilaian_awal_keperawatan_igd.tanggal,penilaian_awal_keperawatan_igd.informasi,"+
-                        "penilaian_awal_keperawatan_igd.keluhan_utama,penilaian_awal_keperawatan_igd.rpd,penilaian_awal_keperawatan_igd.rpo,penilaian_awal_keperawatan_igd.status_kehamilan,penilaian_awal_keperawatan_igd.gravida,penilaian_awal_keperawatan_igd.para,"+
-                        "penilaian_awal_keperawatan_igd.abortus,penilaian_awal_keperawatan_igd.hpht,penilaian_awal_keperawatan_igd.tekanan,penilaian_awal_keperawatan_igd.pupil,penilaian_awal_keperawatan_igd.neurosensorik,penilaian_awal_keperawatan_igd.integumen,penilaian_awal_keperawatan_igd.turgor,"+ 
-                        "penilaian_awal_keperawatan_igd.edema,penilaian_awal_keperawatan_igd.mukosa,penilaian_awal_keperawatan_igd.perdarahan,penilaian_awal_keperawatan_igd.jumlah_perdarahan,penilaian_awal_keperawatan_igd.warna_perdarahan,penilaian_awal_keperawatan_igd.intoksikasi,"+
-                        "penilaian_awal_keperawatan_igd.bab,penilaian_awal_keperawatan_igd.xbab,penilaian_awal_keperawatan_igd.kbab,penilaian_awal_keperawatan_igd.wbab,penilaian_awal_keperawatan_igd.bak,penilaian_awal_keperawatan_igd.xbak,penilaian_awal_keperawatan_igd.wbak,"+
-                        "penilaian_awal_keperawatan_igd.lbak,penilaian_awal_keperawatan_igd.psikologis,penilaian_awal_keperawatan_igd.jiwa,penilaian_awal_keperawatan_igd.perilaku,penilaian_awal_keperawatan_igd.dilaporkan,penilaian_awal_keperawatan_igd.sebutkan,penilaian_awal_keperawatan_igd.hubungan,pasien.stts_nikah,"+ 
-                        "penilaian_awal_keperawatan_igd.tinggal_dengan,penilaian_awal_keperawatan_igd.ket_tinggal,pasien.pekerjaan,penjab.png_jawab,penilaian_awal_keperawatan_igd.budaya,penilaian_awal_keperawatan_igd.ket_budaya,pasien.pnd,penilaian_awal_keperawatan_igd.pendidikan_pj,penilaian_awal_keperawatan_igd.ket_pendidikan_pj,"+  
-                        "penilaian_awal_keperawatan_igd.edukasi,penilaian_awal_keperawatan_igd.ket_edukasi,penilaian_awal_keperawatan_igd.kemampuan,penilaian_awal_keperawatan_igd.aktifitas,penilaian_awal_keperawatan_igd.alat_bantu,penilaian_awal_keperawatan_igd.ket_bantu,"+
-                        "penilaian_awal_keperawatan_igd.nyeri,penilaian_awal_keperawatan_igd.provokes,penilaian_awal_keperawatan_igd.ket_provokes,penilaian_awal_keperawatan_igd.quality,penilaian_awal_keperawatan_igd.ket_quality,penilaian_awal_keperawatan_igd.lokasi,penilaian_awal_keperawatan_igd.menyebar,"+
-                        "penilaian_awal_keperawatan_igd.skala_nyeri,penilaian_awal_keperawatan_igd.durasi,penilaian_awal_keperawatan_igd.nyeri_hilang,penilaian_awal_keperawatan_igd.ket_nyeri,penilaian_awal_keperawatan_igd.pada_dokter,penilaian_awal_keperawatan_igd.ket_dokter,"+
-                        "penilaian_awal_keperawatan_igd.berjalan_a,penilaian_awal_keperawatan_igd.berjalan_b,penilaian_awal_keperawatan_igd.berjalan_c,penilaian_awal_keperawatan_igd.hasil,penilaian_awal_keperawatan_igd.lapor,penilaian_awal_keperawatan_igd.ket_lapor,"+
-                        "penilaian_awal_keperawatan_igd.rencana,penilaian_awal_keperawatan_igd.nip,petugas.nama "+
-                        "from reg_periksa inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
-                        "inner join penilaian_awal_keperawatan_igd on reg_periksa.no_rawat=penilaian_awal_keperawatan_igd.no_rawat "+
-                        "inner join petugas on penilaian_awal_keperawatan_igd.nip=petugas.nip "+
-                        "inner join bahasa_pasien on bahasa_pasien.id=pasien.bahasa_pasien "+
-                        "inner join penjab on penjab.kd_pj=reg_periksa.kd_pj "+
-                        "inner join cacat_fisik on cacat_fisik.id=pasien.cacat_fisik where "+
-                        "penilaian_awal_keperawatan_igd.tanggal between ? and ? and "+
-                        "(reg_periksa.no_rawat like ? or pasien.no_rkm_medis like ? or pasien.nm_pasien like ? or "+
-                        "penilaian_awal_keperawatan_igd.nip like ? or petugas.nama like ?) "+
-                        "order by penilaian_awal_keperawatan_igd.tanggal");
+            String baseQuery = 
+                "SELECT reg_periksa.no_rawat, pasien.no_rkm_medis, pasien.nm_pasien, " +
+                "IF(pasien.jk='L', 'Laki-Laki', 'Perempuan') AS jk, pasien.tgl_lahir, pasien.agama, " +
+                "bahasa_pasien.nama_bahasa, cacat_fisik.nama_cacat, penilaian_awal_keperawatan_igd.tanggal, " +
+                "penilaian_awal_keperawatan_igd.informasi, penilaian_awal_keperawatan_igd.keluhan_utama, " +
+                "penilaian_awal_keperawatan_igd.rpd, penilaian_awal_keperawatan_igd.rpo, penilaian_awal_keperawatan_igd.status_kehamilan, " +
+                "penilaian_awal_keperawatan_igd.gravida, penilaian_awal_keperawatan_igd.para, penilaian_awal_keperawatan_igd.abortus, " +
+                "penilaian_awal_keperawatan_igd.hpht, penilaian_awal_keperawatan_igd.tekanan, penilaian_awal_keperawatan_igd.pupil, " +
+                "penilaian_awal_keperawatan_igd.neurosensorik, penilaian_awal_keperawatan_igd.integumen, penilaian_awal_keperawatan_igd.turgor, " +
+                "penilaian_awal_keperawatan_igd.edema, penilaian_awal_keperawatan_igd.mukosa, penilaian_awal_keperawatan_igd.perdarahan, " +
+                "penilaian_awal_keperawatan_igd.jumlah_perdarahan, penilaian_awal_keperawatan_igd.warna_perdarahan, penilaian_awal_keperawatan_igd.intoksikasi, " +
+                "penilaian_awal_keperawatan_igd.bab, penilaian_awal_keperawatan_igd.xbab, penilaian_awal_keperawatan_igd.kbab, penilaian_awal_keperawatan_igd.wbab, " +
+                "penilaian_awal_keperawatan_igd.bak, penilaian_awal_keperawatan_igd.xbak, penilaian_awal_keperawatan_igd.wbak, penilaian_awal_keperawatan_igd.lbak, " +
+                "penilaian_awal_keperawatan_igd.psikologis, penilaian_awal_keperawatan_igd.jiwa, penilaian_awal_keperawatan_igd.perilaku, penilaian_awal_keperawatan_igd.dilaporkan, " +
+                "penilaian_awal_keperawatan_igd.sebutkan, penilaian_awal_keperawatan_igd.hubungan, pasien.stts_nikah, penilaian_awal_keperawatan_igd.tinggal_dengan, " +
+                "penilaian_awal_keperawatan_igd.ket_tinggal, pasien.pekerjaan, penjab.png_jawab, penilaian_awal_keperawatan_igd.budaya, " +
+                "penilaian_awal_keperawatan_igd.ket_budaya, pasien.pnd, penilaian_awal_keperawatan_igd.pendidikan_pj, penilaian_awal_keperawatan_igd.ket_pendidikan_pj, " +
+                "penilaian_awal_keperawatan_igd.edukasi, penilaian_awal_keperawatan_igd.ket_edukasi, penilaian_awal_keperawatan_igd.kemampuan, " +
+                "penilaian_awal_keperawatan_igd.aktifitas, penilaian_awal_keperawatan_igd.alat_bantu, penilaian_awal_keperawatan_igd.ket_bantu, " +
+                "penilaian_awal_keperawatan_igd.nyeri, penilaian_awal_keperawatan_igd.provokes, penilaian_awal_keperawatan_igd.ket_provokes, " +
+                "penilaian_awal_keperawatan_igd.quality, penilaian_awal_keperawatan_igd.ket_quality, penilaian_awal_keperawatan_igd.lokasi, " +
+                "penilaian_awal_keperawatan_igd.menyebar, penilaian_awal_keperawatan_igd.skala_nyeri, penilaian_awal_keperawatan_igd.durasi, " +
+                "penilaian_awal_keperawatan_igd.nyeri_hilang, penilaian_awal_keperawatan_igd.ket_nyeri, penilaian_awal_keperawatan_igd.pada_dokter, " +
+                "penilaian_awal_keperawatan_igd.ket_dokter, penilaian_awal_keperawatan_igd.berjalan_a, penilaian_awal_keperawatan_igd.berjalan_b, " +
+                "penilaian_awal_keperawatan_igd.berjalan_c, penilaian_awal_keperawatan_igd.hasil, penilaian_awal_keperawatan_igd.lapor, " +
+                "penilaian_awal_keperawatan_igd.ket_lapor, penilaian_awal_keperawatan_igd.rencana, penilaian_awal_keperawatan_igd.nip, petugas.nama " +
+                "FROM reg_periksa " +
+                "INNER JOIN pasien ON reg_periksa.no_rkm_medis = pasien.no_rkm_medis " +
+                "INNER JOIN penilaian_awal_keperawatan_igd ON reg_periksa.no_rawat = penilaian_awal_keperawatan_igd.no_rawat " +
+                "INNER JOIN petugas ON penilaian_awal_keperawatan_igd.nip = petugas.nip " +
+                "INNER JOIN bahasa_pasien ON bahasa_pasien.id = pasien.bahasa_pasien " +
+                "INNER JOIN penjab ON penjab.kd_pj = reg_periksa.kd_pj " +
+                "INNER JOIN cacat_fisik ON cacat_fisik.id = pasien.cacat_fisik " +
+                "WHERE penilaian_awal_keperawatan_igd.tanggal BETWEEN ? AND ? ";
+
+            if (!TCari.getText().equals("")) {
+                baseQuery += "AND (reg_periksa.no_rawat LIKE ? OR pasien.no_rkm_medis LIKE ? OR pasien.nm_pasien LIKE ? " +
+                             "OR penilaian_awal_keperawatan_igd.nip LIKE ? OR petugas.nama LIKE ?) ";
             }
-                
+
+            baseQuery += "ORDER BY penilaian_awal_keperawatan_igd.tanggal";
+            ps = koneksi.prepareStatement(baseQuery);
             try {
-                if(TCari.getText().equals("")){
-                    ps.setString(1,Valid.SetTgl(DTPCari1.getSelectedItem()+"")+" 00:00:00");
-                    ps.setString(2,Valid.SetTgl(DTPCari2.getSelectedItem()+"")+" 23:59:59");
-                }else{
-                    ps.setString(1,Valid.SetTgl(DTPCari1.getSelectedItem()+"")+" 00:00:00");
-                    ps.setString(2,Valid.SetTgl(DTPCari2.getSelectedItem()+"")+" 23:59:59");
-                    ps.setString(3,"%"+TCari.getText()+"%");
-                    ps.setString(4,"%"+TCari.getText()+"%");
-                    ps.setString(5,"%"+TCari.getText()+"%");
-                    ps.setString(6,"%"+TCari.getText()+"%");
-                    ps.setString(7,"%"+TCari.getText()+"%");
-                }   
+                ps.setString(1, Valid.SetTgl(DTPCari1.getSelectedItem() + "") + " 00:00:00");
+                ps.setString(2, Valid.SetTgl(DTPCari2.getSelectedItem() + "") + " 23:59:59");
+
+                if (!TCari.getText().equals("")) {
+                    for (int i = 3; i <= 7; i++) {
+                        ps.setString(i, "%" + TCari.getText() + "%");
+                    }
+                }
                 rs=ps.executeQuery();
                 while(rs.next()){
                     tabMode.addRow(new String[]{
@@ -4066,7 +3925,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
                         rs.getString("edema"),rs.getString("mukosa"),rs.getString("perdarahan"),rs.getString("jumlah_perdarahan"),rs.getString("warna_perdarahan"),rs.getString("intoksikasi"),rs.getString("bab"),rs.getString("xbab"),rs.getString("kbab"),
                         rs.getString("wbab"),rs.getString("bak"),rs.getString("xbak"),rs.getString("wbak"),rs.getString("lbak"),rs.getString("psikologis"),rs.getString("jiwa"),rs.getString("perilaku"),rs.getString("dilaporkan"),
                         rs.getString("sebutkan"),rs.getString("hubungan"),rs.getString("stts_nikah"),rs.getString("tinggal_dengan"),rs.getString("ket_tinggal"),rs.getString("pekerjaan"),rs.getString("png_jawab"),rs.getString("budaya"),rs.getString("ket_budaya"),rs.getString("pnd"),rs.getString("pendidikan_pj"),rs.getString("ket_pendidikan_pj"),rs.getString("edukasi"),
-                        rs.getString("ket_edukasi"),rs.getString("kemampuan"),rs.getString("aktifitas"),rs.getString("alat_bantu"),rs.getString("ket_bantu"),rs.getString("nyeri"),rs.getString("provokes"),rs.getString("ket_provokes"),rs.getString("quality"),rs.getString("ket_quality"),
+                        rs.getString("ket_edukasi"),rs.getString("iden_penyakit_bahaya"),rs.getString("kemampuan"),rs.getString("aktifitas"),rs.getString("alat_bantu"),rs.getString("ket_bantu"),rs.getString("nyeri"),rs.getString("provokes"),rs.getString("ket_provokes"),rs.getString("quality"),rs.getString("ket_quality"),
                         rs.getString("lokasi"),rs.getString("menyebar"),rs.getString("skala_nyeri"),rs.getString("durasi"),rs.getString("nyeri_hilang"),rs.getString("ket_nyeri"),rs.getString("pada_dokter"),rs.getString("ket_dokter"),
                         rs.getString("berjalan_a"),rs.getString("berjalan_b"),rs.getString("berjalan_c"),rs.getString("hasil"),rs.getString("lapor"),rs.getString("ket_lapor"),rs.getString("rencana"),rs.getString("nip"),rs.getString("nama")
                     });
@@ -4132,6 +3991,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
         KetPendidikanPJ.setText("");
         Edukasi.setSelectedIndex(0);
         KetEdukasi.setText("");
+        PenyakitBahaya.setText("");
         ADL.setSelectedIndex(0);
         Aktifitas.setSelectedIndex(0);
         AlatBantu.setSelectedIndex(0);
@@ -4219,30 +4079,31 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             KetPendidikanPJ.setText(tbObat.getValueAt(tbObat.getSelectedRow(),52).toString());
             Edukasi.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),53).toString());
             KetEdukasi.setText(tbObat.getValueAt(tbObat.getSelectedRow(),54).toString());
-            ADL.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),55).toString());
-            Aktifitas.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),56).toString());
-            AlatBantu.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),57).toString());
-            KetAlatBantu.setText(tbObat.getValueAt(tbObat.getSelectedRow(),58).toString());
-            Nyeri.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),59).toString());
-            Provokes.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),60).toString());
-            KetProvokes.setText(tbObat.getValueAt(tbObat.getSelectedRow(),61).toString());
-            Quality.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),62).toString());
-            KetQuality.setText(tbObat.getValueAt(tbObat.getSelectedRow(),63).toString());
-            Lokasi.setText(tbObat.getValueAt(tbObat.getSelectedRow(),64).toString());
-            Menyebar.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),65).toString());
-            SkalaNyeri.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),66).toString());
-            Durasi.setText(tbObat.getValueAt(tbObat.getSelectedRow(),67).toString());
-            NyeriHilang.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),68).toString());
-            KetNyeri.setText(tbObat.getValueAt(tbObat.getSelectedRow(),69).toString());
-            PadaDokter.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),70).toString());
-            KetDokter.setText(tbObat.getValueAt(tbObat.getSelectedRow(),71).toString());
-            ATS.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),72).toString());
-            BJM.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),73).toString());
-            MSA.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),74).toString());
-            Hasil.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),75).toString());
-            Lapor.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),76).toString());
-            KetLapor.setText(tbObat.getValueAt(tbObat.getSelectedRow(),77).toString());
-            Rencana.setText(tbObat.getValueAt(tbObat.getSelectedRow(),78).toString());
+            PenyakitBahaya.setText(tbObat.getValueAt(tbObat.getSelectedRow(),55).toString());
+            ADL.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(), 56).toString());
+            Aktifitas.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(), 57).toString());
+            AlatBantu.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(), 58).toString());
+            KetAlatBantu.setText(tbObat.getValueAt(tbObat.getSelectedRow(), 59).toString());
+            Nyeri.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(), 60).toString());
+            Provokes.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(), 61).toString());
+            KetProvokes.setText(tbObat.getValueAt(tbObat.getSelectedRow(), 62).toString());
+            Quality.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(), 63).toString());
+            KetQuality.setText(tbObat.getValueAt(tbObat.getSelectedRow(), 64).toString());
+            Lokasi.setText(tbObat.getValueAt(tbObat.getSelectedRow(), 65).toString());
+            Menyebar.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(), 66).toString());
+            SkalaNyeri.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(), 67).toString());
+            Durasi.setText(tbObat.getValueAt(tbObat.getSelectedRow(), 68).toString());
+            NyeriHilang.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(), 69).toString());
+            KetNyeri.setText(tbObat.getValueAt(tbObat.getSelectedRow(), 70).toString());
+            PadaDokter.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(), 71).toString());
+            KetDokter.setText(tbObat.getValueAt(tbObat.getSelectedRow(), 72).toString());
+            ATS.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(), 73).toString());
+            BJM.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(), 74).toString());
+            MSA.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(), 75).toString());
+            Hasil.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(), 76).toString());
+            Lapor.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(), 77).toString());
+            KetLapor.setText(tbObat.getValueAt(tbObat.getSelectedRow(), 78).toString());
+            Rencana.setText(tbObat.getValueAt(tbObat.getSelectedRow(), 79).toString());
             Valid.tabelKosong(tabModeMasalah);
             Valid.tabelKosong(tabModeRencana);
             for (i = 0; i < tbMasalahDetailMasalah.getRowCount(); i++) {
@@ -4593,7 +4454,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
         if(Sequel.mengedittf("penilaian_awal_keperawatan_igd","no_rawat=?","no_rawat=?,tanggal=?,keluhan_utama=?,rpd=?,rpo=?,status_kehamilan=?,gravida=?,"+
             "para=?,abortus=?,hpht=?,tekanan=?,pupil=?,neurosensorik=?,integumen=?,turgor=?,edema=?,mukosa=?,perdarahan=?,jumlah_perdarahan=?,warna_perdarahan=?,"+
             "intoksikasi=?,bab=?,xbab=?,kbab=?,wbab=?,bak=?,xbak=?,wbak=?,lbak=?,psikologis=?,jiwa=?,perilaku=?,dilaporkan=?,sebutkan=?,hubungan=?,tinggal_dengan=?,"+
-            "ket_tinggal=?,budaya=?,ket_budaya=?,pendidikan_pj=?,ket_pendidikan_pj=?,edukasi=?,ket_edukasi=?,kemampuan=?,aktifitas=?,alat_bantu=?,ket_bantu=?,nyeri=?,"+
+            "ket_tinggal=?,budaya=?,ket_budaya=?,pendidikan_pj=?,ket_pendidikan_pj=?,edukasi=?,ket_edukasi=?,iden_penyakit_bahaya=?,kemampuan=?,aktifitas=?,alat_bantu=?,ket_bantu=?,nyeri=?,"+
             "provokes=?,ket_provokes=?,quality=?,ket_quality=?,lokasi=?,menyebar=?,skala_nyeri=?,durasi=?,nyeri_hilang=?,ket_nyeri=?,pada_dokter=?,ket_dokter=?,"+
             "berjalan_a=?,berjalan_b=?,berjalan_c=?,hasil=?,lapor=?,ket_lapor=?,rencana=?,nip=?,informasi=?",70,new String[]{
             TNoRw.getText(),Valid.SetTgl(TglAsuhan.getSelectedItem()+"")+" "+TglAsuhan.getSelectedItem().toString().substring(11,19),KeluhanUtama.getText(),RPD.getText(),RPO.getText(),StatusKehamilan.getSelectedItem().toString(),
@@ -4601,7 +4462,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
             Turgor.getSelectedItem().toString(),Edema.getSelectedItem().toString(),Mukosa.getSelectedItem().toString(),Perdarahan.getSelectedItem().toString(),JumlahPerdarahan.getText(),
             WarnaPerdarahan.getText(),Intoksikasi.getSelectedItem().toString(),BAB.getText(),XBAB.getText(),KBAB.getText(),WBAB.getText(),BAK.getText(),XBAK.getText(),WBAK.getText(),LBAK.getText(),Psikologis.getSelectedItem().toString(),
             Jiwa.getSelectedItem().toString(),Perilaku.getSelectedItem().toString(),Dilaporkan.getText(),Sebutkan.getText(),Hubungan.getSelectedItem().toString(),TinggalDengan.getSelectedItem().toString(),KetTinggal.getText(),
-            StatusBudaya.getSelectedItem().toString(),KetBudaya.getText(),PendidikanPJ.getSelectedItem().toString(),KetPendidikanPJ.getText(),Edukasi.getSelectedItem().toString(),KetEdukasi.getText(),ADL.getSelectedItem().toString(),
+            StatusBudaya.getSelectedItem().toString(),KetBudaya.getText(),PendidikanPJ.getSelectedItem().toString(),KetPendidikanPJ.getText(),Edukasi.getSelectedItem().toString(),KetEdukasi.getText(),PenyakitBahaya.getText(),ADL.getSelectedItem().toString(),
             Aktifitas.getSelectedItem().toString(),AlatBantu.getSelectedItem().toString(),KetAlatBantu.getText(),Nyeri.getSelectedItem().toString(),Provokes.getSelectedItem().toString(),KetProvokes.getText(),Quality.getSelectedItem().toString(),
             KetQuality.getText(),Lokasi.getText(),Menyebar.getSelectedItem().toString(),SkalaNyeri.getSelectedItem().toString(),Durasi.getText(),NyeriHilang.getSelectedItem().toString(),KetNyeri.getText(),PadaDokter.getSelectedItem().toString(),
             KetDokter.getText(),ATS.getSelectedItem().toString(),BJM.getSelectedItem().toString(),MSA.getSelectedItem().toString(),Hasil.getSelectedItem().toString(),Lapor.getSelectedItem().toString(),KetLapor.getText(),Rencana.getText(),
@@ -4662,32 +4523,33 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
                 tbObat.setValueAt(KetPendidikanPJ.getText(),tbObat.getSelectedRow(),52);
                 tbObat.setValueAt(Edukasi.getSelectedItem().toString(),tbObat.getSelectedRow(),53);
                 tbObat.setValueAt(KetEdukasi.getText(),tbObat.getSelectedRow(),54);
-                tbObat.setValueAt(ADL.getSelectedItem().toString(),tbObat.getSelectedRow(),55);
-                tbObat.setValueAt(Aktifitas.getSelectedItem().toString(),tbObat.getSelectedRow(),56);
-                tbObat.setValueAt(AlatBantu.getSelectedItem().toString(),tbObat.getSelectedRow(),57);
-                tbObat.setValueAt(KetAlatBantu.getText(),tbObat.getSelectedRow(),58);
-                tbObat.setValueAt(Nyeri.getSelectedItem().toString(),tbObat.getSelectedRow(),59);
-                tbObat.setValueAt(Provokes.getSelectedItem().toString(),tbObat.getSelectedRow(),60);
-                tbObat.setValueAt(KetProvokes.getText(),tbObat.getSelectedRow(),61);
-                tbObat.setValueAt(Quality.getSelectedItem().toString(),tbObat.getSelectedRow(),62);
-                tbObat.setValueAt(KetQuality.getText(),tbObat.getSelectedRow(),63);
-                tbObat.setValueAt(Lokasi.getText(),tbObat.getSelectedRow(),64);
-                tbObat.setValueAt(Menyebar.getSelectedItem().toString(),tbObat.getSelectedRow(),65);
-                tbObat.setValueAt(SkalaNyeri.getSelectedItem().toString(),tbObat.getSelectedRow(),66);
-                tbObat.setValueAt(Durasi.getText(),tbObat.getSelectedRow(),67);
-                tbObat.setValueAt(NyeriHilang.getSelectedItem().toString(),tbObat.getSelectedRow(),68);
-                tbObat.setValueAt(KetNyeri.getText(),tbObat.getSelectedRow(),69);
-                tbObat.setValueAt(PadaDokter.getSelectedItem().toString(),tbObat.getSelectedRow(),70);
-                tbObat.setValueAt(KetDokter.getText(),tbObat.getSelectedRow(),71);
-                tbObat.setValueAt(ATS.getSelectedItem().toString(),tbObat.getSelectedRow(),72);
-                tbObat.setValueAt(BJM.getSelectedItem().toString(),tbObat.getSelectedRow(),73);
-                tbObat.setValueAt(MSA.getSelectedItem().toString(),tbObat.getSelectedRow(),74);
-                tbObat.setValueAt(Hasil.getSelectedItem().toString(),tbObat.getSelectedRow(),75);
-                tbObat.setValueAt(Lapor.getSelectedItem().toString(),tbObat.getSelectedRow(),76);
-                tbObat.setValueAt(KetLapor.getText(),tbObat.getSelectedRow(),77);
-                tbObat.setValueAt(Rencana.getText(),tbObat.getSelectedRow(),78);
-                tbObat.setValueAt(KdPetugas.getText(),tbObat.getSelectedRow(),79);
-                tbObat.setValueAt(NmPetugas.getText(),tbObat.getSelectedRow(),80);
+                tbObat.setValueAt(PenyakitBahaya.getText(),tbObat.getSelectedRow(),55);
+                tbObat.setValueAt(ADL.getSelectedItem().toString(), tbObat.getSelectedRow(), 56);
+                tbObat.setValueAt(Aktifitas.getSelectedItem().toString(), tbObat.getSelectedRow(), 57);
+                tbObat.setValueAt(AlatBantu.getSelectedItem().toString(), tbObat.getSelectedRow(), 58);
+                tbObat.setValueAt(KetAlatBantu.getText(), tbObat.getSelectedRow(), 59);
+                tbObat.setValueAt(Nyeri.getSelectedItem().toString(), tbObat.getSelectedRow(), 60);
+                tbObat.setValueAt(Provokes.getSelectedItem().toString(), tbObat.getSelectedRow(), 61);
+                tbObat.setValueAt(KetProvokes.getText(), tbObat.getSelectedRow(), 62);
+                tbObat.setValueAt(Quality.getSelectedItem().toString(), tbObat.getSelectedRow(), 63);
+                tbObat.setValueAt(KetQuality.getText(), tbObat.getSelectedRow(), 64);
+                tbObat.setValueAt(Lokasi.getText(), tbObat.getSelectedRow(), 65);
+                tbObat.setValueAt(Menyebar.getSelectedItem().toString(), tbObat.getSelectedRow(), 66);
+                tbObat.setValueAt(SkalaNyeri.getSelectedItem().toString(), tbObat.getSelectedRow(), 67);
+                tbObat.setValueAt(Durasi.getText(), tbObat.getSelectedRow(), 68);
+                tbObat.setValueAt(NyeriHilang.getSelectedItem().toString(), tbObat.getSelectedRow(), 69);
+                tbObat.setValueAt(KetNyeri.getText(), tbObat.getSelectedRow(), 70);
+                tbObat.setValueAt(PadaDokter.getSelectedItem().toString(), tbObat.getSelectedRow(), 71);
+                tbObat.setValueAt(KetDokter.getText(), tbObat.getSelectedRow(), 72);
+                tbObat.setValueAt(ATS.getSelectedItem().toString(), tbObat.getSelectedRow(), 73);
+                tbObat.setValueAt(BJM.getSelectedItem().toString(), tbObat.getSelectedRow(), 74);
+                tbObat.setValueAt(MSA.getSelectedItem().toString(), tbObat.getSelectedRow(), 75);
+                tbObat.setValueAt(Hasil.getSelectedItem().toString(), tbObat.getSelectedRow(), 76);
+                tbObat.setValueAt(Lapor.getSelectedItem().toString(), tbObat.getSelectedRow(), 77);
+                tbObat.setValueAt(KetLapor.getText(), tbObat.getSelectedRow(), 78);
+                tbObat.setValueAt(Rencana.getText(), tbObat.getSelectedRow(), 79);
+                tbObat.setValueAt(KdPetugas.getText(), tbObat.getSelectedRow(), 80);
+                tbObat.setValueAt(NmPetugas.getText(), tbObat.getSelectedRow(), 81);
                 Sequel.meghapus("penilaian_awal_keperawatan_igd_masalah","no_rawat",tbObat.getValueAt(tbObat.getSelectedRow(),0).toString());
                 Sequel.meghapus("penilaian_awal_keperawatan_ralan_rencana_igd","no_rawat",tbObat.getValueAt(tbObat.getSelectedRow(),0).toString());
                 Valid.tabelKosong(tabModeDetailMasalah);
@@ -4738,13 +4600,13 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
     }
 
     private void simpan() {
-        if(Sequel.menyimpantf("penilaian_awal_keperawatan_igd","?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?","No.Rawat",69,new String[]{
+        if(Sequel.menyimpantf("penilaian_awal_keperawatan_igd","?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?","No.Rawat",70,new String[]{
                 TNoRw.getText(),Valid.SetTgl(TglAsuhan.getSelectedItem()+"")+" "+TglAsuhan.getSelectedItem().toString().substring(11,19),Informasi.getSelectedItem().toString(),KeluhanUtama.getText(),RPD.getText(),RPO.getText(),StatusKehamilan.getSelectedItem().toString(),
                 Gravida.getText(),Para.getText(),Abortus.getText(),HPHT.getText(),Tekanan.getSelectedItem().toString(),Pupil.getSelectedItem().toString(),Neurosensorik.getSelectedItem().toString(),Integumen.getSelectedItem().toString(),
                 Turgor.getSelectedItem().toString(),Edema.getSelectedItem().toString(),Mukosa.getSelectedItem().toString(),Perdarahan.getSelectedItem().toString(),JumlahPerdarahan.getText(),
                 WarnaPerdarahan.getText(),Intoksikasi.getSelectedItem().toString(),BAB.getText(),XBAB.getText(),KBAB.getText(),WBAB.getText(),BAK.getText(),XBAK.getText(),WBAK.getText(),LBAK.getText(),Psikologis.getSelectedItem().toString(),
                 Jiwa.getSelectedItem().toString(),Perilaku.getSelectedItem().toString(),Dilaporkan.getText(),Sebutkan.getText(),Hubungan.getSelectedItem().toString(),TinggalDengan.getSelectedItem().toString(),KetTinggal.getText(),
-                StatusBudaya.getSelectedItem().toString(),KetBudaya.getText(),PendidikanPJ.getSelectedItem().toString(),KetPendidikanPJ.getText(),Edukasi.getSelectedItem().toString(),KetEdukasi.getText(),ADL.getSelectedItem().toString(),
+                StatusBudaya.getSelectedItem().toString(),KetBudaya.getText(),PendidikanPJ.getSelectedItem().toString(),KetPendidikanPJ.getText(),Edukasi.getSelectedItem().toString(),KetEdukasi.getText(),PenyakitBahaya.getText(),ADL.getSelectedItem().toString(),
                 Aktifitas.getSelectedItem().toString(),AlatBantu.getSelectedItem().toString(),KetAlatBantu.getText(),Nyeri.getSelectedItem().toString(),Provokes.getSelectedItem().toString(),KetProvokes.getText(),Quality.getSelectedItem().toString(),
                 KetQuality.getText(),Lokasi.getText(),Menyebar.getSelectedItem().toString(),SkalaNyeri.getSelectedItem().toString(),Durasi.getText(),NyeriHilang.getSelectedItem().toString(),KetNyeri.getText(),PadaDokter.getSelectedItem().toString(),
                 KetDokter.getText(),ATS.getSelectedItem().toString(),BJM.getSelectedItem().toString(),MSA.getSelectedItem().toString(),Hasil.getSelectedItem().toString(),Lapor.getSelectedItem().toString(),KetLapor.getText(),Rencana.getText(),KdPetugas.getText()
@@ -4755,7 +4617,7 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
                     Integumen.getSelectedItem().toString(),Turgor.getSelectedItem().toString(),Edema.getSelectedItem().toString(),Mukosa.getSelectedItem().toString(),Perdarahan.getSelectedItem().toString(),JumlahPerdarahan.getText(),WarnaPerdarahan.getText(),Intoksikasi.getSelectedItem().toString(),
                     BAB.getText(),XBAB.getText(),KBAB.getText(),WBAB.getText(),BAK.getText(),XBAK.getText(),WBAK.getText(),LBAK.getText(),Psikologis.getSelectedItem().toString(),Jiwa.getSelectedItem().toString(),Perilaku.getSelectedItem().toString(),Dilaporkan.getText(),Sebutkan.getText(),
                     Hubungan.getSelectedItem().toString(),StatusPernikahan.getText(),TinggalDengan.getSelectedItem().toString(),KetTinggal.getText(),Pekerjaan.getText(),Pembayaran.getText(),StatusBudaya.getSelectedItem().toString(),KetBudaya.getText(),PendidikanPasien.getText(),
-                    PendidikanPJ.getSelectedItem().toString(),KetPendidikanPJ.getText(),Edukasi.getSelectedItem().toString(),KetEdukasi.getText(),ADL.getSelectedItem().toString(),Aktifitas.getSelectedItem().toString(),AlatBantu.getSelectedItem().toString(),KetAlatBantu.getText(),
+                    PendidikanPJ.getSelectedItem().toString(),KetPendidikanPJ.getText(),Edukasi.getSelectedItem().toString(),KetEdukasi.getText(),PenyakitBahaya.getText(),ADL.getSelectedItem().toString(),Aktifitas.getSelectedItem().toString(),AlatBantu.getSelectedItem().toString(),KetAlatBantu.getText(),
                     Nyeri.getSelectedItem().toString(),Provokes.getSelectedItem().toString(),KetProvokes.getText(),Quality.getSelectedItem().toString(),KetQuality.getText(),Lokasi.getText(),Menyebar.getSelectedItem().toString(),SkalaNyeri.getSelectedItem().toString(),Durasi.getText(),
                     NyeriHilang.getSelectedItem().toString(),KetNyeri.getText(),PadaDokter.getSelectedItem().toString(),KetDokter.getText(),ATS.getSelectedItem().toString(),BJM.getSelectedItem().toString(),MSA.getSelectedItem().toString(),Hasil.getSelectedItem().toString(),
                     Lapor.getSelectedItem().toString(),KetLapor.getText(),Rencana.getText(),KdPetugas.getText(),NmPetugas.getText()

@@ -7116,11 +7116,19 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
                                         tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(),11).toString(),norawatdipilih
                                     }
                                 );
-                                Sequel.queryu2("update diagnosa_pasien set no_rawat=? where no_rawat=?",2,
+                                // rspm
+                                if(Sequel.queryu2tf("update diagnosa_pasien set no_rawat=? where no_rawat=?",2,
                                     new String[]{
                                         tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(),11).toString(),norawatdipilih
                                     }
-                                );
+                                )==false){
+                                    Sequel.meghapus("diagnosa_pasien","no_rawat", norawatdipilih);
+                                }
+//                                Sequel.queryu2("update diagnosa_pasien set no_rawat=? where no_rawat=?",2,
+//                                    new String[]{
+//                                        tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(),11).toString(),norawatdipilih
+//                                    }
+//                                );
                                 Sequel.queryu2("update dpjp_ranap set no_rawat=? where no_rawat=?",2,
                                     new String[]{
                                         tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(),11).toString(),norawatdipilih
@@ -7171,11 +7179,19 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
                                         tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(),11).toString(),norawatdipilih
                                     }
                                 );
-                                Sequel.queryu2("update mutasi_berkas set no_rawat=? where no_rawat=?",2,
+                                // rspm
+                                if(Sequel.queryu2tf("update mutasi_berkas set no_rawat=? where no_rawat=?",2,
                                     new String[]{
                                         tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(),11).toString(),norawatdipilih
                                     }
-                                );
+                                )==false){
+                                    Sequel.meghapus("mutasi_berkas","no_rawat", norawatdipilih);
+                                }
+//                                Sequel.queryu2("update mutasi_berkas set no_rawat=? where no_rawat=?",2,
+//                                    new String[]{
+//                                        tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(),11).toString(),norawatdipilih
+//                                    }
+//                                );
                                 Sequel.queryu2("update nota_inap set no_rawat=? where no_rawat=?",2,
                                     new String[]{
                                         tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(),11).toString(),norawatdipilih
